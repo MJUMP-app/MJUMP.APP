@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>M JUMP — Обучающая платформа</title>
     
-    <!-- Ссылка на SheetJS -->
+    <!-- Ссылка на SheetJS (исправленная и восстановленная) -->
     <script src="https://jsdelivr.net"></script>
     <style>
         /* ГЛОБАЛЬНЫЕ ТЕМНЫЕ СТИЛИ */
@@ -18,8 +18,10 @@
         }
         body {
             background-color: #0f172a;
-            color: #f8fafc;
+            color: #ffffff; /* Изменено на чисто белый для яркости в темной теме */
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
         }
         /* Шапка сайта */
         header {
@@ -32,6 +34,13 @@
             position: relative;
             z-index: 100;
             border-bottom: 1px solid #334155;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        /* Блок логотипа и переключателя темы */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         /* Логотип M JUMP */
         .logo {
@@ -51,6 +60,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .logo-jump {
             background-color: #0066ff;
@@ -58,6 +68,24 @@
             padding: 4px 12px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
+        }
+        /* Переключатель темы (Символы вместо эмодзи) */
+        .theme-toggle-btn {
+            background: #334155;
+            border: 1px solid #475569;
+            color: #ffffff; /* Сделано ярче */
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle-btn:hover {
+            background: #475569;
         }
         /* Меню навигации */
         nav#main-nav {
@@ -67,12 +95,22 @@
         nav#main-nav button {
             background: transparent;
             border: 2px solid transparent;
-            color: #94a3b8;
+            color: #ffffff; /* Ярко-белые символы в темной теме */
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: all 0.3s ease;
+        }
+        nav#main-nav button svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+            fill: none;
+            transition: stroke 0.3s ease;
         }
         nav#main-nav button:hover, nav#main-nav button.active {
             color: #ffffff;
@@ -100,6 +138,28 @@
             border-radius: 2px;
             transition: 0.3s;
         }
+        /* МЕДИА-ЗАПРОСЫ ИСХОДНОГО МОБИЛЬНОГО МЕНЮ */
+        @media (max-width: 900px) {
+            nav#main-nav { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 100%; 
+                right: 0;
+                background-color: #1e293b; 
+                width: 100%; 
+                padding: 20px; 
+                box-shadow: 0 10px 15px rgba(0,0,0,0.3); 
+                border-top: 1px solid #334155; 
+                gap: 10px;
+            }
+            nav#main-nav.mobile-open { 
+                display: flex; 
+            }
+            .menu-toggle { 
+                display: flex; 
+            }
+        }
         /* Контейнер страниц */
         .container {
             max-width: 1200px;
@@ -113,6 +173,7 @@
             border-radius: 16px;
             box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
             border: 1px solid #334155;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         .page.active {
             display: block;
@@ -121,11 +182,123 @@
             font-size: 28px;
             margin-bottom: 15px;
             color: #ffffff;
+            transition: color 0.3s ease;
         }
         p {
-            color: #94a3b8;
+            color: #ffffff; /* Повышена яркость для темной темы */
             line-height: 1.6;
+            transition: color 0.3s ease;
         }
+        /* АБСОЛЮТНО НЕЗАВИСИМЫЙ ВЕРХНИЙ БЛОК ИСТОРИЙ */
+        .global-stories-wrapper {
+            max-width: 1200px;
+            margin: 20px auto 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        .stories-container {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 10px 0;
+            max-width: 100%;
+            scrollbar-width: none;
+        }
+        .stories-container::-webkit-scrollbar {
+            display: none;
+        }
+        .story-card {
+            flex: 0 0 auto;
+            width: 105px;
+            height: 115px;
+            border: 2.5px solid #0066ff;
+            border-radius: 24px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            box-sizing: border-box;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease, border-color 0.3s ease;
+        }
+        .story-card:active {
+            transform: scale(0.95);
+        }
+        .story-text {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.2;
+            word-wrap: break-word;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+            transition: color 0.3s ease, background 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
+        }
+        @media (min-width: 768px) {
+            .story-card {
+                width: 160px;
+                height: 175px;
+                border-radius: 32px;
+            }
+            .story-text {
+                font-size: 15px;
+                bottom: 16px;
+                left: 16px;
+                right: 16px;
+            }
+            .story-card:hover {
+                transform: translateY(-4px);
+            }
+        }
+        /* ПОЛНОЭКРАННЫЙ ПЛЕЕР ИСТОРИЙ */
+        .story-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #000000;
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        .story-content {
+            position: relative;
+            width: 100%; height: 100%;
+            max-width: 450px;
+            max-height: 850px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        @media (min-width: 768px) {
+            .story-content { border-radius: 16px; height: 90vh; }
+        }
+        .story-header {
+            position: absolute;
+            top: 20px; left: 20px; right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .progress-container {
+            flex-grow: 1;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-bar { height: 100%; width: 0%; background-color: #ffffff; border-radius: 2px; }
+        .progress-bar.active { animation: playStory 5s linear forwards; }
+        @keyframes playStory { from { width: 0%; } to { width: 100%; } }
+        .close-btn { color: #ffffff; font-size: 28px; font-weight: 300; cursor: pointer; line-height: 1; user-select: none; }
+        .full-story-text { color: #ffffff; font-size: 24px; font-weight: 700; margin-bottom: 40px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); line-height: 1.3; }
         /* СТИЛИ АВТОРИЗАЦИИ */
         .auth-box {
             max-width: 400px;
@@ -135,72 +308,22 @@
             border-radius: 12px;
             border: 1px solid #3e526a;
             text-align: center;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
-        h3 {
-            margin-bottom: 15px;
-            color: #fff;
-        }
+        .auth-box h3 { margin-bottom: 15px; color: #ffffff; transition: color 0.3s ease; }
         .auth-input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border: 1px solid #3e526a;
-            background: #1e293b;
-            color: #fff;
-            font-size: 16px;
-            text-align: center;
+            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #3e526a;
+            background: #1e293b; color: #ffffff; font-size: 16px; text-align: center;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
-        .auth-input:focus {
-            border-color: #0066ff;
-            outline: none;
-        }
-        .auth-btn {
-            width: 100%;
-            padding: 12px;
-            background: #0066ff;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .auth-btn:hover {
-            background: #0052cc;
-        }
-        .auth-error {
-            color: #ef4444;
-            font-size: 14px;
-            margin-top: 10px;
-            display: none;
-        }
-        .secure-content {
-            display: none;
-        }
-        .student-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #334155;
-        }
-        .logout-btn {
-            padding: 8px 16px;
-            background: #334155;
-            color: #cbd5e1;
-            border: 1px solid #3e526a;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .logout-btn:hover {
-            background: #ef4444;
-            color: #fff;
-            border-color: #ef4444;
-        }
+        .auth-input:focus { border-color: #0066ff; outline: none; }
+        .auth-btn { width: 100%; padding: 12px; background: #0066ff; color: #ffffff; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .auth-btn:hover { background: #0052cc; }
+        .auth-error { color: #ef4444; font-size: 14px; margin-top: 10px; display: none; }
+        .secure-content { display: none; }
+        .student-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #334155; transition: border-color 0.3s ease; }
+        .logout-btn { padding: 8px 16px; background: #334155; color: #ffffff; border: 1px solid #3e526a; border-radius: 6px; cursor: pointer; font-size: 14px; transition: all 0.3s ease; }
+        .logout-btn:hover { background: #ef4444; color: #ffffff; border-color: #ef4444; }
         /* ТАБЛИЦЫ РЕЗУЛЬТАТОВ И ИСТОРИИ */
         .table-container {
             width: 100%;
@@ -208,6 +331,7 @@
             margin-top: 20px;
             border-radius: 8px;
             border: 1px solid #3e526a;
+            transition: border-color 0.3s ease;
         }
         .exam-table {
             width: 100%;
@@ -215,6 +339,7 @@
             text-align: left;
             font-size: 15px;
             background: #1e293b;
+            transition: background-color 0.3s ease;
         }
         .exam-table th {
             background-color: #0066ff;
@@ -225,11 +350,13 @@
             text-transform: uppercase;
             font-size: 13px;
             letter-spacing: 0.5px;
+            transition: border-color 0.3s ease;
         }
         .exam-table td {
             padding: 14px;
             border: 1px solid #3e526a;
-            color: #cbd5e1;
+            color: #ffffff; /* Повышена яркость до чисто белого */
+            transition: border-color 0.3s ease, color 0.3s ease;
         }
         .exam-table tr:nth-child(even) {
             background-color: #273549;
@@ -257,39 +384,56 @@
         .status-red { background: rgba(239, 68, 68, 0.2) !important; color: #f87171 !important; border: 1px solid rgba(239, 68, 68, 0.4) !important; }
         .status-orange { background: rgba(249, 115, 22, 0.2) !important; color: #fb923c !important; border: 1px solid rgba(249, 115, 22, 0.4) !important; }
         .status-green { background: rgba(34, 197, 94, 0.2) !important; color: #4ade80 !important; border: 1px solid rgba(34, 197, 94, 0.4) !important; }
-
-        /* МЕДИА-ЗАПРОСЫ МОБИЛЬНОГО МЕНЮ (ИСПРАВЛЕНО И СВЯЗАНО) */
-        @media (max-width: 900px) {
-            nav#main-nav { 
-                display: none; 
-                flex-direction: column; 
-                position: absolute; 
-                top: 100%; 
-                right: 0;
-                background-color: #1e293b; 
-                width: 100%; 
-                padding: 20px; 
-                box-shadow: 0 10px 15px rgba(0,0,0,0.3); 
-                border-top: 1px solid #334155; 
-                gap: 10px;
-            }
-            nav#main-nav.mobile-open { 
-                display: flex; 
-            }
-            .menu-toggle { 
-                display: flex; 
+        /* МОДЕРНИЗИРОВАННЫЕ СКРУГЛЕННЫЕ СЕЛЕКТЫ */
+        .charity-select { 
+            width: 100%; 
+            background-color: rgba(30, 41, 59, 0.7); 
+            border: 1px solid rgba(62, 82, 106, 0.8); 
+            color: #ffffff; 
+            padding: 15px; 
+            border-radius: 14px; 
+            font-size: 16px; 
+            appearance: none; 
+            outline: none;
+            backdrop-filter: blur(4px);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .charity-select:focus {
+            border-color: #0066ff;
+            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.25);
+        }
+        .charity-select option {
+            background-color: #1e293b;
+            color: #ffffff;
+            padding: 10px;
+        }
+        /* ДВУХКОЛОНОЧНЫЙ МАКЕТ МАРКЕТА (ДЛЯ ПК) */
+        .market-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            margin-top: 15px;
+        }
+        @media (min-width: 900px) {
+            .market-layout {
+                display: grid;
+                grid-template-columns: 320px 1fr;
+                align-items: start;
             }
         }
-        /* СТИЛИ ОБНОВЛЕННОГО МАРКЕТА НАГРАД */
         .market-inner-container {
             width: 100%;
-            max-width: 450px;
-            margin: 0 auto;
             background-color: #1a2232;
             border-radius: 24px;
             padding: 24px;
             box-sizing: border-box;
             border: 1px solid #2b3952;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         .market-header-container {
             display: flex;
@@ -313,23 +457,25 @@
             margin: 0; 
             line-height: 1.2;
             color: #ffffff;
+            transition: color 0.3s ease;
         }
         .market-subtitle { 
             font-size: 14px; 
-            color: #7e8b9b; 
+            color: #ffffff; /* Повышена яркость для темной темы */
             margin-bottom: 16px; 
             line-height: 1.4; 
+            transition: color 0.3s ease;
         }
         .market-nav { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
+            display: flex;
+            flex-direction: column;
             gap: 12px; 
             margin-bottom: 16px; 
         }
         .market-nav button { 
             background-color: #222d41; 
             border: 1px solid #2b3952; 
-            color: #7e8b9b; 
+            color: #ffffff; /* Белые символы в темной теме */
             padding: 12px; 
             border-radius: 12px; 
             text-align: center; 
@@ -341,25 +487,25 @@
         .market-nav button:hover, .market-nav button.active { 
             background-color: #0066ff; 
             border-color: #0066ff; 
-            color: #ffffff; 
+            color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
         }
         .withdraw-tab-btn {
             width: 100%; 
             background-color: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.7); /* Более заметная граница */
+            color: #ffffff; /* Чисто белый */
             padding: 14px; 
             border-radius: 12px; 
             font-size: 15px; 
             font-weight: 600; 
             cursor: pointer; 
-            margin-bottom: 24px;
+            margin-bottom: 10px;
             transition: all 0.25s ease-in-out;
         }
         .withdraw-tab-btn:hover {
             background-color: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.6);
+            border-color: #ffffff;
             color: #ffffff;
             box-shadow: 0 4px 12px rgba(255,255,255,0.05);
         }
@@ -368,20 +514,20 @@
             flex-direction: column; 
             gap: 16px; 
         }
-        .market-inner-container .market-crystal-card { 
+        .market-crystal-card { 
             border-radius: 20px; 
             padding: 26px 20px; 
             text-align: center; 
-            transition: transform 0.2s ease; 
+            transition: transform 0.2s ease, background-color 0.3s ease, border-color 0.3s ease; 
         }
-        .market-inner-container .market-crystal-card:hover { 
+        .market-crystal-card:hover { 
             transform: translateY(-2px); 
         }
-        .card-yellow { background: linear-gradient(135deg, #1a2232 40%, rgba(255, 215, 0, 0.06) 100%); border: 1px solid rgba(255, 215, 0, 0.35); box-shadow: 0 8px 24px rgba(255, 215, 0, 0.03); }
-        .card-green { background: linear-gradient(135deg, #1a2232 40%, rgba(0, 204, 102, 0.06) 100%); border: 1px solid rgba(0, 204, 102, 0.35); box-shadow: 0 8px 24px rgba(0, 204, 102, 0.03); }
-        .card-blue { background: linear-gradient(135deg, #1a2232 40%, rgba(6, 182, 212, 0.06) 100%); border: 1px solid rgba(6, 182, 212, 0.35); box-shadow: 0 8px 24px rgba(6, 182, 212, 0.03); }
-        .card-red { background: linear-gradient(135deg, #1a2232 40%, rgba(233, 69, 96, 0.07) 100%); border: 1px solid rgba(233, 69, 96, 0.4); box-shadow: 0 8px 24px rgba(233, 69, 96, 0.04); }
-        .card-money { background: linear-gradient(135deg, #1a2232 40%, rgba(168, 85, 247, 0.07) 100%); border: 1px solid rgba(168, 85, 247, 0.4); box-shadow: 0 8px 24px rgba(168, 85, 247, 0.04); }
+        .card-yellow { background: linear-gradient(135deg, #1a2232 40%, rgba(255, 215, 0, 0.06) 100%); border: 1px solid rgba(255, 215, 0, 0.5); box-shadow: 0 8px 24px rgba(255, 215, 0, 0.03); }
+        .card-green { background: linear-gradient(135deg, #1a2232 40%, rgba(0, 204, 102, 0.06) 100%); border: 1px solid rgba(0, 204, 102, 0.5); box-shadow: 0 8px 24px rgba(0, 204, 102, 0.03); }
+        .card-blue { background: linear-gradient(135deg, #1a2232 40%, rgba(6, 182, 212, 0.06) 100%); border: 1px solid rgba(6, 182, 212, 0.5); box-shadow: 0 8px 24px rgba(6, 182, 212, 0.03); }
+        .card-red { background: linear-gradient(135deg, #1a2232 40%, rgba(233, 69, 96, 0.07) 100%); border: 1px solid rgba(233, 69, 96, 0.5); box-shadow: 0 8px 24px rgba(233, 69, 96, 0.04); }
+        .card-money { background: linear-gradient(135deg, #1a2232 40%, rgba(168, 85, 247, 0.07) 100%); border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 8px 24px rgba(168, 85, 247, 0.04); }
         .crystal-icon-container { 
             width: 55px; 
             height: 50px; 
@@ -397,7 +543,7 @@
             font-weight: 800; 
             letter-spacing: 1.5px; 
             text-transform: uppercase; 
-            color: #7e8b9b; 
+            color: #ffffff; /* Белые символы в темной теме */
             margin-bottom: 8px; 
         }
         .crystal-count { 
@@ -415,7 +561,6 @@
         .market-tab-content.active { 
             display: block; 
         }
-        /* МОДАЛЬНОЕ ОКНО ВЫВОДА */
         .modal-overlay {
             display: none; 
             position: fixed; 
@@ -430,7 +575,7 @@
         .modal-body { 
             background-color: #1a2232; 
             border: 1px solid #2b3952; 
-            border-radius: 24px; 
+            border-radius: 24px;
             padding: 32px 24px; 
             width: 90%; 
             max-width: 340px; 
@@ -442,7 +587,7 @@
             position: absolute; 
             top: 16px; right: 18px; 
             font-size: 24px; 
-            color: #7e8b9b; 
+            color: #ffffff; /* Ярко-белый крестик */
             cursor: pointer; 
         }
         .modal-title { 
@@ -453,7 +598,7 @@
         }
         .modal-text { 
             font-size: 14px; 
-            color: #a0aec0; 
+            color: #ffffff; /* Повышена яркость */
             line-height: 1.5; 
             margin-bottom: 24px; 
         }
@@ -485,7 +630,7 @@
         .charity-flbl { 
             font-size: 11px; 
             font-weight: 700; 
-            color: #43536f; 
+            color: #ffffff; /* Изменено на белый для темной темы */
             text-transform: uppercase; 
             letter-spacing: 1.2px;
             margin-bottom: 16px; 
@@ -497,23 +642,12 @@
         .charity-sel-w::after { 
             content: "\25be"; 
             font-size: 14px; 
-            color: #4b5c78; 
+            color: #ffffff; 
             position: absolute; 
             right: 16px; 
             top: 48%; 
             transform: translateY(-50%); 
             pointer-events: none; 
-        }
-        .charity-select { 
-            width: 100%; 
-            background-color: #162032; 
-            border: 1px solid #1f2d46; 
-            color: #ffffff; 
-            padding: 15px; 
-            border-radius: 12px; 
-            font-size: 16px; 
-            appearance: none; 
-            outline: none; 
         }
         .charity-tabs { 
             display: flex; 
@@ -523,8 +657,8 @@
         .charity-tabs .charity-tbtn { 
             flex: 1; 
             background-color: #162032; 
-            border: none; 
-            color: #4b5c78; 
+            border: 1px solid #1f2d46; 
+            color: #ffffff; 
             padding: 15px; 
             border-radius: 12px; 
             font-size: 15px; 
@@ -534,6 +668,7 @@
         }
         .charity-tabs .charity-tbtn.act { 
             background-color: #1e6cfd; 
+            border-color: #1e6cfd;
             color: #ffffff; 
         }
         .charity-row { 
@@ -549,7 +684,7 @@
         }
         .charity-igrp label { 
             font-size: 11px; 
-            color: #43536f; 
+            color: #ffffff; 
         }
         .charity-igrp input { 
             width: 100%; 
@@ -562,7 +697,7 @@
             outline: none; 
         }
         .charity-igrp input::placeholder { 
-            color: #4b5c78; 
+            color: #94a3b8; 
         }
         .charity-list { 
             display: flex; 
@@ -571,7 +706,7 @@
             flex: 1; 
         }
         .charity-card { 
-            background-color: #111827; 
+            background-color: #111827;
             border-radius: 18px; 
             padding: 22px 20px 20px; 
             border: 1px solid #162032; 
@@ -586,6 +721,7 @@
         .charity-chdr h2 {
             font-size: 24px;
             margin-bottom: 0;
+            color: #ffffff;
             white-space: normal; 
             word-break: break-word;
         }
@@ -622,12 +758,12 @@
             top: 4px; left: 4px; 
             opacity: 0.8; 
         }
-        .logo-hope::after { 
+        .logo-hope::after {
             content: "\2764"; 
             color: #ffffff; 
             font-size: 18px; 
             position: absolute; 
-            top: 11px; 
+            top: 5px; 
         }
         .logo-life { 
             background-color: #162032; 
@@ -668,7 +804,7 @@
         }
         .charity-adr { 
             font-size: 13.5px; 
-            color: #51627e; 
+            color: #ffffff; 
             margin-bottom: 18px; 
             display: flex; 
             align-items: center; 
@@ -677,13 +813,13 @@
         .charity-geo-marker { 
             width: 14px; 
             height: 14px; 
-            fill: #43536f; 
+            fill: #ffffff; 
         }
         .charity-lim { 
             display: flex; 
             justify-content: space-between; 
             font-size: 13.5px; 
-            color: #43536f; 
+            color: #ffffff; 
             padding-top: 16px; 
             border-top: 1px dashed #1f2d46; 
         }
@@ -705,6 +841,7 @@
             margin-top: 60px;
             border-top: 1px solid #1e293b;
             font-size: 14px;
+            transition: background-color 0.3s ease, border-top-color 0.3s ease;
         }
         .footer-container {
             max-width: 1200px;
@@ -720,12 +857,14 @@
             border-bottom: 1px solid #1e293b;
             margin-bottom: 30px;
             opacity: 0.8;
+            transition: border-bottom-color 0.3s ease;
         }
         .payment-logo {
             color: #ffffff;
             font-weight: bold;
             font-size: 18px;
             letter-spacing: 0.5px;
+            transition: color 0.3s ease;
         }
         .footer-grid {
             display: grid;
@@ -733,17 +872,18 @@
             gap: 30px;
         }
         .footer-info p {
-            color: #64748b;
+            color: #ffffff; /* Повышена контрастность до белого в темной теме */
             font-size: 13px;
             line-height: 1.8;
             margin-top: 5px;
         }
         .footer-column h4 {
-            color: #94a3b8;
+            color: #ffffff; /* Максимально ярко-белый */
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 15px;
+            transition: color 0.3s ease;
         }
         .footer-column ul {
             list-style: none;
@@ -752,7 +892,7 @@
             margin-bottom: 10px;
         }
         .footer-column ul li a {
-            color: #94a3b8;
+            color: #ffffff; /* Сделано ярче */
             text-decoration: none;
             transition: color 0.2s;
         }
@@ -765,95 +905,379 @@
                 text-align: center;
             }
         }
+        /* КЛАССЫ ПЕРЕОПРЕДЕЛЕНИЯ ДЛЯ СВЕТЛОЙ ТЕМЫ (Адаптированный динамический градиент) */
+        html.light-theme body {
+            background: linear-gradient(135deg, #cde6ff 0%, #b3dcff 50%, #9bcfff 100%);
+            color: #0f172a;
+        }
+        html.light-theme header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #cbd5e1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        html.light-theme .logo-m {
+            background-color: #0f172a;
+            color: #ffffff;
+        }
+        html.light-theme .theme-toggle-btn {
+            background: #e2e8f0;
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
+        }
+        html.light-theme .theme-toggle-btn:hover {
+            background: #cbd5e1;
+        }
+        html.light-theme nav#main-nav button {
+            color: #64748b;
+        }
+        html.light-theme nav#main-nav button:hover, 
+        html.light-theme nav#main-nav button.active {
+            color: #0f172a;
+            background-color: #e2e8f0;
+        }
+        html.light-theme nav#main-nav button.active {
+            border-color: #0066ff;
+        }
+        html.light-theme .menu-toggle span {
+            background-color: #0f172a;
+        }
+        html.light-theme .page {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+        }
+        html.light-theme h2 {
+            color: #0f172a;
+        }
+        html.light-theme p {
+            color: #475569;
+        }
+        html.light-theme .auth-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+        }
+        html.light-theme .auth-box h3 {
+            color: #0f172a;
+        }
+        html.light-theme .auth-input {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
+        }
+        html.light-theme .auth-input::placeholder {
+            color: #94a3b8;
+        }
+        html.light-theme .student-info {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        html.light-theme .logout-btn {
+            background: #e2e8f0;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+        }
+        html.light-theme .logout-btn:hover {
+            background: #ef4444;
+            color: #ffffff;
+            border-color: #ef4444;
+        }
+        html.light-theme .table-container {
+            border: 1px solid #cbd5e1;
+        }
+        html.light-theme .exam-table {
+            background: #ffffff;
+        }
+        html.light-theme .exam-table th {
+            border: 1px solid #0052cc;
+        }
+        html.light-theme .exam-table td {
+            border: 1px solid #e2e8f0;
+            color: #334155;
+        }
+        html.light-theme .exam-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        html.light-theme .exam-table tr:hover {
+            background-color: #f1f5f9;
+        }
+        html.light-theme .badge.success {
+            background: rgba(22, 163, 74, 0.15);
+            color: #16a34a;
+            border: 1px solid rgba(22, 163, 74, 0.3);
+        }
+        html.light-theme .badge.fail {
+            background: rgba(220, 38, 38, 0.15);
+            color: #dc2626;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+        html.light-theme .status-red { background: rgba(220, 38, 38, 0.15) !important; color: #dc2626 !important; border: 1px solid rgba(220, 38, 38, 0.3) !important; }
+        html.light-theme .status-orange { background: rgba(234, 88, 12, 0.15) !important; color: #ea580c !important; border: 1px solid rgba(234, 88, 12, 0.3) !important; }
+        html.light-theme .status-green { background: rgba(22, 163, 74, 0.15) !important; color: #16a34a !important; border: 1px solid rgba(22, 163, 74, 0.3) !important; }
+        @media (max-width: 900px) {
+            html.light-theme nav#main-nav {
+                background-color: #ffffff;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                border-top: 1px solid #e2e8f0;
+            }
+        }
+        html.light-theme .charity-select {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        }
+        html.light-theme .charity-select option {
+            background-color: #ffffff;
+            color: #0f172a;
+        }
+        html.light-theme .market-inner-container { background-color: #f8fafc; border: 1px solid #e2e8f0; }
+        html.light-theme .market-inner-container h1 { color: #0f172a; }
+        html.light-theme .market-subtitle { color: #64748b; }
+        html.light-theme .market-nav button { background-color: #e2e8f0; border: 1px solid #cbd5e1; color: #475569; }
+        html.light-theme .market-nav button:hover, 
+        html.light-theme .market-nav button.active { background-color: #0066ff; border-color: #0066ff; color: #ffffff; }
+        html.light-theme .withdraw-tab-btn { background-color: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.2); color: rgba(15, 23, 42, 0.8); }
+        html.light-theme .withdraw-tab-btn:hover { background-color: rgba(15, 23, 42, 0.08); border-color: rgba(15, 23, 42, 0.4); color: #0f172a; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        html.light-theme .card-yellow { background: linear-gradient(135deg, #ffffff 40%, rgba(234, 179, 8, 0.08) 100%); border: 1px solid rgba(234, 179, 8, 0.4); box-shadow: 0 8px 24px rgba(234, 179, 8, 0.04); }
+        html.light-theme .card-green { background: linear-gradient(135deg, #ffffff 40%, rgba(22, 163, 74, 0.08) 100%); border: 1px solid rgba(22, 163, 74, 0.4); box-shadow: 0 8px 24px rgba(22, 163, 74, 0.04); }
+        html.light-theme .card-blue { background: linear-gradient(135deg, #ffffff 40%, rgba(6, 182, 212, 0.08) 100%); border: 1px solid rgba(6, 182, 212, 0.4); box-shadow: 0 8px 24px rgba(6, 182, 212, 0.04); }
+        html.light-theme .card-red { background: linear-gradient(135deg, #ffffff 40%, rgba(225, 29, 72, 0.08) 100%); border: 1px solid rgba(225, 29, 72, 0.4); box-shadow: 0 8px 24px rgba(225, 29, 72, 0.04); }
+        html.light-theme .card-money { background: linear-gradient(135deg, #ffffff 40%, rgba(147, 51, 234, 0.08) 100%); border: 1px solid rgba(147, 51, 234, 0.4); box-shadow: 0 8px 24px rgba(147, 51, 234, 0.04); }
+        html.light-theme .story-card { border-color: #0066ff; }
+        html.light-theme .story-text { color: #0f172a !important; text-shadow: none !important; background: rgba(255, 255, 255, 0.9); padding: 4px 6px; border-radius: 8px; bottom: 8px; left: 8px; right: 8px; }
+        html.light-theme .crystal-icon-container { filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+        html.light-theme .crystal-label { color: #64748b; }
+        html.light-theme .count-yellow { color: #d97706; text-shadow: none; }
+        html.light-theme .count-green { color: #16a34a; text-shadow: none; }
+        html.light-theme .count-blue { color: #0891b2; text-shadow: none; }
+        html.light-theme .count-red { color: #dc2626; text-shadow: none; }
+        html.light-theme .count-money { color: #9333ea; text-shadow: none; }
+        html.light-theme .theme-stroke-adjust { stroke: #0f172a; }
+        html.light-theme .theme-h3-text { color: #0f172a !important; }
+        html.light-theme .money-emoji-box span { text-shadow: none !important; }
+        html.light-theme .modal-overlay { background-color: rgba(241, 245, 249, 0.85); }
+        html.light-theme .modal-body { background-color: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+        html.light-theme .modal-close { color: #64748b; }
+        html.light-theme .modal-title { color: #0f172a; }
+        html.light-theme .modal-text { color: #475569; }
+        html.light-theme .charity-filter { background-color: #f8fafc; border: 1px solid #e2e8f0; }
+        html.light-theme .charity-flbl { color: #64748b; }
+        html.light-theme .charity-sel-w::after { color: #64748b; }
+        html.light-theme .charity-tabs .charity-tbtn { background-color: #e2e8f0; color: #64748b; }
+        html.light-theme .charity-tabs .charity-tbtn:hover { background-color: #cbd5e1; color: #0f172a; }
+        html.light-theme .charity-tabs .charity-tbtn.act { background-color: #1e6cfd; color: #ffffff; }
+        html.light-theme .charity-igrp label { color: #64748b; }
+        html.light-theme .charity-igrp input { background-color: #ffffff; border: 1px solid #cbd5e1; color: #0f172a; }
+        html.light-theme .charity-igrp input::placeholder { color: #94a3b8; }
+        html.light-theme .charity-card { background-color: #f8fafc; border: 1px solid #e2e8f0; }
+        html.light-theme .charity-heart { stroke: #0f172a; }
+        html.light-theme .logo-life { background-color: #ffffff; border: 1.5px solid #1e6cfd; }
+        html.light-theme .charity-cname { color: #0f172a; }
+        html.light-theme .charity-adr { color: #64748b; }
+        html.light-theme .charity-geo-marker { fill: #64748b; }
+        html.light-theme .charity-lim { border-top: 1px dashed #cbd5e1; color: #64748b; }
+        html.light-theme .charity-lim strong { color: #0f172a; }
+        html.light-theme footer { background-color: #f8fafc; border-top: 1px solid #cbd5e1; }
+        html.light-theme .footer-payments { border-bottom: 1px solid #cbd5e1; }
+        html.light-theme .payment-logo { color: #0f172a; }
+        html.light-theme .theme-logo-text { color: #0f172a !important; }
+        html.light-theme .theme-border-logo { color: #475569 !important; border-color: #cbd5e1 !important; }
+        html.light-theme .footer-column h4 { color: #475569; }
+        html.light-theme .footer-column ul li a { color: #64748b; }
+        html.light-theme .footer-column ul li a:hover { color: #0066ff; }
+
+      /* 1. Делаем контейнер видимым всегда (и в темной, и в светлой теме) */
+.pattern-container {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    pointer-events: none; 
+    z-index: 1; 
+    display: block; /* Изменено с display: none на display: block */
+}
+
+/* 2. Настраиваем базовый вид иконок ДЛЯ ТЕМНОЙ ТЕМЫ (белые, полупрозрачные) */
+.icon {
+    position: absolute; 
+    fill: none; 
+    stroke: #ffffff; /* Изменено на чисто белый цвет для темной темы */
+    stroke-width: 1.5;
+    stroke-linecap: round; 
+    stroke-linejoin: round; 
+    opacity: 0.12; /* Чуть снизили прозрачность, чтобы они не отвлекали от текста */
+    transform: translate(-50%, -50%);
+}
+
+/* 3. Переопределяем цвет иконок ТОЛЬКО КОГДА ВКЛЮЧЕНА СВЕТЛАЯ ТЕМА */
+html.light-theme .icon {
+    stroke: #2470a7; /* Возвращаем исходный синий цвет для светлой темы */
+    opacity: 0.18;   /* Возвращаем исходную прозрачность */
+}
+
+        .grid-sections-premium {
+            display: grid; grid-template-columns: 1fr; gap: 40px;
+            width: 100%; max-width: 350px; margin: 0 auto; perspective: 1200px;
+        }
+        .card-premium {
+            position: relative;
+            background: linear-gradient(135deg, rgba(39, 53, 73, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%);
+            border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 24px; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+            overflow: hidden; display: flex; flex-direction: column; gap: 16px;
+            cursor: pointer; transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, background 0.3s;
+        }
+        html.light-theme .card-premium {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.4) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 45px rgba(0, 30, 80, 0.05), inset 0 1px 1px rgba(255,255,255,0.3);
+        }
+        .card-premium:nth-child(1) { transform: rotate(-2.5deg); }
+        .card-premium:nth-child(2) { transform: rotate(2.5deg); }
+        .card-premium:nth-child(3) { transform: rotate(-2deg); }
+
+        .card-premium::before {
+            content: ''; position: absolute; width: 280px; height: 280px;
+            bottom: -90px; right: -90px; z-index: 1; opacity: 0.22;
+            filter: blur(25px); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.6s ease;
+        }
+        .card-rest::before { background: #10b981; border-radius: 42% 58% 70% 30% / 45% 45% 65% 55%; }
+        .card-charity-prem::before { background: #f43f5e; border-radius: 70% 30% 55% 45% / 60% 40% 60% 40%; }
+        .card-books::before { background: #b45309; border-radius: 50% 50% 35% 65% / 50% 55% 45% 55%; }
+
+        .card-img-prem { width: 100%; height: 150px; object-fit: cover; border-radius: 20px; position: relative; z-index: 2; transform: translateZ(20px); }
+        .card-content-prem { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 6px; transform: translateZ(15px); }
+        
+        .card-title-prem { font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; }
+        html.light-theme .card-title-prem { color: #0f172a; }
+        
+        .card-text-prem { font-size: 14px; line-height: 1.5; color: #cbd5e1; }
+        html.light-theme .card-text-prem { color: #334155; }
+
+        .card-premium:hover { box-shadow: 0 35px 70px rgba(0, 30, 80, 0.25); background: linear-gradient(135deg, rgba(47, 65, 90, 0.95) 0%, rgba(39, 53, 73, 0.8) 100%); }
+        html.light-theme .card-premium:hover { box-shadow: 0 35px 70px rgba(0, 30, 80, 0.15); background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.55) 100%); }
+        .card-premium:hover::before { transform: scale(1.15) rotate(45deg) translate(-10px, -10px); border-radius: 50%; opacity: 0.3; }
+
+        @media (min-width: 992px) {
+            .grid-sections-premium { grid-template-columns: repeat(2, 1fr); max-width: 850px; gap: 40px; }
+            .card-premium:nth-child(3) { grid-column: 1 / span 2; justify-self: center; width: 100%; max-width: 405px; }
+            .card-premium:nth-child(1) { transform: rotate(-3deg) translateY(-10px); }
+            .card-premium:nth-child(2) { transform: rotate(3deg) translateY(10px); }
+            .card-premium:nth-child(3) { transform: rotate(-1.5deg) translateY(20px); }
+            .card-premium:nth-child(1):hover { transform: rotateX(8deg) rotateY(-8deg) scale(1.03) translateY(-15px); }
+            .card-premium:nth-child(2):hover { transform: rotateX(8deg) rotateY(8deg) scale(1.03) translateY(5px); }
+            .card-premium:nth-child(3):hover { transform: rotateX(-8deg) rotateY(-4deg) scale(1.03) translateY(15px); }
+        }
     </style>
 </head>
 <body>
-    <!-- Шапка сайта -->
+
+    <!-- Контейнер для динамического узора на фоне в светлой теме -->
+    <div class="pattern-container" id="pattern">
+        <template id="book">
+            <svg class="icon" viewBox="0 0 14 16"><rect x="1" y="1" width="12" height="14" rx="1.5" /><path d="M1 11 h12 M4 1 v5 l2-1.5 l2 1.5 v-5" stroke-width="1.2" /></svg>
+        </template>
+        <template id="mic">
+            <svg class="icon" viewBox="0 0 16 20"><rect x="4" y="1" width="8" height="11" rx="4" /><path d="M1 7 a7 7 0 0 0 14 0 M8 12 v5 M4 17 h8" /></svg>
+        </template>
+        <template id="diamond">
+            <svg class="icon" viewBox="0 0 22 20"><path d="M5 1 h12 l5 6 l-11 12 l-11 -12 z M1 7 h20 M5 1 l6 6 l6 -6 M11 7 v12" /></svg>
+        </template>
+        <template id="board">
+            <svg class="icon" viewBox="0 0 18 18"><rect x="1" y="1" width="16" height="11" rx="1.5" /><path d="M4 12 l-2 5 M14 12 l2 5 M9 12 v2 M4 17 h10" stroke-width="1.2" /></svg>
+        </template>
+    </div>
+
     <header>
-        <a href="#" class="logo" onclick="openPage('home')">
-            <span class="logo-m">M</span>
-            <span class="logo-jump">JUMP</span>
-        </a>
+        <div class="logo-container">
+            <a href="#" class="logo" onclick="openPage('home')">
+                <span class="logo-m">M</span>
+                <span class="logo-jump">JUMP</span>
+            </a>
+            <button class="theme-toggle-btn" id="theme-toggle" title="Переключить тему">☾</button>
+        </div>
         <nav id="main-nav">
-            <button id="btn-home" class="active" onclick="openPage('home')">Главная</button>
-            <button id="btn-gdz" onclick="openPage('gdz')">ГДЗ</button>
-            <button id="btn-gia" onclick="openPage('gia')">Ответы ГИА</button>
-            <button id="btn-tests" onclick="openPage('tests')">Результаты тестов</button>
-            <button id="btn-market" onclick="openPage('market')">Маркет</button>
-            <button id="btn-charity" onclick="openPage('charity')">Благотворительность</button>
+            <button id="btn-home" class="active" onclick="openPage('home')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Главная</span>
+            </button>
+            <button id="btn-tests" onclick="openPage('tests')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="9" cy="15" r="1"/><circle cx="9" cy="19" r="1"/><line x1="13" y1="15" x2="16" y2="15"/><line x1="13" y1="19" x2="16" y2="19"/></svg>
+                <span>Результаты тестов</span>
+            </button>
+            <button id="btn-market" onclick="openPage('market')">
+                <!-- Восстановленная ультра-яркая иконка с намертво перекрывающей толщиной контура -->
+                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" style="stroke-width: 12px !important;"><rect x="15" y="40" width="70" height="45" rx="10"/><path d="M15 40 L25 15 L75 15 L85 40"/><line x1="42" y1="53" x2="42" y2="73"/><line x1="58" y1="53" x2="58" y2="73"/></svg>
+                <span>Маркет</span>
+            </button>
+            <button id="btn-charity" onclick="openPage('charity')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>Благотворительность</span>
+            </button>
         </nav>
         <button class="menu-toggle" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </button>
     </header>
+    <!-- АБСОЛЮТНО НЕЗАВИСИМЫЙ ВЕРХНИЙ БЛОК ИСТОРИЙ — НАД ВСЕМИ БЛОКАМИ И СТРАНИЦАМИ -->
+    <div class="global-stories-wrapper">
+        <div class="stories-container">
+            <!-- История 1 (Школа России) -->
+            <div class="story-card" onclick="openStory('https://yandex.net', 'Школа России')" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('https://yandex.net');">
+                <div class="story-text">Школа России</div>
+            </div>
+            <!-- История 2 (Журнал ЭПОС) -->
+            <div class="story-card" onclick="openStory('https://yandex.net', 'Электронный журнал «ЭПОС»')" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('https://yandex.net');">
+                <div class="story-text">Электронный журнал «ЭПОС»</div>
+            </div>
+            <!-- История 3 -->
+            <div class="story-card" onclick="openStory('https://unsplash.com', 'Кто тут самый умный?')" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('https://unsplash.com');">
+                <div class="story-text">Кто тут самый умный?</div>
+            </div>
+            <!-- История 4 -->
+            <div class="story-card" onclick="openStory('https://unsplash.com', 'Кэшбэк +30% за билеты на поезд')" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('https://unsplash.com');">
+                <div class="story-text">Кэшбэк +30% за билеты на поезд</div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
-        
-        <!-- СТРАНИЦА 1: ГЛАВНАЯ -->
+        <!-- СТРАНИЦА 1: ГЛАВНАЯ (Полностью обновленный премиум-блок) -->
         <div id="home" class="page active">
-            <style scoped>
-                .welcome-banner { text-align: center; margin-bottom: 40px; }
-                .welcome-banner h1 { font-size: 36px; color: #fff; margin-bottom: 10px; }
-                .grid-sections { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-                .section-card { background: #273549; padding: 30px; border-radius: 12px; border: 1px solid #3e526a; cursor: pointer; transition: 0.3s; }
-                .section-card:hover { transform: translateY(-4px); background: #2d3e56; border-color: #0066ff; }
-                .section-card h3 { font-size: 22px; color: #0066ff; margin-bottom: 10px; }
-                @media (max-width: 768px) { .grid-sections { grid-template-columns: 1fr; } }
-            </style>
-            <div class="welcome-banner">
-                <h1>Обучающая платформа M JUMP</h1>
+            <div class="welcome-banner" style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 36px; margin-bottom: 10px;">Обучающая платформа M JUMP</h1>
                 <p>Твой быстрый прыжок в мир правильных решений, успешных экзаменов и наград.</p>
             </div>
-            <div class="grid-sections">
-                <div class="section-card" onclick="openPage('gdz')">
-                    <h3>Раздел ГДЗ &rarr;</h3>
-                    <p>Готовые домашние задания для средних и старших классов.</p>
+            
+            <!-- Интегрированная сетка новых премиум-карточек вместо старого блока -->
+            <div class="grid-sections-premium">
+                <div class="card-premium card-rest" onclick="alert('Раздел Отдых в разработке')">
+                    <img class="card-img-prem" src="https://avatars.mds.yandex.net/i?id=687503eb990fec2c7d3e7b68b463504722284ef5-10700734-images-thumbs&n=13" alt="Отдых">
+                    <div class="card-content-prem">
+                        <h3 class="card-title-prem">Отдых</h3>
+                        <p class="card-text-prem">Время замедлиться, перезагрузить мысли и насладиться моментом полной гармонии.</p>
+                    </div>
                 </div>
-                <div class="section-card" onclick="openPage('gia')">
-                    <h3>Ответы ГИА &rarr;</h3>
-                    <p>Актуальные разборы экзаменационных материалов ОГЭ и ЕГЭ.</p>
+
+                <div class="card-premium card-charity-prem" onclick="openPage('charity')">
+                    <img class="card-img-prem" src="https://avatars.mds.yandex.net/i?id=6290e5153061a16d7c0db9fd139c14c4524fef6f-4032215-images-thumbs&n=13" alt="Благотворительность">
+                    <div class="card-content-prem">
+                        <h3 class="card-title-prem">Благотворительность</h3>
+                        <p class="card-text-prem">Маленькие поступки и реальная помощь, способные изменить чей-то мир к лучшему.</p>
+                    </div>
                 </div>
-                <div class="section-card" onclick="openPage('tests')">
-                    <h3>Результаты тестов &rarr;</h3>
-                    <p>Интерактивная загрузка Excel ведомостей учеников.</p>
-                </div>
-                <div class="section-card" onclick="openPage('market')">
-                    <h3>Маркет кристаллов &rarr;</h3>
-                    <p>Обменивай накопленные кристаллы разных цветов на реальные деньги.</p>
+
+                <div class="card-premium card-books" onclick="alert('Раздел Книги в разработке')">
+                    <img class="card-img-prem" src="https://avatars.mds.yandex.net/i?id=e80172548b66f576b32dcdb6d42cf81ab6741b03-5874167-images-thumbs&n=13" alt="Книги">
+                    <div class="card-content-prem">
+                        <h3 class="card-title-prem">Книги</h3>
+                        <p class="card-text-prem">Погружение в новые миры, скрытые смыслы и бесконечный поток глубоких знаний.</p>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- СТРАНИЦА 2: ГДЗ -->
-        <div id="gdz" class="page">
-            <style scoped>
-                .gdz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 25px; }
-                .class-box { background: #273549; padding: 25px; border-radius: 10px; text-align: center; cursor: pointer; border: 1px solid #3e526a; transition: 0.2s; font-weight: bold; }
-                .class-box:hover { background: #0066ff; color: #fff; border-color: #0066ff; }
-                @media (max-width: 600px) { .gdz-grid { grid-template-columns: 1fr; } }
-            </style>
-            <h2>Готовые Домашние Задания (ГДЗ)</h2>
-            <div class="gdz-grid">
-                <div class="class-box" onclick="alert('Открываем 9 класс...')">9 Класс</div>
-                <div class="class-box" onclick="alert('Открываем 10 класс...')">10 Класс</div>
-                <div class="class-box" onclick="alert('Открываем 11 класс...')">11 Класс</div>
-            </div>
-        </div>
-
-        <!-- СТРАНИЦА 3: ОТВЕТЫ ГИА -->
-        <div id="gia" class="page">
-            <style scoped>
-                .gia-list { margin-top: 25px; list-style: none; }
-                .gia-item { background: #273549; padding: 20px; margin-bottom: 15px; border-left: 4px solid #0066ff; border-radius: 8px; }
-                .gia-item strong { color: #ffffff; display: block; margin-bottom: 5px; font-size: 18px;}
-            </style>
-            <h2>Ответы и материалы ГИА</h2>
-            <ul class="gia-list">
-                <li class="gia-item"><strong>ОГЭ Математика</strong><p>Демоверсии, разбор тренировочных вариантов.</p></li>
-                <li class="gia-item"><strong>ЕГЭ Русский язык</strong><p>Шпаргалки по ударениям, правила для сочинений.</p></li>
-            </ul>
-        </div>
-
-        <!-- СТРАНИЦА 4: РЕЗУЛЬТАТЫ ТЕСТОВ -->
+        <!-- СТРАНИЦА 2: РЕЗУЛЬТАТЫ ТЕСТОВ -->
         <div id="tests" class="page">
             <h2>Результаты тестов и экзаменов</h2>
             <div class="auth-screen-block">
@@ -867,7 +1291,7 @@
             </div>
             <div class="secure-screen-block secure-content">
                 <div class="student-info">
-                    <div><p style="color: #fff; font-size: 18px; font-weight: bold;" class="student-name-field">Ученик: Загрузка...</p></div>
+                    <div><p style="color: #ffffff; font-size: 18px; font-weight: bold;" class="student-name-field">Ученик: Загрузка...</p></div>
                     <button class="logout-btn" onclick="logoutStudent()">Выйти</button>
                 </div>
                 <div class="table-container">
@@ -878,7 +1302,7 @@
                 </div>
             </div>
         </div>
-        <!-- СТРАНИЦА 5: ОБНОВЛЕННЫЙ МАРКЕТ КРИСТАЛЛОВ -->
+        <!-- СТРАНИЦА 3: ОБНОВЛЕННЫЙ МАРКЕТ КРИСТАЛЛОВ -->
         <div id="market" class="page">
             <div class="auth-screen-block">
                 <div class="auth-box">
@@ -891,148 +1315,155 @@
             </div>
             
             <div class="secure-screen-block secure-content">
-                <div class="student-info">
-                    <div><p style="color: #fff; font-size: 18px; font-weight: bold;" class="student-name-field">Ученик: Загрузка...</p></div>
-                    <button class="logout-btn" onclick="logoutStudent()">Выйти</button>
-                </div>
-                <div class="market-inner-container">
-                    <div class="market-header-container">
-                        <div class="shop-icon-white">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://w3.org">
-                                <path d="M3 9L4.44444 4H19.5556L21 9M3 9V20C3 20.5523 3.44772 21 4 21H20C20.5523 21 21 20.5523 21 20V9M3 9H21M9 13V16M15 13V16" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                <div class="market-layout">
+                    <!-- ЛЕВАЯ КОЛОНКА: ПРОФИЛЬ, НАВИГАЦИЯ И ВЫВОД -->
+                    <div class="market-inner-container">
+                        <div class="market-header-container">
+                            <div class="shop-icon-white">
+                                <svg viewBox="0 0 100 100" fill="none">
+                                    <rect x="15" y="40" width="70" height="45" rx="10" class="theme-stroke-adjust" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M15 40 L25 15 L75 15 L85 40" class="theme-stroke-adjust" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <line x1="42" y1="53" x2="42" y2="73" class="theme-stroke-adjust" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+                                    <line x1="58" y1="53" x2="58" y2="73" class="theme-stroke-adjust" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <h1>Маркет наград M JUMP</h1>
                         </div>
-                        <h1>Маркет наград M JUMP</h1>
+                        <div class="student-info" style="margin-top: 15px; flex-direction: column; align-items: flex-start; gap: 10px;">
+                            <div><p style="color: #ffffff; font-size: 16px; font-weight: bold;" class="student-name-field">Ученик: Загрузка...</p></div>
+                            <button class="logout-btn" onclick="logoutStudent()" style="width: 100%;">Выйти из кабинета</button>
+                        </div>
+                        <div class="market-subtitle" style="margin-top: 15px;">Управляйте своими кристаллами, проверяйте баланс и отслеживайте историю сделок.</div>
+                        <div class="market-nav">
+                            <button id="tab-btn-balance" class="active" onclick="openMarketTab('balance')">Баланс кристаллов</button>
+                            <button id="tab-btn-history" onclick="openMarketTab('history')">История сделок</button>
+                        </div>
+                        <button class="withdraw-tab-btn" id="triggerWithdraw">Вывод средств</button>
                     </div>
-                    <div class="market-subtitle">Управляйте своими кристаллами, проверяйте баланс и отслеживайте историю сделок.</div>
-                    <div class="market-nav">
-                        <button id="tab-btn-balance" class="active" onclick="openMarketTab('balance')">Баланс кристаллов</button>
-                        <button id="tab-btn-history" onclick="openMarketTab('history')">История сделок</button>
-                    </div>
-                    <button class="withdraw-tab-btn" id="triggerWithdraw">Вывод средств</button>
-
-                    <!-- ВКЛАДКА 1: БАЛАНС КРИСТАЛЛОВ -->
-                    <div id="market-tab-balance" class="market-tab-content active">
-                        <div class="crystals-list">
-                            <!-- Желтые кристаллы -->
-                            <div class="market-crystal-card card-yellow">
-                                <div class="crystal-icon-container">
-                                    <svg viewBox="0 0 32 28" xmlns="http://w3.org">
-                                        <defs>
-                                            <linearGradient id="y-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0.6"/><stop offset="100%" stop-color="#ffb300"/></linearGradient>
-                                            <linearGradient id="y-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffd700"/><stop offset="100%" stop-color="#ff8f00"/></linearGradient>
-                                            <linearGradient id="y-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff8f00"/><stop offset="100%" stop-color="#ff6f00"/></linearGradient>
-                                        </defs>
-                                        <path d="M10 2L16 9L6 9L10 2Z" fill="url(#y-top)"/>
-                                        <path d="M22 2L26 9L16 9L22 2Z" fill="url(#y-top)"/>
-                                        <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#fff" fill-opacity="0.8"/>
-                                        <path d="M6 9L16 9L16 26L6 9Z" fill="url(#y-mid)"/>
-                                        <path d="M26 9L16 26L16 9L26 9Z" fill="url(#y-bot)"/>
-                                        <path d="M2 9L6 9L16 26L2 9Z" fill="url(#y-bot)" fill-opacity="0.7"/>
-                                        <path d="M30 9L26 9L16 26L30 9Z" fill="url(#y-mid)" fill-opacity="0.7"/>
-                                        <path d="M2 9L10 2L6 9L2 9Z" fill="url(#y-mid)"/>
-                                        <path d="M30 9L26 9L22 2L30 9Z" fill="url(#y-bot)"/>
-                                    </svg>
+                    <!-- ПРАВАЯ КОЛОНКА: ДИНАМИЧЕСКИЙ КОНТЕНТ -->
+                    <div class="market-content-area">
+                        <!-- ВКЛАДКА 1: БАЛАНС КРИСТАЛЛОВ -->
+                        <div id="market-tab-balance" class="market-tab-content active">
+                            <div class="crystals-list">
+                                <!-- Желтые кристаллы -->
+                                <div class="market-crystal-card card-yellow">
+                                    <div class="crystal-icon-container">
+                                        <svg viewBox="0 0 32 28">
+                                            <defs>
+                                                <linearGradient id="y-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/><stop offset="100%" stop-color="#ffb300"/></linearGradient>
+                                                <linearGradient id="y-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffd700"/><stop offset="100%" stop-color="#ff8f00"/></linearGradient>
+                                                <linearGradient id="y-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff8f00"/><stop offset="100%" stop-color="#ff6f00"/></linearGradient>
+                                            </defs>
+                                            <path d="M10 2L16 9L6 9L10 2Z" fill="url(#y-top)"/>
+                                            <path d="M22 2L26 9L16 9L22 2Z" fill="url(#y-top)"/>
+                                            <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#ffffff" fill-opacity="0.8"/>
+                                            <path d="M6 9L16 9L16 26L6 9Z" fill="url(#y-mid)"/>
+                                            <path d="M26 9L16 26L16 9L26 9Z" fill="url(#y-bot)"/>
+                                            <path d="M2 9L6 9L16 26L2 9Z" fill="url(#y-bot)" fill-opacity="0.7"/>
+                                            <path d="M30 9L26 9L16 26L30 9Z" fill="url(#y-mid)" fill-opacity="0.7"/>
+                                            <path d="M2 9L10 2L6 9L2 9Z" fill="url(#y-mid)"/>
+                                            <path d="M30 9L26 9L22 2L30 9Z" fill="url(#y-bot)"/>
+                                        </svg>
+                                    </div>
+                                    <div class="crystal-label">Желтые кристаллы</div>
+                                    <div class="crystal-count count-yellow" id="market-cr-yellow">0</div>
                                 </div>
-                                <div class="crystal-label">Желтые кристаллы</div>
-                                <div class="crystal-count count-yellow" id="market-cr-yellow">0</div>
+                                <!-- Зеленые кристаллы -->
+                                <div class="market-crystal-card card-green">
+                                    <div class="crystal-icon-container">
+                                        <svg viewBox="0 0 32 28">
+                                            <defs>
+                                                <linearGradient id="g-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/><stop offset="100%" stop-color="#00e676"/></linearGradient>
+                                                <linearGradient id="g-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00cc66"/><stop offset="100%" stop-color="#00c853"/></linearGradient>
+                                                <linearGradient id="g-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00c853"/><stop offset="100%" stop-color="#00a142"/></linearGradient>
+                                            </defs>
+                                            <path d="M10 2L16 9L6 9L10 2Z" fill="url(#g-top)"/>
+                                            <path d="M22 2L26 9L16 9L22 2Z" fill="url(#g-top)"/>
+                                            <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#ffffff" fill-opacity="0.8"/>
+                                            <path d="M6 9L16 9L16 26L6 9Z" fill="url(#g-mid)"/>
+                                            <path d="M26 9L16 26L16 9L26 9Z" fill="url(#g-bot)"/>
+                                            <path d="M2 9L6 9L16 26L2 9Z" fill="url(#g-bot)" fill-opacity="0.7"/>
+                                            <path d="M30 9L26 9L16 26L30 9Z" fill="url(#g-mid)" fill-opacity="0.7"/>
+                                            <path d="M2 9L10 2L6 9L2 9Z" fill="url(#g-mid)"/>
+                                            <path d="M30 9L26 9L22 2L30 9Z" fill="url(#g-bot)"/>
+                                        </svg>
+                                    </div>
+                                    <div class="crystal-label">Зеленые кристаллы</div>
+                                    <div class="crystal-count count-green" id="market-cr-green">0</div>
+                                </div>
+                                <!-- Голубые кристаллы -->
+                                <div class="market-crystal-card card-blue">
+                                    <div class="crystal-icon-container">
+                                        <svg viewBox="0 0 32 28">
+                                            <defs>
+                                                <linearGradient id="b-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
+                                                <linearGradient id="b-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0891b2"/></linearGradient>
+                                                <linearGradient id="b-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0891b2"/><stop offset="100%" stop-color="#0f766e"/></linearGradient>
+                                            </defs>
+                                            <path d="M10 2L16 9L6 9L10 2Z" fill="url(#b-top)"/>
+                                            <path d="M22 2L26 9L16 9L22 2Z" fill="url(#b-top)"/>
+                                            <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#ffffff" fill-opacity="0.8"/>
+                                            <path d="M6 9L16 9L16 26L6 9Z" fill="url(#b-mid)"/>
+                                            <path d="M26 9L16 26L16 9L26 9Z" fill="url(#b-bot)"/>
+                                            <path d="M2 9L6 9L16 26L2 9Z" fill="url(#b-bot)" fill-opacity="0.7"/>
+                                            <path d="M30 9L26 9L16 26L30 9Z" fill="url(#b-mid)" fill-opacity="0.7"/>
+                                            <path d="M2 9L10 2L6 9L2 9Z" fill="url(#b-mid)"/>
+                                            <path d="M30 9L26 9L22 2L30 9Z" fill="url(#b-bot)"/>
+                                        </svg>
+                                    </div>
+                                    <div class="crystal-label">Голубые кристаллы</div>
+                                    <div class="crystal-count count-blue" id="market-cr-blue">0</div>
+                                </div>
+                                <!-- Красные кристаллы -->
+                                <div class="market-crystal-card card-red">
+                                    <div class="crystal-icon-container">
+                                        <svg viewBox="0 0 32 28">
+                                            <defs>
+                                                <linearGradient id="r-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.7"/><stop offset="100%" stop-color="#ff5252"/></linearGradient>
+                                                <linearGradient id="r-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e94560"/><stop offset="100%" stop-color="#d32f2f"/></linearGradient>
+                                                <linearGradient id="r-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d32f2f"/><stop offset="100%" stop-color="#b71c1c"/></linearGradient>
+                                            </defs>
+                                            <path d="M10 2L16 9L6 9L10 2Z" fill="url(#r-top)"/>
+                                            <path d="M22 2L26 9L16 9L22 2Z" fill="url(#r-top)"/>
+                                            <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#ffffff" fill-opacity="0.85"/>
+                                            <path d="M6 9L16 9L16 26L6 9Z" fill="url(#r-mid)"/>
+                                            <path d="M26 9L16 26L16 9L26 9Z" fill="url(#r-bot)"/>
+                                            <path d="M2 9L6 9L16 26L2 9Z" fill="url(#r-bot)" fill-opacity="0.7"/>
+                                            <path d="M30 9L26 9L16 26L30 9Z" fill="url(#r-mid)" fill-opacity="0.7"/>
+                                            <path d="M2 9L10 2L6 9L2 9Z" fill="url(#r-mid)"/>
+                                            <path d="M30 9L26 9L22 2L30 9Z" fill="url(#r-bot)"/>
+                                        </svg>
+                                    </div>
+                                    <div class="crystal-label">Красные кристаллы</div>
+                                    <div class="crystal-count count-red" id="market-cr-red">0</div>
+                                </div>
+                                <!-- Баланс денег -->
+                                <div class="market-crystal-card card-money">
+                                    <div class="crystal-icon-container money-emoji-box" style="display:flex; align-items:center; justify-content:center;">
+                                        <span style="font-size:36px; text-shadow: 0 0 15px #a855f7;">💵</span>
+                                    </div>
+                                    <div class="crystal-label">Баланс денег</div>
+                                    <div class="crystal-count count-money" id="market-money">0 ₽</div>
+                                </div>
                             </div>
-                            <!-- Зеленые кристаллы -->
-                            <div class="market-crystal-card card-green">
-                                <div class="crystal-icon-container">
-                                    <svg viewBox="0 0 32 28" xmlns="http://w3.org">
-                                        <defs>
-                                            <linearGradient id="g-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0.6"/><stop offset="100%" stop-color="#00e676"/></linearGradient>
-                                            <linearGradient id="g-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00cc66"/><stop offset="100%" stop-color="#00c853"/></linearGradient>
-                                            <linearGradient id="g-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00c853"/><stop offset="100%" stop-color="#00a142"/></linearGradient>
-                                        </defs>
-                                        <path d="M10 2L16 9L6 9L10 2Z" fill="url(#g-top)"/>
-                                        <path d="M22 2L26 9L16 9L22 2Z" fill="url(#g-top)"/>
-                                        <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#fff" fill-opacity="0.8"/>
-                                        <path d="M6 9L16 9L16 26L6 9Z" fill="url(#g-mid)"/>
-                                        <path d="M26 9L16 26L16 9L26 9Z" fill="url(#g-bot)"/>
-                                        <path d="M2 9L6 9L16 26L2 9Z" fill="url(#g-bot)" fill-opacity="0.7"/>
-                                        <path d="M30 9L26 9L16 26L30 9Z" fill="url(#g-mid)" fill-opacity="0.7"/>
-                                        <path d="M2 9L10 2L6 9L2 9Z" fill="url(#y-mid)"/>
-                                        <path d="M30 9L26 9L22 2L30 9Z" fill="url(#g-bot)"/>
-                                    </svg>
-                                </div>
-                                <div class="crystal-label">Зеленые кристаллы</div>
-                                <div class="crystal-count count-green" id="market-cr-green">0</div>
-                            </div>
-                            <!-- Голубые кристаллы -->
-                            <div class="market-crystal-card card-blue">
-                                <div class="crystal-icon-container">
-                                    <svg viewBox="0 0 32 28" xmlns="http://w3.org">
-                                        <defs>
-                                            <linearGradient id="b-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0.6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
-                                            <linearGradient id="b-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0891b2"/></linearGradient>
-                                            <linearGradient id="b-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0891b2"/><stop offset="100%" stop-color="#0f766e"/></linearGradient>
-                                        </defs>
-                                        <path d="M10 2L16 9L6 9L10 2Z" fill="url(#b-top)"/>
-                                        <path d="M22 2L26 9L16 9L22 2Z" fill="url(#b-top)"/>
-                                        <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#fff" fill-opacity="0.8"/>
-                                        <path d="M6 9L16 9L16 26L6 9Z" fill="url(#b-mid)"/>
-                                        <path d="M26 9L16 26L16 9L26 9Z" fill="url(#b-bot)"/>
-                                        <path d="M2 9L6 9L16 26L2 9Z" fill="url(#b-bot)" fill-opacity="0.7"/>
-                                        <path d="M30 9L26 9L16 26L30 9Z" fill="url(#b-mid)" fill-opacity="0.7"/>
-                                        <path d="M2 9L10 2L6 9L2 9Z" fill="url(#b-mid)"/>
-                                        <path d="M30 9L26 9L22 2L30 9Z" fill="url(#b-bot)"/>
-                                    </svg>
-                                </div>
-                                <div class="crystal-label">Голубые кристаллы</div>
-                                <div class="crystal-count count-blue" id="market-cr-blue">0</div>
-                            </div>
-                            <!-- Красные кристаллы -->
-                            <div class="market-crystal-card card-red">
-                                <div class="crystal-icon-container">
-                                    <svg viewBox="0 0 32 28" xmlns="http://w3.org">
-                                        <defs>
-                                            <linearGradient id="r-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0.7"/><stop offset="100%" stop-color="#ff5252"/></linearGradient>
-                                            <linearGradient id="r-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e94560"/><stop offset="100%" stop-color="#d32f2f"/></linearGradient>
-                                            <linearGradient id="r-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d32f2f"/><stop offset="100%" stop-color="#b71c1c"/></linearGradient>
-                                        </defs>
-                                        <path d="M10 2L16 9L6 9L10 2Z" fill="url(#r-top)"/>
-                                        <path d="M22 2L26 9L16 9L22 2Z" fill="url(#r-top)"/>
-                                        <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#fff" fill-opacity="0.85"/>
-                                        <path d="M6 9L16 9L16 26L6 9Z" fill="url(#r-mid)"/>
-                                        <path d="M26 9L16 26L16 9L26 9Z" fill="url(#r-bot)"/>
-                                        <path d="M2 9L6 9L16 26L2 9Z" fill="url(#r-bot)" fill-opacity="0.7"/>
-                                        <path d="M30 9L26 9L16 26L30 9Z" fill="url(#r-mid)" fill-opacity="0.7"/>
-                                        <path d="M2 9L10 2L6 9L2 9Z" fill="url(#r-mid)"/>
-                                        <path d="M30 9L26 9L22 2L30 9Z" fill="url(#r-bot)"/>
-                                    </svg>
-                                </div>
-                                <div class="crystal-label">Красные кристаллы</div>
-                                <div class="crystal-count count-red" id="market-cr-red">0</div>
-                            </div>
-                            <!-- Баланс денег -->
-                            <div class="market-crystal-card card-money">
-                                <div class="crystal-icon-container" style="display:flex; align-items:center; justify-content:center;">
-                                    <span style="font-size:36px; text-shadow: 0 0 15px #a855f7;">💵</span>
-                                </div>
-                                <div class="crystal-label">Баланс денег</div>
-                                <div class="crystal-count count-money" id="market-money">0 ₽</div>
+                        </div>
+                        <!-- ВКЛАДКА 2: ИСТОРИЯ СДЕЛОК -->
+                        <div id="market-tab-history" class="market-tab-content">
+                            <h3 class="theme-h3-text" style="color:#ffffff; margin-bottom:10px;">История вывода средств</h3>
+                            <div class="table-container" style="margin-top: 15px;">
+                                <table class="exam-table">
+                                    <thead>
+                                        <tr><th>Дата заявки</th><th>Сумма вывода</th><th>Статус операции</th></tr>
+                                    </thead>
+                                    <tbody id="market-table-body"></tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-
-                    <!-- ВКЛАДКА 2: ИСТОРИЯ СДЕЛОК -->
-                    <div id="market-tab-history" class="market-tab-content">
-                        <h3 style="color:#ffffff; margin-bottom:10px;">История вывода средств</h3>
-                        <div class="table-container" style="margin-top: 15px;">
-                            <table class="exam-table">
-                                <thead>
-                                    <tr><th>Дата заявки</th><th>Сумма вывода</th><th>Статус операции</th></tr>
-                                </thead>
-                                <tbody id="market-table-body"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div> <!-- Конец .market-inner-container -->
+                </div> <!-- Конец .market-layout -->
             </div>
         </div>
-        <!-- СТРАНИЦА 6: БЛАГОТВОРИТЕЛЬНОСТЬ -->
+        <!-- СТРАНИЦА 4: БЛАГОТВОРИТЕЛЬНОСТЬ -->
         <div id="charity" class="page">
             <div class="charity-layout">
                 <!-- Блок фильтрации -->
@@ -1071,7 +1502,7 @@
                     </div>
                 </section>
                 
-                <!-- Контейнер для вывода отфильтрованных карточек -->
+                <!-- Контейнер для вывода карточек -->
                 <main class="charity-list" id="cont"></main>
             </div>
         </div>
@@ -1087,18 +1518,30 @@
         </div>
     </div>
 
+    <!-- МОДАЛЬНОЕ ОКНО ПРОСМОТРА ИСТОРИЙ -->
+    <div id="storyModal" class="story-modal">
+        <div id="storyContent" class="story-content">
+            <div class="story-header">
+                <div class="progress-container">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+                <span class="close-btn" onclick="closeStory()">&times;</span>
+            </div>
+            <div id="fullStoryText" class="full-story-text"></div>
+        </div>
+    </div>
     <!-- ПОДВАЛ САЙТА (FOOTER) -->
     <footer>
         <div class="footer-container">
             <!-- Логотипы платежных систем -->
             <div class="footer-payments">
-                <span class="payment-logo" style="color: #fff; font-size: 20px;">VISA</span>
-                <span class="payment-logo" style="color: #94a3b8; font-size: 13px; border: 1px solid #334155; padding: 2px 6px; border-radius: 4px;">VISA SECURE</span>
-                <span class="payment-logo" style="color: #94a3b8; font-size: 11px; border: 1px solid #334155; padding: 2px 6px; border-radius: 4px; line-height: 1.1; text-align: left; display: inline-block;">ID Check<br><span style="font-size: 8px; color: #64748b;">белкарт интернет пароль</span></span>
-                <span class="payment-logo" style="color: #fff; font-style: italic; font-size: 15px;">webpay</span>
-                <span class="payment-logo" style="color: #fff; font-weight: 300; font-size: 20px;">ерип</span>
-                <span class="payment-logo" style="color: #fff; font-size: 16px;">белкарт</span>
-                <span class="payment-logo" style="color: #fff; font-size: 16px; letter-spacing: -0.5px;">МТБанк</span>
+                <span class="payment-logo theme-logo-text" style="color: #ffffff; font-size: 20px;">VISA</span>
+                <span class="payment-logo theme-border-logo" style="color: #94a3b8; font-size: 13px; border: 1px solid #334155; padding: 2px 6px; border-radius: 4px;">VISA SECURE</span>
+                <span class="payment-logo theme-border-logo" style="color: #94a3b8; font-size: 11px; border: 1px solid #334155; padding: 2px 6px; border-radius: 4px; line-height: 1.1; text-align: left; display: inline-block;">ID Check<br><span style="font-size: 8px; color: #64748b;">белкарт интернет пароль</span></span>
+                <span class="payment-logo theme-logo-text" style="color: #ffffff; font-style: italic; font-size: 15px;">webpay</span>
+                <span class="payment-logo theme-logo-text" style="color: #ffffff; font-weight: 300; font-size: 20px;">ерип</span>
+                <span class="payment-logo theme-logo-text" style="color: #ffffff; font-size: 16px;">белкарт</span>
+                <span class="payment-logo theme-logo-text" style="color: #ffffff; font-size: 16px; letter-spacing: -0.5px;">МТБанк</span>
             </div>
             <!-- Сетка с контентом -->
             <div class="footer-grid">
@@ -1118,7 +1561,7 @@
                     <h4>Платформа</h4>
                     <ul>
                         <li><a href="#" onclick="openPage('home')">Главная</a></li>
-                        <li><a href="#" onclick="openPage('gdz')">Турниры / ГДЗ</a></li>
+                        <li><a href="#" onclick="openPage('charity')">Благотворительность</a></li>
                     </ul>
                 </div>
                 <!-- Колонка Поддержка -->
@@ -1141,9 +1584,10 @@
             </div>
         </div>
     </footer>
+
     <!-- ИНТЕРАКТИВНЫЙ СКРИПТ ПЛАТФОРМЫ M JUMP -->
     <script>
-        // БАЗА ДАННЫХ: Редактируйте кристаллы, деньги и статусы вывода в коде (из частей 17-18)
+        // БАЗА ДАННЫХ: Кристаллы, деньги и статусы вывода
         const STUDENT_DATA = {
             "user111": {
                 name: "Иванов Иван (9 «А»)",
@@ -1183,8 +1627,7 @@
             }
         };
         let currentPassword = null;
-
-        // Функция проверки пароля (из части 19)
+        // Функция проверки пароля
         function checkPassword(buttonElement) {
             const containerBox = buttonElement.parentElement;
             const passwordInput = containerBox.querySelector('.student-password-input').value.trim();
@@ -1199,7 +1642,7 @@
             }
         }
 
-        // Обновление всех данных на защищенных экранах (из частей 19-20)
+        // Обновление всех данных на защищенных экранах
         function refreshSecureScreens() {
             if (!currentPassword || !STUDENT_DATA[currentPassword]) return;
             const student = STUDENT_DATA[currentPassword];
@@ -1249,7 +1692,7 @@
                 });
             }
         }
-        // Выход из аккаунта (из частей 19-20)
+        // Выход из аккаунта
         function logoutStudent() {
             currentPassword = null;
             document.querySelectorAll('.student-password-input').forEach(i => i.value = '');
@@ -1258,18 +1701,18 @@
             openMarketTab('balance');
         }
 
-        // Переключение внутренних вкладок Маркета (из части 21)
+        // Переключение внутренних вкладок Маркета
         function openMarketTab(tabId) {
             document.querySelectorAll('.market-tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.market-nav button').forEach(b => b.classList.remove('active'));
             
             const targetContent = document.getElementById('market-tab-' + tabId);
             const targetBtn = document.getElementById('tab-btn-' + tabId);
-            
             if (targetContent) targetContent.classList.add('active');
             if (targetBtn) targetBtn.classList.add('active');
         }
-        // Поддержка кнопки Enter для инпутов авторизации (из части 21)
+
+        // Поддержка кнопки Enter для инпутов авторизации
         document.addEventListener('keypress', function (e) {
             if (e.key === 'Enter' && e.target.classList.contains('student-password-input')) {
                 const btn = e.target.nextElementSibling;
@@ -1277,7 +1720,7 @@
             }
         });
 
-        // Переключение основных разделов (страниц) сайта (из части 21)
+        // Переключение основных разделов (страниц) сайта
         function openPage(pageId) {
             document.getElementById('main-nav').classList.remove('mobile-open');
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1293,30 +1736,30 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Кнопка из трех полосок — теперь работает идеально! (из части 21)
+        // Кнопка мобильного меню
         function toggleMenu() {
             document.getElementById('main-nav').classList.toggle('mobile-open');
         }
 
-        // ЛОГИКА МОДАЛЬНОГО ОКНА ВЫВОДА СРЕДСТВ — Исправлено под тач-скрины (из части 21)
+        // ЛОГИКА МОДАЛЬНОГО ОКНА ВЫВОДА СРЕДСТВ
         const overlay = document.getElementById('modalOverlay');
         const openBtn = document.getElementById('triggerWithdraw');
-        const closeBtn = document.getElementById('closeModal');
+        const closeModalElement = document.getElementById('closeModal');
         function handleWithdrawOpen() { if (overlay) overlay.style.display = 'flex'; }
         function handleWithdrawClose() { if (overlay) overlay.style.display = 'none'; }
         if (openBtn) {
             openBtn.addEventListener('click', handleWithdrawOpen);
             openBtn.addEventListener('touchstart', handleWithdrawOpen, {passive: true});
         }
-        if (closeBtn) {
-            closeBtn.addEventListener('click', handleWithdrawClose);
-            closeBtn.addEventListener('touchstart', handleWithdrawClose, {passive: true});
+        if (closeModalElement) {
+            closeModalElement.addEventListener('click', handleWithdrawClose);
+            closeModalElement.addEventListener('touchstart', handleWithdrawClose, {passive: true});
         }
         if (overlay) {
             overlay.addEventListener('click', (e) => { if (e.target === overlay) handleWithdrawClose(); });
         }
 
-        // ЛОГИКА СТРАНИЦЫ БЛАГОТВОРИТЕЛЬНОСТИ (из часть 22)
+        // ЛОГИКА СТРАНИЦЫ БЛАГОТВОРИТЕЛЬНОСТИ
         const charityDb = [
             { name: "Подари надежду", cat: "people", city: "msk", tag: "для людей", tCls: "blue-tag", adr: "г. Москва, ул. Ленина, д. 10", min: 100, max: 1000, logHTML: '<div class="charity-logo logo-hope"></div>' },
             { name: "Линия жизни", cat: "people", city: "spb", tag: "для людей", tCls: "blue-tag", adr: "г. Санкт-Петербург, Невский пр-т, д. 12", min: 300, max: 3000, logHTML: '<div class="charity-logo logo-life">?</div>' },
@@ -1332,7 +1775,6 @@
         
         let currentCat = 'people';
         const geoSvg = `<svg class="charity-geo-marker" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`;
-        
         function renderCharity() {
             if (!cont) return;
             cont.innerHTML = '';
@@ -1363,7 +1805,6 @@
             });
         }
 
-        // Функции-обработчики категорий с мгновенным откликом на смартфонах
         function setPeopleCat() { currentCat = 'people'; if(tPeo){tPeo.classList.add('act');} if(tAni){tAni.classList.remove('act');} renderCharity(); }
         function setAnimalsCat() { currentCat = 'animals'; if(tAni){tAni.classList.add('act');} if(tPeo){tPeo.classList.remove('act');} renderCharity(); }
         if (tPeo && tAni) {
@@ -1375,6 +1816,90 @@
         [cf, minI, maxI].forEach(el => {
             if (el) el.addEventListener('input', renderCharity);
         });
+
+        // ЛОГИКА МОДАЛЬНОГО ОКНА ИСТОРИЙ
+        let storyTimeout;
+        function openStory(imgUrl, text) {
+            const modal = document.getElementById('storyModal');
+            const content = document.getElementById('storyContent');
+            const storyText = document.getElementById('fullStoryText');
+            const progressBar = document.getElementById('progressBar');
+            content.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('${imgUrl}')`;
+            storyText.innerText = text;
+            modal.style.display = 'flex';
+            progressBar.classList.remove('active');
+            void progressBar.offsetWidth; 
+            progressBar.classList.add('active');
+            clearTimeout(storyTimeout);
+            storyTimeout = setTimeout(() => { closeStory(); }, 5000);
+        }
+
+        function closeStory() {
+            const modal = document.getElementById('storyModal');
+            const progressBar = document.getElementById('progressBar');
+            modal.style.display = 'none';
+            progressBar.classList.remove('active');
+            clearTimeout(storyTimeout);
+        }
+
+        // ТЕМЫ ОФОРМЛЕНИЯ (СОХРАНЕНИЕ И ПЕРЕКЛЮЧЕНИЕ)
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'light') {
+            htmlElement.classList.add('light-theme');
+            if (themeToggleBtn) themeToggleBtn.textContent = '☼';
+        } else {
+            if (themeToggleBtn) themeToggleBtn.textContent = '☾';
+        }
+
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', () => {
+                if (htmlElement.classList.contains('light-theme')) {
+                    htmlElement.classList.remove('light-theme');
+                    themeToggleBtn.textContent = '☾';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    htmlElement.classList.add('light-theme');
+                    themeToggleBtn.textContent = '☼';
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+
+        // ГЕНЕРАЦИЯ ОРНАМЕНТА ДЛЯ СВЕТЛОЙ ТЕМЫ
+        const patternContainer = document.getElementById('pattern');
+        const templates = ['book', 'mic', 'diamond', 'board'];
+        const sizes = {
+            book: { w: 14, h: 16 },
+            mic: { w: 16, h: 20 },
+            diamond: { w: 22, h: 20 },
+            board: { w: 18, h: 18 }
+        };
+        const columns = 6; 
+        const rows = 8;
+
+        for (let c = 0; c < columns; c++) {
+            for (let r = 0; r < rows; r++) {
+                const randomType = templates[Math.floor(Math.random() * templates.length)];
+                const template = document.getElementById(randomType);
+                if (template && patternContainer) {
+                    const clone = template.content.cloneNode(true).querySelector('svg');
+                    const baseLeft = (c / columns) * 100 + (100 / columns / 2);
+                    const baseTop = (r / rows) * 100 + (100 / rows / 2);
+                    const randomX = baseLeft + (Math.random() * 12 - 6); 
+                    const randomY = baseTop + (Math.random() * 12 - 6);
+
+                    clone.style.left = `${randomX}%`;
+                    clone.style.top = `${randomY}%`;
+                    clone.style.width = `${sizes[randomType].w}px`;
+                    clone.style.height = `${sizes[randomType].h}px`;
+                    patternContainer.appendChild(clone);
+                }
+            }
+        }
     </script>
 </body>
 </html>
+
