@@ -1327,8 +1327,7 @@
             <button class="btn btn-main-blue" onclick="closeDocumentPage()">Вернуться на главную</button>
         </div>
     </div>
-
-    <script>
+       <script>
         /***********************************************************
          * БАЗА ДАННЫХ ПЛАТФОРМЫ (ВЫ ИЗМЕНЯЕТЕ ЭТИ ДАННЫЕ ВРУЧНУЮ)
          ***********************************************************/
@@ -1342,93 +1341,84 @@
             },
 
             // НАСТРОЙКА ПОЧАСОВОГО ИЗМЕНЕНИЯ ДОХОДНОСТИ (ПОРОГ)
-            // Алгоритм будет случайным образом прибавлять или отнимать значение в этих пределах
-            hourly_volatility_limit: 1.5, // Максимальное отклонение в процентах (например, +/- 1.5%)
+            hourly_volatility_limit: 1.5, // Максимальное отклонение в процентах
 
-            user_profile: {
-                firstName: "Алексей",
-                lastName: "Иванов",
-                login: "jump_client77",
-                email: "ivanov.invest@example.ru",
-                phone: "+7 (999) 123-45-67",
-                requisites: "СБП / Тинькофф (Карта *4321)",
-                balance: 275000,
-                active_plan: "Мастер"
-            },
-            bonuses: [
-                { id: 1, title: "Приветственный бонус", amount: "5 000 ₽", date: "12.03.2026" },
-                { id: 2, title: "Бонус за верификацию MAX", amount: "10 000 ₽", date: "15.03.2026" }
-            ],
-            balance_history: [
-                { type: "deposit", title: "Пополнение через СБП", amount: "+ 150 000 ₽", date: "14.03.2026, 11:20", status: "обработана" },
-                { type: "deposit", title: "Пополнение Банковской картой", amount: "+ 120 000 ₽", date: "18.03.2026, 16:45", status: "обработана" },
-                { type: "withdraw", title: "Запрос вывода средств на карту", amount: "- 15 000 ₽", date: "20.03.2026, 09:15", status: "обрабатывается" },
-                { type: "withdraw", title: "Запрос вывода на USDT кошелек", amount: "- 50 000 ₽", date: "22.03.2026, 14:02", status: "создана" }
-            ]
-
-              },
-            user_profile: {
-                firstName: "Макар",
-                lastName: "Дюпин",
-                login: "jump_client78",
-                email: "нет",
-                phone: "нет",
-                requisites: "нет",
-                balance: 50,
-                active_plan: "Активных нет"
-            },
-            bonuses: [
-                { id: 1, title: "Приветственный бонус", amount: "5 000 ₽", date: "12.03.2026" },
-               
-            ],
-            balance_history: [
-                
+            // МАССИВ ПОЛЬЗОВАТЕЛЕЙ ПЛАТФОРМЫ
+            users: [
+                {
+                    user_profile: {
+                        firstName: "Алексей",
+                        lastName: "Иванов",
+                        login: "jump_client77",
+                        email: "ivanov.invest@example.ru",
+                        phone: "+7 (999) 123-45-67",
+                        requisites: "СБП / Тинькофф (Карта *4321)",
+                        balance: 275000,
+                        active_plan: "Мастер"
+                    },
+                    bonuses: [
+                        { id: 1, title: "Приветственный бонус", amount: "5 000 ₽", date: "12.03.2026" },
+                        { id: 2, title: "Бонус за верификацию MAX", amount: "10 000 ₽", date: "15.03.2026" }
+                    ],
+                    balance_history: [
+                        { type: "deposit", title: "Пополнение через СБП", amount: "+ 150 000 ₽", date: "14.03.2026, 11:20", status: "обработана" },
+                        { type: "deposit", title: "Пополнение Банковской картой", amount: "+ 120 000 ₽", date: "18.03.2026, 16:45", status: "обработана" },
+                        { type: "withdraw", title: "Запрос вывода средств на карту", amount: "- 15 000 ₽", date: "20.03.2026, 09:15", status: "обрабатывается" },
+                        { type: "withdraw", title: "Запрос вывода на USDT кошелек", amount: "- 50 000 ₽", date: "22.03.2026, 14:02", status: "создана" }
+                    ]
+                },
+                {
+                    user_profile: {
+                        firstName: "Макар",
+                        lastName: "Дюпин",
+                        login: "jump_client78",
+                        email: "нет",
+                        phone: "нет",
+                        requisites: "нет",
+                        balance: 50,
+                        active_plan: "Активных нет"
+                    },
+                    bonuses: [
+                        { id: 1, title: "Приветственный бонус", amount: "5 000 ₽", date: "12.03.2026" }
+                    ],
+                    balance_history: []
+                }
             ]
         };
-        
+
+        // ГЛОБАЛЬНАЯ ПЕРЕМЕННАЯ: Хранит данные текущего авторизованного пользователя
+        let currentUser = PLATFORM_DATABASE.users[0];
+
         // Хранилище для динамически измененных процентов
         let LIVE_TARIFFS = { ...PLATFORM_DATABASE.tariffs_percentage };
 
         function contactSupport() {
             window.open('https://t.me', '_blank');
         }
+
         // Инициализация данных при загрузке страницы
         window.addEventListener('DOMContentLoaded', () => {
-            // Запускаем симуляцию ежечасного изменения доходности
             runHourlyVolatility();
-            
             renderProfileData();
             renderBonuses();
             renderHistory('all');
             calculateMainProfit();
-            
-            // Запуск циклического таймера обновления (раз в 1 час)
             setInterval(runHourlyVolatility, 3600000);
         });
 
-        // УМНЫЙ АЛГОРИТМ: Автоматическое изменение процентов каждый час
+        // АЛГОРИТМ: Автоматическое изменение процентов каждый час
         function runHourlyVolatility() {
             const baseRates = PLATFORM_DATABASE.tariffs_percentage;
             const limit = PLATFORM_DATABASE.hourly_volatility_limit;
             
             for (let key in baseRates) {
-                // Вычисляем случайное смещение в пределах заданного вами порога
-                // Например, если limit = 1.5, то смещение будет от -1.5 до +1.5
                 const change = (Math.random() * (limit * 2) - limit);
-                
-                // Формируем новую ставку, округляя до 2 знаков после запятой
                 let currentRate = baseRates[key] + change;
-                
-                // Защита: ставка не должна опускаться ниже 1%
                 if (currentRate < 1) currentRate = 1;
-                
                 LIVE_TARIFFS[key] = parseFloat(currentRate.toFixed(2));
             }
             
-            // Применяем новые проценты в интерфейс карточек
             applyLiveRates();
-            
-            // Пересчитываем микро-калькуляторы под новые измененные проценты
             calculateMiniProfit('standard');
             calculateMiniProfit('master');
             calculateMiniProfit('business');
@@ -1437,34 +1427,39 @@
 
         // Внедрение измененных процентных ставок в карточки
         function applyLiveRates() {
-            document.getElementById('pct-standard').innerText = LIVE_TARIFFS.standard + '%';
-            document.getElementById('pct-master').innerText = LIVE_TARIFFS.master + '%';
-            document.getElementById('pct-business').innerText = LIVE_TARIFFS.business + '%';
-            document.getElementById('pct-vip').innerText = LIVE_TARIFFS.vip + '%';
+            if (document.getElementById('pct-standard')) document.getElementById('pct-standard').innerText = LIVE_TARIFFS.standard + '%';
+            if (document.getElementById('pct-master')) document.getElementById('pct-master').innerText = LIVE_TARIFFS.master + '%';
+            if (document.getElementById('pct-business')) document.getElementById('pct-business').innerText = LIVE_TARIFFS.business + '%';
+            if (document.getElementById('pct-vip')) document.getElementById('pct-vip').innerText = LIVE_TARIFFS.vip + '%';
         }
-
-        // Вывод данных личного кабинета и баланса
+        // Вывод данных личного кабинета и баланса текущего пользователя
         function renderProfileData() {
-            const user = PLATFORM_DATABASE.user_profile;
-            document.getElementById('user-display-balance').innerText = user.balance.toLocaleString('ru-RU') + ' ₽';
-            document.getElementById('user-display-plan').innerText = user.active_plan || 'Не выбран';
+            const user = currentUser.user_profile;
+            if (document.getElementById('user-display-balance')) {
+                document.getElementById('user-display-balance').innerText = user.balance.toLocaleString('ru-RU') + ' ₽';
+            }
+            if (document.getElementById('user-display-plan')) {
+                document.getElementById('user-display-plan').innerText = user.active_plan || 'Не выбран';
+            }
             
-            document.getElementById('prof-name').innerText = `${user.firstName} ${user.lastName}`;
-            document.getElementById('prof-login').innerText = user.login;
-            document.getElementById('prof-email').innerText = user.email;
-            document.getElementById('prof-phone').innerText = user.phone;
-            document.getElementById('prof-requisites').innerText = user.requisites;
+            if (document.getElementById('prof-name')) document.getElementById('prof-name').innerText = `${user.firstName} ${user.lastName}`;
+            if (document.getElementById('prof-login')) document.getElementById('prof-login').innerText = user.login;
+            if (document.getElementById('prof-email')) document.getElementById('prof-email').innerText = user.email;
+            if (document.getElementById('prof-phone')) document.getElementById('prof-phone').innerText = user.phone;
+            if (document.getElementById('prof-requisites')) document.getElementById('prof-requisites').innerText = user.requisites;
         }
 
-        // Рендеринг персональных бонусов из БД
+        // Рендеринг персональных бонусов
         function renderBonuses() {
             const container = document.getElementById('bonuses-container');
+            if (!container) return;
+            
             container.innerHTML = '';
-            if (PLATFORM_DATABASE.bonuses.length === 0) {
+            if (!currentUser.bonuses || currentUser.bonuses.length === 0) {
                 container.innerHTML = '<p style="color:#64748b; text-align:center; padding:20px; font-weight:600;">У вас пока нет активных бонусов</p>';
                 return;
             }
-            PLATFORM_DATABASE.bonuses.forEach(b => {
+            currentUser.bonuses.forEach(b => {
                 container.innerHTML += `
                     <div class="history-item">
                         <div class="history-info">
@@ -1479,12 +1474,19 @@
             });
         }
 
-        // Рендеринг истории операций по фильтрам и трехцветным статусам
+        // Рендеринг истории операций
         function renderHistory(filterType) {
             const container = document.getElementById('history-items-container');
+            if (!container) return;
+            
             container.innerHTML = '';
             
-            const items = PLATFORM_DATABASE.balance_history.filter(item => {
+            if (!currentUser.balance_history || currentUser.balance_history.length === 0) {
+                container.innerHTML = '<p style="color:#64748b; text-align:center; padding:20px; font-weight:600;">Нет записей по выбранному фильтру</p>';
+                return;
+            }
+
+            const items = currentUser.balance_history.filter(item => {
                 if (filterType === 'all') return true;
                 return item.type === filterType;
             });
@@ -1523,16 +1525,23 @@
             });
         }
 
-        // Фильтрация истории баланса (Все / Пополнения / Выводы)
+        // Фильтрация истории баланса
         function applyHistoryFilter(type) {
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`filter-${type}`).classList.add('active');
+            const activeBtn = document.getElementById(`filter-${type}`);
+            if (activeBtn) activeBtn.classList.add('active');
             renderHistory(type);
         }
-        // Логика авторизации по логину из базы данных
+        // Логика динамической авторизации по логину
         function handleLogin() {
             const enteredLogin = document.getElementById('auth-username').value.trim();
-            if (enteredLogin === PLATFORM_DATABASE.user_profile.login) {
+            const foundUser = PLATFORM_DATABASE.users.find(user => user.user_profile.login === enteredLogin);
+
+            if (foundUser) {
+                currentUser = foundUser;
+                renderProfileData();
+                renderBonuses();
+                renderHistory('all');
                 navigateTo('dashboard-page');
                 switchDashboardTab('tariffs');
             } else {
@@ -1540,33 +1549,41 @@
             }
         }
 
-        // НОВАЯ ФУНКЦИЯ: Безопасный выход из системы (разлогин)
+        // Выход из системы
         function handleLogout() {
-            // Очищаем поле ввода логина для безопасности
-            document.getElementById('auth-username').value = '';
-            // Возвращаем пользователя на главную страницу до авторизации
+            if (document.getElementById('auth-username')) {
+                document.getElementById('auth-username').value = '';
+            }
             navigateTo('main-page');
         }
 
-        // Общий калькулятор доходности на главной странице
+        // Общий калькулятор доходности
         function calculateMainProfit() {
-            const amount = parseFloat(document.getElementById('main-calc-amount').value) || 0;
-            const period = parseInt(document.getElementById('main-calc-period').value) || 1;
-            // Расчет на базе текущей "живой" максимальной ставки VIP из алгоритма
+            const calcInput = document.getElementById('main-calc-amount');
+            const calcPeriod = document.getElementById('main-calc-period');
+            const calcResult = document.getElementById('main-calc-result');
+            if (!calcInput || !calcPeriod || !calcResult) return;
+
+            const amount = parseFloat(calcInput.value) || 0;
+            const period = parseInt(calcPeriod.value) || 1;
             const rate = LIVE_TARIFFS.vip / 100;
             const profit = amount * rate * period;
-            document.getElementById('main-calc-result').innerText = Math.round(profit).toLocaleString('ru-RU') + ' ₽';
+            calcResult.innerText = Math.round(profit).toLocaleString('ru-RU') + ' ₽';
         }
 
-        // Встроенные калькуляторы под каждый тарифный план (динамический расчет под живой процент)
+        // Встроенные калькуляторы тарифов
         function calculateMiniProfit(tariffKey) {
-            const inputVal = parseFloat(document.getElementById(`calc-in-${tariffKey}`).value) || 0;
+            const inputEl = document.getElementById(`calc-in-${tariffKey}`);
+            const outputEl = document.getElementById(`calc-out-${tariffKey}`);
+            if (!inputEl || !outputEl) return;
+
+            const inputVal = parseFloat(inputEl.value) || 0;
             const rate = LIVE_TARIFFS[tariffKey] / 100;
             const profit = inputVal * rate;
-            document.getElementById(`calc-out-${tariffKey}`).innerText = Math.round(profit).toLocaleString('ru-RU') + ' ₽';
+            outputEl.innerText = Math.round(profit).toLocaleString('ru-RU') + ' ₽';
         }
 
-        // Модальные триггеры для тарифов и финансовых вкладок
+        // Модальные триггеры
         function triggerPlanActivation(planName) {
             document.getElementById('modal-title-text').innerText = `Активация плана «${planName}»`;
             document.getElementById('modal-body-text').innerText = `Для открытия вклада по тарифу «${planName}» и фиксации процентной ставки необходимо получить подтверждение через службу верификации MAX в поддержке.`;
@@ -1580,10 +1597,10 @@
         }
 
         function closeModal() {
-            document.getElementById('action-modal').classList.remove('active');
+            const modal = document.getElementById('action-modal');
+            if (modal) modal.classList.remove('active');
         }
 
-        // Имитация открытия банковских историй (Госуслуги стиль)
         function openStory(id) {
             let message = "";
             if (id === 1) message = "M JUMP — это современная инвестиционная платформа, работающая в правовом поле цифровых финансовых активов.";
@@ -1593,68 +1610,78 @@
             alert(message);
         }
 
-        // УПРАВЛЕНИЕ МАРШРУТИЗАЦИЕЙ (Single Page Application)
+        // УПРАВЛЕНИЕ МАРШРУТИЗАЦИЕЙ ( Single Page Application )
         function navigateTo(pageId) {
             closeModal();
-            document.getElementById('hamburger-menu-wrapper').classList.remove('open');
+            if (document.getElementById('hamburger-menu-wrapper')) {
+                document.getElementById('hamburger-menu-wrapper').classList.remove('open');
+            }
             document.querySelectorAll('.doc-page').forEach(dp => dp.classList.remove('active'));
-            
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+            
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) targetPage.classList.add('active');
             window.scrollTo(0, 0);
         }
 
-        // Внутренние вкладки Личного кабинета
+        // Вкладки Личного кабинета
         function switchDashboardTab(tabKey) {
-            document.getElementById('hamburger-menu-wrapper').classList.remove('open');
+            if (document.getElementById('hamburger-menu-wrapper')) {
+                document.getElementById('hamburger-menu-wrapper').classList.remove('open');
+            }
             document.querySelectorAll('.dashboard-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
             
-            document.getElementById(`tab-${tabKey}`).classList.add('active');
+            const targetTab = document.getElementById(`tab-${tabKey}`);
+            if (targetTab) targetTab.classList.add('active');
             
             const menuItems = document.querySelectorAll('.menu-item');
             menuItems.forEach(item => {
-                if (item.getAttribute('onclick').includes(tabKey)) {
+                const onclickAttr = item.getAttribute('onclick');
+                if (onclickAttr && onclickAttr.includes(tabKey)) {
                     item.classList.add('active');
                 }
             });
 
             const balanceBlock = document.getElementById('global-balance-block');
-            if (tabKey === 'profile') {
-                balanceBlock.style.display = 'none';
-            } else {
-                balanceBlock.style.display = 'flex';
+            if (balanceBlock) {
+                if (tabKey === 'profile') {
+                    balanceBlock.style.display = 'none';
+                } else {
+                    balanceBlock.style.display = 'flex';
+                }
             }
             window.scrollTo(0, 0);
         }
 
-        // Управление видимостью меню гамбургера
         function toggleMenu() {
             const menu = document.getElementById('hamburger-menu-wrapper');
-            menu.classList.toggle('open');
+            if (menu) menu.classList.toggle('open');
         }
 
-        // Открытие изолированных правовых страниц в этой же SPA структуре
         function openDocumentPage(docKey) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.doc-page').forEach(dp => dp.classList.remove('active'));
-            document.getElementById(`page-doc-${docKey}`).classList.add('active');
+            const docPage = document.getElementById(`page-doc-${docKey}`);
+            if (docPage) docPage.classList.add('active');
             window.scrollTo(0, 0);
         }
 
+        // Закрытие правовых страниц
         function closeDocumentPage() {
             document.querySelectorAll('.doc-page').forEach(dp => dp.classList.remove('active'));
-            document.getElementById('main-page').classList.add('active');
+            if (document.getElementById('main-page')) {
+                document.getElementById('main-page').classList.add('active');
+            }
             window.scrollTo(0, 0);
         }
 
-        // Плавный скролл к якорям главной страницы
         function scrollAnchor(anchorId) {
             const element = document.getElementById(anchorId);
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth' });
             }
         }
-    </script>
+   </script>
 </body>
 </html>
