@@ -2,1904 +2,1640 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>M JUMP — Обучающая платформа</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=no">
+    <title>Инвестиционная Платформа JUMP</title>
     
-    <!-- Ссылка на SheetJS (исправленная и восстановленная) -->
-    <script src="https://jsdelivr.net"></script>
     <style>
-        /* ГЛОБАЛЬНЫЕ ТЕМНЫЕ СТИЛИ */
+        /* ГЛОБАЛЬНЫЙ СБРОС С СВЕРХ-ЯРКОЙ ПАЛИТРОЙ */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-font-smoothing: antialiased;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            text-decoration: none !important; /* Полное удаление синих полосок под текстом и ссылками */
         }
+
         body {
-            background-color: #0f172a;
-            color: #ffffff; /* Изменено на чисто белый для яркости в темной теме */
-            min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            position: relative;
-        }
-        /* Шапка сайта */
-        header {
-            background-color: #1e293b;
-            padding: 15px 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            position: relative;
-            z-index: 100;
-            border-bottom: 1px solid #334155;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-        /* Блок логотипа и переключателя темы */
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        /* Логотип M JUMP */
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 24px;
-        }
-        .logo-m {
-            background-color: #ffffff;
+            background-color: #f0f4f8;
             color: #0f172a;
-            width: 38px;
-            height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.5;
+            overflow-x: hidden;
+            width: 100%;
         }
-        .logo-jump {
-            background-color: #0066ff;
-            color: #ffffff;
-            padding: 4px 12px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
-        }
-        /* Переключатель темы (Символы вместо эмодзи) */
-        .theme-toggle-btn {
-            background: #334155;
-            border: 1px solid #475569;
-            color: #ffffff; /* Сделано ярче */
-            cursor: pointer;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            transition: all 0.3s ease;
-        }
-        .theme-toggle-btn:hover {
-            background: #475569;
-        }
-        /* Меню навигации */
-        nav#main-nav {
-            display: flex;
-            gap: 15px;
-        }
-        nav#main-nav button {
-            background: transparent;
-            border: 2px solid transparent;
-            color: #ffffff; /* Ярко-белые символы в темной теме */
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        nav#main-nav button svg {
-            width: 18px;
-            height: 18px;
-            stroke-width: 2;
-            fill: none;
-            transition: stroke 0.3s ease;
-        }
-        nav#main-nav button:hover, nav#main-nav button.active {
-            color: #ffffff;
-            background-color: #334155;
-        }
-        nav#main-nav button.active {
-            border-color: #0066ff;
-            box-shadow: 0 0 10px rgba(0, 102, 255, 0.2);
-        }
-        /* Кнопка-гамбургер */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-        }
-        .menu-toggle span {
-            display: block;
-            width: 30px;
-            height: 3px;
-            background-color: #ffffff;
-            border-radius: 2px;
-            transition: 0.3s;
-        }
-        /* МЕДИА-ЗАПРОСЫ ИСХОДНОГО МОБИЛЬНОГО МЕНЮ */
-        @media (max-width: 900px) {
-            nav#main-nav { 
-                display: none; 
-                flex-direction: column; 
-                position: absolute; 
-                top: 100%; 
-                right: 0;
-                background-color: #1e293b; 
-                width: 100%; 
-                padding: 20px; 
-                box-shadow: 0 10px 15px rgba(0,0,0,0.3); 
-                border-top: 1px solid #334155; 
-                gap: 10px;
-            }
-            nav#main-nav.mobile-open { 
-                display: flex; 
-            }
-            .menu-toggle { 
-                display: flex; 
-            }
-        }
-        /* Контейнер страниц */
+
         .container {
+            width: 100%;
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 0 auto;
             padding: 0 20px;
         }
+
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
         .page {
             display: none;
-            background: #1e293b;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-            border: 1px solid #334155;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            opacity: 0;
         }
         .page.active {
             display: block;
+            opacity: 1;
         }
-        h2 {
-            font-size: 28px;
-            margin-bottom: 15px;
+
+        /* КНОПКИ С УЛЬТРА-ЯРКИМИ ЦВЕТАМИ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        /* Сочный неоновый оранжевый для кнопки входа */
+        .btn-login-orange {
+            background-color: #ff5500;
             color: #ffffff;
-            transition: color 0.3s ease;
+            padding: 0 28px;
+            font-size: 15px;
+            height: 44px;
+            box-shadow: 0 6px 20px rgba(255, 85, 0, 0.4);
+            width: auto;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        p {
-            color: #ffffff; /* Повышена яркость для темной темы */
-            line-height: 1.6;
-            transition: color 0.3s ease;
+        .btn-login-orange:hover { 
+            background-color: #ff3c00; 
+            box-shadow: 0 8px 24px rgba(255, 60, 0, 0.5);
+            transform: translateY(-1px);
         }
-        /* АБСОЛЮТНО НЕЗАВИСИМЫЙ ВЕРХНИЙ БЛОК ИСТОРИЙ */
-        .global-stories-wrapper {
-            max-width: 1200px;
-            margin: 20px auto 0 auto;
-            padding: 0 20px;
+        .btn-login-orange:active { transform: scale(0.98); }
+
+        /* Электрический синий */
+        .btn-main-blue {
+            background-color: #0052ff;
+            color: #ffffff;
+            padding: 16px 32px;
+            font-size: 16px;
+            height: 54px;
+            box-shadow: 0 6px 20px rgba(0, 82, 255, 0.3);
+        }
+        .btn-main-blue:hover { background-color: #0044d4; box-shadow: 0 8px 24px rgba(0, 68, 212, 0.4); }
+
+        .btn-outline-white {
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            padding: 14px 30px;
+            font-size: 16px;
+            height: 54px;
+        }
+        .btn-outline-white:hover {
+            border-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* КНОПКА ВЫХОДА ИЗ ЛК */
+        .btn-logout {
+            background-color: #fee2e2;
+            color: #dc2626;
+            margin-top: auto;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .btn-logout:hover { background-color: #fca5a5; }
+
+        /* ИСПРАВЛЕННАЯ ШАПКА */
+        .main-header {
+            background-color: #ffffff;
+            border-bottom: 2px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: 75px;
             width: 100%;
         }
-        .stories-container {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding: 10px 0;
-            max-width: 100%;
-            scrollbar-width: none;
-        }
-        .stories-container::-webkit-scrollbar {
-            display: none;
-        }
-        .story-card {
-            flex: 0 0 auto;
-            width: 105px;
-            height: 115px;
-            border: 2.5px solid #0066ff;
-            border-radius: 24px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            box-sizing: border-box;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            transition: transform 0.2s ease, border-color 0.3s ease;
-        }
-        .story-card:active {
-            transform: scale(0.95);
-        }
-        .story-text {
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            right: 12px;
-            color: #ffffff;
-            font-size: 11px;
-            font-weight: 600;
-            line-height: 1.2;
-            word-wrap: break-word;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
-            transition: color 0.3s ease, background 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
-        }
-        @media (min-width: 768px) {
-            .story-card {
-                width: 160px;
-                height: 175px;
-                border-radius: 32px;
-            }
-            .story-text {
-                font-size: 15px;
-                bottom: 16px;
-                left: 16px;
-                right: 16px;
-            }
-            .story-card:hover {
-                transform: translateY(-4px);
-            }
-        }
-        /* ПОЛНОЭКРАННЫЙ ПЛЕЕР ИСТОРИЙ */
-        .story-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: #000000;
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-        }
-        .story-content {
-            position: relative;
-            width: 100%; height: 100%;
-            max-width: 450px;
-            max-height: 850px;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        @media (min-width: 768px) {
-            .story-content { border-radius: 16px; height: 90vh; }
-        }
-        .story-header {
-            position: absolute;
-            top: 20px; left: 20px; right: 20px;
+        .header-flex {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            height: 100%;
             gap: 15px;
         }
-        .progress-container {
-            flex-grow: 1;
-            height: 4px;
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .progress-bar { height: 100%; width: 0%; background-color: #ffffff; border-radius: 2px; }
-        .progress-bar.active { animation: playStory 5s linear forwards; }
-        @keyframes playStory { from { width: 0%; } to { width: 100%; } }
-        .close-btn { color: #ffffff; font-size: 28px; font-weight: 300; cursor: pointer; line-height: 1; user-select: none; }
-        .full-story-text { color: #ffffff; font-size: 24px; font-weight: 700; margin-bottom: 40px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); line-height: 1.3; }
-        /* СТИЛИ АВТОРИЗАЦИИ */
-        .auth-box {
-            max-width: 400px;
-            margin: 40px auto;
-            padding: 30px;
-            background: #273549;
-            border-radius: 12px;
-            border: 1px solid #3e526a;
-            text-align: center;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-        .auth-box h3 { margin-bottom: 15px; color: #ffffff; transition: color 0.3s ease; }
-        .auth-input {
-            width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #3e526a;
-            background: #1e293b; color: #ffffff; font-size: 16px; text-align: center;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-        }
-        .auth-input:focus { border-color: #0066ff; outline: none; }
-        .auth-btn { width: 100%; padding: 12px; background: #0066ff; color: #ffffff; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .auth-btn:hover { background: #0052cc; }
-        .auth-error { color: #ef4444; font-size: 14px; margin-top: 10px; display: none; }
-        .secure-content { display: none; }
-        .student-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #334155; transition: border-color 0.3s ease; }
-        .logout-btn { padding: 8px 16px; background: #334155; color: #ffffff; border: 1px solid #3e526a; border-radius: 6px; cursor: pointer; font-size: 14px; transition: all 0.3s ease; }
-        .logout-btn:hover { background: #ef4444; color: #ffffff; border-color: #ef4444; }
-        /* ТАБЛИЦЫ РЕЗУЛЬТАТОВ И ИСТОРИИ */
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 20px;
-            border-radius: 8px;
-            border: 1px solid #3e526a;
-            transition: border-color 0.3s ease;
-        }
-        .exam-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 15px;
-            background: #1e293b;
-            transition: background-color 0.3s ease;
-        }
-        .exam-table th {
-            background-color: #0066ff;
-            color: #ffffff;
-            padding: 14px;
-            font-weight: bold;
-            border: 1px solid #3e526a;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-            transition: border-color 0.3s ease;
-        }
-        .exam-table td {
-            padding: 14px;
-            border: 1px solid #3e526a;
-            color: #ffffff; /* Повышена яркость до чисто белого */
-            transition: border-color 0.3s ease, color 0.3s ease;
-        }
-        .exam-table tr:nth-child(even) {
-            background-color: #273549;
-        }
-        .exam-table tr:hover {
-            background-color: #334155;
-        }
-        .badge {
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-block;
-        }
-        .badge.success {
-            background: rgba(34, 197, 94, 0.2);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.4);
-        }
-        .badge.fail {
-            background: rgba(239, 68, 68, 0.2);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.4);
-        }
-        .status-red { background: rgba(239, 68, 68, 0.2) !important; color: #f87171 !important; border: 1px solid rgba(239, 68, 68, 0.4) !important; }
-        .status-orange { background: rgba(249, 115, 22, 0.2) !important; color: #fb923c !important; border: 1px solid rgba(249, 115, 22, 0.4) !important; }
-        .status-green { background: rgba(34, 197, 94, 0.2) !important; color: #4ade80 !important; border: 1px solid rgba(34, 197, 94, 0.4) !important; }
-        /* МОДЕРНИЗИРОВАННЫЕ СКРУГЛЕННЫЕ СЕЛЕКТЫ */
-        .charity-select { 
-            width: 100%; 
-            background-color: rgba(30, 41, 59, 0.7); 
-            border: 1px solid rgba(62, 82, 106, 0.8); 
-            color: #ffffff; 
-            padding: 15px; 
-            border-radius: 14px; 
-            font-size: 16px; 
-            appearance: none; 
-            outline: none;
-            backdrop-filter: blur(4px);
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            cursor: pointer;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-        .charity-select:focus {
-            border-color: #0066ff;
-            box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.25);
-        }
-        .charity-select option {
-            background-color: #1e293b;
-            color: #ffffff;
-            padding: 10px;
-        }
-        /* ДВУХКОЛОНОЧНЫЙ МАКЕТ МАРКЕТА (ДЛЯ ПК) */
-        .market-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 100%;
-            margin-top: 15px;
-        }
-        @media (min-width: 900px) {
-            .market-layout {
-                display: grid;
-                grid-template-columns: 320px 1fr;
-                align-items: start;
-            }
-        }
-        .market-inner-container {
-            width: 100%;
-            background-color: #1a2232;
-            border-radius: 24px;
-            padding: 24px;
-            box-sizing: border-box;
-            border: 1px solid #2b3952;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-        .market-header-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        .shop-icon-white {
-            width: 28px;
-            height: 28px;
-            flex-shrink: 0;
-            margin-top: 4px;
-        }
-        .shop-icon-white svg {
-            width: 100%;
-            height: 100%;
-        }
-        .market-inner-container h1 { 
-            font-size: 26px; 
-            font-weight: 700; 
-            margin: 0; 
-            line-height: 1.2;
-            color: #ffffff;
-            transition: color 0.3s ease;
-        }
-        .market-subtitle { 
-            font-size: 14px; 
-            color: #ffffff; /* Повышена яркость для темной темы */
-            margin-bottom: 16px; 
-            line-height: 1.4; 
-            transition: color 0.3s ease;
-        }
-        .market-nav { 
-            display: flex;
-            flex-direction: column;
-            gap: 12px; 
-            margin-bottom: 16px; 
-        }
-        .market-nav button { 
-            background-color: #222d41; 
-            border: 1px solid #2b3952; 
-            color: #ffffff; /* Белые символы в темной теме */
-            padding: 12px; 
-            border-radius: 12px; 
-            text-align: center; 
-            font-size: 14px; 
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .market-nav button:hover, .market-nav button.active { 
-            background-color: #0066ff; 
-            border-color: #0066ff; 
-            color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
-        }
-        .withdraw-tab-btn {
-            width: 100%; 
-            background-color: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.7); /* Более заметная граница */
-            color: #ffffff; /* Чисто белый */
-            padding: 14px; 
-            border-radius: 12px; 
-            font-size: 15px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            margin-bottom: 10px;
-            transition: all 0.25s ease-in-out;
-        }
-        .withdraw-tab-btn:hover {
-            background-color: rgba(255, 255, 255, 0.12);
-            border-color: #ffffff;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(255,255,255,0.05);
-        }
-        .crystals-list { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 16px; 
-        }
-        .market-crystal-card { 
-            border-radius: 20px; 
-            padding: 26px 20px; 
-            text-align: center; 
-            transition: transform 0.2s ease, background-color 0.3s ease, border-color 0.3s ease; 
-        }
-        .market-crystal-card:hover { 
-            transform: translateY(-2px); 
-        }
-        .card-yellow { background: linear-gradient(135deg, #1a2232 40%, rgba(255, 215, 0, 0.06) 100%); border: 1px solid rgba(255, 215, 0, 0.5); box-shadow: 0 8px 24px rgba(255, 215, 0, 0.03); }
-        .card-green { background: linear-gradient(135deg, #1a2232 40%, rgba(0, 204, 102, 0.06) 100%); border: 1px solid rgba(0, 204, 102, 0.5); box-shadow: 0 8px 24px rgba(0, 204, 102, 0.03); }
-        .card-blue { background: linear-gradient(135deg, #1a2232 40%, rgba(6, 182, 212, 0.06) 100%); border: 1px solid rgba(6, 182, 212, 0.5); box-shadow: 0 8px 24px rgba(6, 182, 212, 0.03); }
-        .card-red { background: linear-gradient(135deg, #1a2232 40%, rgba(233, 69, 96, 0.07) 100%); border: 1px solid rgba(233, 69, 96, 0.5); box-shadow: 0 8px 24px rgba(233, 69, 96, 0.04); }
-        .card-money { background: linear-gradient(135deg, #1a2232 40%, rgba(168, 85, 247, 0.07) 100%); border: 1px solid rgba(168, 85, 247, 0.5); box-shadow: 0 8px 24px rgba(168, 85, 247, 0.04); }
-        .crystal-icon-container { 
-            width: 55px; 
-            height: 50px; 
-            margin: 0 auto 16px auto; 
-            filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4)); 
-        }
-        .crystal-icon-container svg { 
-            width: 100%; 
-            height: 100%; 
-        }
-        .crystal-label { 
-            font-size: 11px; 
-            font-weight: 800; 
-            letter-spacing: 1.5px; 
-            text-transform: uppercase; 
-            color: #ffffff; /* Белые символы в темной теме */
-            margin-bottom: 8px; 
-        }
-        .crystal-count { 
-            font-size: 34px; 
-            font-weight: 900; 
-        }
-        .count-yellow { color: #ffd700; text-shadow: 0 4px 12px rgba(255,215,0,0.25); }
-        .count-green { color: #00cc66; text-shadow: 0 4px 12px rgba(0,204,102,0.25); }
-        .count-blue { color: #06b6d4; text-shadow: 0 4px 12px rgba(6,182,212,0.25); }
-        .count-red { color: #e94560; text-shadow: 0 4px 12px rgba(233,69,96,0.3); }
-        .count-money { color: #c084fc; text-shadow: 0 4px 12px rgba(168,85,247,0.3); }
-        .market-tab-content { 
-            display: none; 
-        }
-        .market-tab-content.active { 
-            display: block; 
-        }
-        .modal-overlay {
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%;
-            background-color: rgba(8, 12, 20, 0.88); 
-            backdrop-filter: blur(8px); 
-            z-index: 9999;
-            justify-content: center; 
+/* Логотип по скриншоту */
+        .logo-wrapper {
+            display: inline-flex;
             align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+            flex-shrink: 0;
         }
-        .modal-body { 
-            background-color: #1a2232; 
-            border: 1px solid #2b3952; 
-            border-radius: 24px;
-            padding: 32px 24px; 
-            width: 90%; 
-            max-width: 340px; 
-            text-align: center; 
-            position: relative; 
-            box-shadow: 0 16px 40px rgba(0,0,0,0.6); 
-        }
-        .modal-close { 
-            position: absolute; 
-            top: 16px; right: 18px; 
-            font-size: 24px; 
-            color: #ffffff; /* Ярко-белый крестик */
-            cursor: pointer; 
-        }
-        .modal-title { 
-            font-size: 22px; 
-            font-weight: 700; 
-            margin-bottom: 12px; 
-            color: #ffffff;
-        }
-        .modal-text { 
-            font-size: 14px; 
-            color: #ffffff; /* Повышена яркость */
-            line-height: 1.5; 
-            margin-bottom: 24px; 
-        }
-        .phone-button { 
-            display: block; 
-            background-color: #0066ff; 
-            color: #ffffff; 
-            text-decoration: none; 
-            padding: 14px; 
-            border-radius: 12px; 
-            font-weight: 600; 
-            font-size: 16px; 
-            box-shadow: 0 4px 14px rgba(0,102,255,0.35); 
-        }
-        /* СТИЛИ РАЗДЕЛА БЛАГОТВОРИТЕЛЬНОСТИ */
-        .charity-layout { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 20px; 
-            width: 100%; 
-            margin-top: 15px;
-        }
-        .charity-filter { 
-            background-color: #111827; 
-            border-radius: 18px; 
-            padding: 20px; 
-            border: 1px solid #162032; 
-        }
-        .charity-flbl { 
-            font-size: 11px; 
-            font-weight: 700; 
-            color: #ffffff; /* Изменено на белый для темной темы */
-            text-transform: uppercase; 
-            letter-spacing: 1.2px;
-            margin-bottom: 16px; 
-        }
-        .charity-sel-w { 
-            position: relative; 
-            margin-bottom: 14px; 
-        }
-        .charity-sel-w::after { 
-            content: "\25be"; 
-            font-size: 14px; 
-            color: #ffffff; 
-            position: absolute; 
-            right: 16px; 
-            top: 48%; 
-            transform: translateY(-50%); 
-            pointer-events: none; 
-        }
-        .charity-tabs { 
-            display: flex; 
-            gap: 12px; 
-            margin-bottom: 16px; 
-        }
-        .charity-tabs .charity-tbtn { 
-            flex: 1; 
-            background-color: #162032; 
-            border: 1px solid #1f2d46; 
-            color: #ffffff; 
-            padding: 15px; 
-            border-radius: 12px; 
-            font-size: 15px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            transition: all 0.2s ease;
-        }
-        .charity-tabs .charity-tbtn.act { 
-            background-color: #1e6cfd; 
-            border-color: #1e6cfd;
-            color: #ffffff; 
-        }
-        .charity-row { 
-            display: flex; 
-            gap: 12px; 
-        }
-        .charity-igrp { 
-            flex: 1; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 8px; 
-            min-width: 0; 
-        }
-        .charity-igrp label { 
-            font-size: 11px; 
-            color: #ffffff; 
-        }
-        .charity-igrp input { 
-            width: 100%; 
-            background-color: #162032; 
-            border: 1px solid #1f2d46; 
-            color: #ffffff; 
-            padding: 15px; 
-            border-radius: 12px; 
-            font-size: 16px; 
-            outline: none; 
-        }
-        .charity-igrp input::placeholder { 
-            color: #94a3b8; 
-        }
-        .charity-list { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 16px; 
-            flex: 1; 
-        }
-        .charity-card { 
-            background-color: #111827;
-            border-radius: 18px; 
-            padding: 22px 20px 20px; 
-            border: 1px solid #162032; 
-        }
-        .charity-chdr { 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            margin-bottom: 14px; 
-            flex-wrap: wrap; 
-        }
-        .charity-chdr h2 {
-            font-size: 24px;
-            margin-bottom: 0;
-            color: #ffffff;
-            white-space: normal; 
-            word-break: break-word;
-        }
-        .charity-heart { 
-            width: 28px; 
-            height: 28px; 
-            stroke: #ffffff; 
-            stroke-width: 2.2; 
-            fill: none; 
-            flex-shrink: 0; 
-        }
-        .charity-logo { 
-            width: 46px; 
-            height: 46px; 
-            border-radius: 50%; 
-            overflow: hidden; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            flex-shrink: 0; 
-        }
-        .logo-hope { 
-            background: #ffffff; 
-            border: 2px solid #e11d48; 
-            position: relative; 
-        }
-        .logo-hope::before { 
-            content: ""; 
-            position: absolute; 
-            width: 34px; 
-            height: 34px; 
-            background-color: #ef4444; 
-            border-radius: 50%; 
-            top: 4px; left: 4px; 
-            opacity: 0.8; 
-        }
-        .logo-hope::after {
-            content: "\2764"; 
-            color: #ffffff; 
-            font-size: 18px; 
-            position: absolute; 
-            top: 5px; 
-        }
-        .logo-life { 
-            background-color: #162032; 
-            border: 1.5px solid #1e6cfd;
-            border-radius: 8px; 
-            width: 38px; 
-            height: 38px; 
-            color: #1e6cfd; 
-            font-size: 16px; 
-            font-weight: 600; 
-        }
-        .charity-ctgl { 
-            flex: 1; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            gap: 10px; 
-        }
-        .charity-cname { 
-            font-size: 19px; 
-            font-weight: 600; 
-            color: #ffffff;
-            margin-bottom: 0;
-        }
-        .charity-tag { 
-            font-size: 12px; 
-            padding: 5px 12px; 
-            border-radius: 8px; 
-            font-weight: 600; 
-        }
-        .charity-tag.blue-tag { 
-            background: rgba(30, 108, 253, 0.12); 
-            color: #1e6cfd; 
-        }
-        .charity-tag.green-tag { 
-            background: rgba(16, 185, 129, 0.12); 
-            color: #10b981; 
-        }
-        .charity-adr { 
-            font-size: 13.5px; 
-            color: #ffffff; 
-            margin-bottom: 18px; 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-        }
-        .charity-geo-marker { 
-            width: 14px; 
-            height: 14px; 
-            fill: #ffffff; 
-        }
-        .charity-lim { 
-            display: flex; 
-            justify-content: space-between; 
-            font-size: 13.5px; 
-            color: #ffffff; 
-            padding-top: 16px; 
-            border-top: 1px dashed #1f2d46; 
-        }
-        .charity-lim strong { 
-            color: #ffffff; 
-            font-weight: 500; 
-        }
-        @media (min-width: 768px) { 
-            .charity-layout { 
-                display: grid; 
-                grid-template-columns: 320px 1fr; 
-                align-items: start; 
-            } 
-        }
-        /* СТИЛИ ДЛЯ ПОДВАЛА САЙТА (FOOTER) */
-        footer {
-            background-color: #0b0f19;
-            padding: 40px 20px;
-            margin-top: 60px;
-            border-top: 1px solid #1e293b;
-            font-size: 14px;
-            transition: background-color 0.3s ease, border-top-color 0.3s ease;
-        }
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .footer-payments {
+        .logo-box-m {
+            background-color: #ffffff;
+            color: #0f172a;
+            font-size: 22px;
+            font-weight: 800;
+            width: 44px;
+            height: 44px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
             align-items: center;
             justify-content: center;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #1e293b;
-            margin-bottom: 30px;
-            opacity: 0.8;
-            transition: border-bottom-color 0.3s ease;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            flex-shrink: 0;
         }
-        .payment-logo {
+        .logo-btn-jump {
+            background-color: #0052ff; /* Яркий синий */
             color: #ffffff;
-            font-weight: bold;
-            font-size: 18px;
+            font-size: 19px;
+            font-weight: 800;
+            height: 44px;
+            padding: 0 24px;
+            border-radius: 12px;
             letter-spacing: 0.5px;
-            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2);
         }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr repeat(3, 1fr);
-            gap: 30px;
-        }
-        .footer-info p {
-            color: #ffffff; /* Повышена контрастность до белого в темной теме */
-            font-size: 13px;
-            line-height: 1.8;
-            margin-top: 5px;
-        }
-        .footer-column h4 {
-            color: #ffffff; /* Максимально ярко-белый */
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            transition: color 0.3s ease;
-        }
-        .footer-column ul {
-            list-style: none;
-        }
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-        .footer-column ul li a {
-            color: #ffffff; /* Сделано ярче */
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer-column ul li a:hover {
-            color: #0066ff;
-        }
+
         @media (max-width: 768px) {
-            .footer-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-        }
-        /* КЛАССЫ ПЕРЕОПРЕДЕЛЕНИЯ ДЛЯ СВЕТЛОЙ ТЕМЫ (Адаптированный динамический градиент) */
-        html.light-theme body {
-            background: linear-gradient(135deg, #cde6ff 0%, #b3dcff 50%, #9bcfff 100%);
-            color: #0f172a;
-        }
-        html.light-theme header {
-            background-color: #ffffff;
-            border-bottom: 1px solid #cbd5e1;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-        html.light-theme .logo-m {
-            background-color: #0f172a;
-            color: #ffffff;
-        }
-        html.light-theme .theme-toggle-btn {
-            background: #e2e8f0;
-            border: 1px solid #cbd5e1;
-            color: #0f172a;
-        }
-        html.light-theme .theme-toggle-btn:hover {
-            background: #cbd5e1;
-        }
-        html.light-theme nav#main-nav button {
-            color: #64748b;
-        }
-        html.light-theme nav#main-nav button:hover, 
-        html.light-theme nav#main-nav button.active {
-            color: #0f172a;
-            background-color: #e2e8f0;
-        }
-        html.light-theme nav#main-nav button.active {
-            border-color: #0066ff;
-        }
-        html.light-theme .menu-toggle span {
-            background-color: #0f172a;
-        }
-        html.light-theme .page {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
-        }
-        html.light-theme h2 {
-            color: #0f172a;
-        }
-        html.light-theme p {
-            color: #475569;
-        }
-        html.light-theme .auth-box {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-        }
-        html.light-theme .auth-box h3 {
-            color: #0f172a;
-        }
-        html.light-theme .auth-input {
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            color: #0f172a;
-        }
-        html.light-theme .auth-input::placeholder {
-            color: #94a3b8;
-        }
-        html.light-theme .student-info {
-            border-bottom: 1px solid #e2e8f0;
-        }
-        html.light-theme .logout-btn {
-            background: #e2e8f0;
-            color: #475569;
-            border: 1px solid #cbd5e1;
-        }
-        html.light-theme .logout-btn:hover {
-            background: #ef4444;
-            color: #ffffff;
-            border-color: #ef4444;
-        }
-        html.light-theme .table-container {
-            border: 1px solid #cbd5e1;
-        }
-        html.light-theme .exam-table {
-            background: #ffffff;
-        }
-        html.light-theme .exam-table th {
-            border: 1px solid #0052cc;
-        }
-        html.light-theme .exam-table td {
-            border: 1px solid #e2e8f0;
-            color: #334155;
-        }
-        html.light-theme .exam-table tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-        html.light-theme .exam-table tr:hover {
-            background-color: #f1f5f9;
-        }
-        html.light-theme .badge.success {
-            background: rgba(22, 163, 74, 0.15);
-            color: #16a34a;
-            border: 1px solid rgba(22, 163, 74, 0.3);
-        }
-        html.light-theme .badge.fail {
-            background: rgba(220, 38, 38, 0.15);
-            color: #dc2626;
-            border: 1px solid rgba(220, 38, 38, 0.3);
-        }
-        html.light-theme .status-red { background: rgba(220, 38, 38, 0.15) !important; color: #dc2626 !important; border: 1px solid rgba(220, 38, 38, 0.3) !important; }
-        html.light-theme .status-orange { background: rgba(234, 88, 12, 0.15) !important; color: #ea580c !important; border: 1px solid rgba(234, 88, 12, 0.3) !important; }
-        html.light-theme .status-green { background: rgba(22, 163, 74, 0.15) !important; color: #16a34a !important; border: 1px solid rgba(22, 163, 74, 0.3) !important; }
-        @media (max-width: 900px) {
-            html.light-theme nav#main-nav {
-                background-color: #ffffff;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
-                border-top: 1px solid #e2e8f0;
-            }
-        }
-        html.light-theme .charity-select {
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 1px solid #cbd5e1;
-            color: #0f172a;
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
-        }
-        html.light-theme .charity-select option {
-            background-color: #ffffff;
-            color: #0f172a;
-        }
-        html.light-theme .market-inner-container { background-color: #f8fafc; border: 1px solid #e2e8f0; }
-        html.light-theme .market-inner-container h1 { color: #0f172a; }
-        html.light-theme .market-subtitle { color: #64748b; }
-        html.light-theme .market-nav button { background-color: #e2e8f0; border: 1px solid #cbd5e1; color: #475569; }
-        html.light-theme .market-nav button:hover, 
-        html.light-theme .market-nav button.active { background-color: #0066ff; border-color: #0066ff; color: #ffffff; }
-        html.light-theme .withdraw-tab-btn { background-color: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.2); color: rgba(15, 23, 42, 0.8); }
-        html.light-theme .withdraw-tab-btn:hover { background-color: rgba(15, 23, 42, 0.08); border-color: rgba(15, 23, 42, 0.4); color: #0f172a; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        html.light-theme .card-yellow { background: linear-gradient(135deg, #ffffff 40%, rgba(234, 179, 8, 0.08) 100%); border: 1px solid rgba(234, 179, 8, 0.4); box-shadow: 0 8px 24px rgba(234, 179, 8, 0.04); }
-        html.light-theme .card-green { background: linear-gradient(135deg, #ffffff 40%, rgba(22, 163, 74, 0.08) 100%); border: 1px solid rgba(22, 163, 74, 0.4); box-shadow: 0 8px 24px rgba(22, 163, 74, 0.04); }
-        html.light-theme .card-blue { background: linear-gradient(135deg, #ffffff 40%, rgba(6, 182, 212, 0.08) 100%); border: 1px solid rgba(6, 182, 212, 0.4); box-shadow: 0 8px 24px rgba(6, 182, 212, 0.04); }
-        html.light-theme .card-red { background: linear-gradient(135deg, #ffffff 40%, rgba(225, 29, 72, 0.08) 100%); border: 1px solid rgba(225, 29, 72, 0.4); box-shadow: 0 8px 24px rgba(225, 29, 72, 0.04); }
-        html.light-theme .card-money { background: linear-gradient(135deg, #ffffff 40%, rgba(147, 51, 234, 0.08) 100%); border: 1px solid rgba(147, 51, 234, 0.4); box-shadow: 0 8px 24px rgba(147, 51, 234, 0.04); }
-        html.light-theme .story-card { border-color: #0066ff; }
-        html.light-theme .story-text { color: #0f172a !important; text-shadow: none !important; background: rgba(255, 255, 255, 0.9); padding: 4px 6px; border-radius: 8px; bottom: 8px; left: 8px; right: 8px; }
-        html.light-theme .crystal-icon-container { filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
-        html.light-theme .crystal-label { color: #64748b; }
-        html.light-theme .count-yellow { color: #d97706; text-shadow: none; }
-        html.light-theme .count-green { color: #16a34a; text-shadow: none; }
-        html.light-theme .count-blue { color: #0891b2; text-shadow: none; }
-        html.light-theme .count-red { color: #dc2626; text-shadow: none; }
-        html.light-theme .count-money { color: #9333ea; text-shadow: none; }
-        html.light-theme .theme-stroke-adjust { stroke: #0f172a; }
-        html.light-theme .theme-h3-text { color: #0f172a !important; }
-        html.light-theme .money-emoji-box span { text-shadow: none !important; }
-        html.light-theme .modal-overlay { background-color: rgba(241, 245, 249, 0.85); }
-        html.light-theme .modal-body { background-color: #ffffff; border: 1px solid #cbd5e1; box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
-        html.light-theme .modal-close { color: #64748b; }
-        html.light-theme .modal-title { color: #0f172a; }
-        html.light-theme .modal-text { color: #475569; }
-        html.light-theme .charity-filter { background-color: #f8fafc; border: 1px solid #e2e8f0; }
-        html.light-theme .charity-flbl { color: #64748b; }
-        html.light-theme .charity-sel-w::after { color: #64748b; }
-        html.light-theme .charity-tabs .charity-tbtn { background-color: #e2e8f0; color: #64748b; }
-        html.light-theme .charity-tabs .charity-tbtn:hover { background-color: #cbd5e1; color: #0f172a; }
-        html.light-theme .charity-tabs .charity-tbtn.act { background-color: #1e6cfd; color: #ffffff; }
-        html.light-theme .charity-igrp label { color: #64748b; }
-        html.light-theme .charity-igrp input { background-color: #ffffff; border: 1px solid #cbd5e1; color: #0f172a; }
-        html.light-theme .charity-igrp input::placeholder { color: #94a3b8; }
-        html.light-theme .charity-card { background-color: #f8fafc; border: 1px solid #e2e8f0; }
-        html.light-theme .charity-heart { stroke: #0f172a; }
-        html.light-theme .logo-life { background-color: #ffffff; border: 1.5px solid #1e6cfd; }
-        html.light-theme .charity-cname { color: #0f172a; }
-        html.light-theme .charity-adr { color: #64748b; }
-        html.light-theme .charity-geo-marker { fill: #64748b; }
-        html.light-theme .charity-lim { border-top: 1px dashed #cbd5e1; color: #64748b; }
-        html.light-theme .charity-lim strong { color: #0f172a; }
-        html.light-theme footer { background-color: #f8fafc; border-top: 1px solid #cbd5e1; }
-        html.light-theme .footer-payments { border-bottom: 1px solid #cbd5e1; }
-        html.light-theme .payment-logo { color: #0f172a; }
-        html.light-theme .theme-logo-text { color: #0f172a !important; }
-        html.light-theme .theme-border-logo { color: #475569 !important; border-color: #cbd5e1 !important; }
-        html.light-theme .footer-column h4 { color: #475569; }
-        html.light-theme .footer-column ul li a { color: #64748b; }
-        html.light-theme .footer-column ul li a:hover { color: #0066ff; }
-
-      /* 1. Делаем контейнер видимым всегда (и в темной, и в светлой теме) */
-.pattern-container {
-    position: fixed;
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
-    pointer-events: none; 
-    z-index: 1; 
-    display: block; /* Изменено с display: none на display: block */
-}
-
-/* 2. Настраиваем базовый вид иконок ДЛЯ ТЕМНОЙ ТЕМЫ (белые, полупрозрачные) */
-.icon {
-    position: absolute; 
-    fill: none; 
-    stroke: #ffffff; /* Изменено на чисто белый цвет для темной темы */
-    stroke-width: 1.5;
-    stroke-linecap: round; 
-    stroke-linejoin: round; 
-    opacity: 0.12; /* Чуть снизили прозрачность, чтобы они не отвлекали от текста */
-    transform: translate(-50%, -50%);
-}
-
-/* 3. Переопределяем цвет иконок ТОЛЬКО КОГДА ВКЛЮЧЕНА СВЕТЛАЯ ТЕМА */
-html.light-theme .icon {
-    stroke: #2470a7; /* Возвращаем исходный синий цвет для светлой темы */
-    opacity: 0.18;   /* Возвращаем исходную прозрачность */
-}
-
-        .grid-sections-premium {
-            display: grid; grid-template-columns: 1fr; gap: 40px;
-            width: 100%; max-width: 350px; margin: 0 auto; perspective: 1200px;
-        }
-        .card-premium {
-            position: relative;
-            background: linear-gradient(135deg, rgba(39, 53, 73, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%);
-            border-radius: 32px; border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 24px; box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
-            overflow: hidden; display: flex; flex-direction: column; gap: 16px;
-            cursor: pointer; transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, background 0.3s;
-        }
-        html.light-theme .card-premium {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.4) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 20px 45px rgba(0, 30, 80, 0.05), inset 0 1px 1px rgba(255,255,255,0.3);
-        }
-        .card-premium:nth-child(1) { transform: rotate(-2.5deg); }
-        .card-premium:nth-child(2) { transform: rotate(2.5deg); }
-        .card-premium:nth-child(3) { transform: rotate(-2deg); }
-
-        .card-premium::before {
-            content: ''; position: absolute; width: 280px; height: 280px;
-            bottom: -90px; right: -90px; z-index: 1; opacity: 0.22;
-            filter: blur(25px); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.6s ease;
-        }
-        .card-rest::before { background: #10b981; border-radius: 42% 58% 70% 30% / 45% 45% 65% 55%; }
-        .card-charity-prem::before { background: #f43f5e; border-radius: 70% 30% 55% 45% / 60% 40% 60% 40%; }
-        .card-books::before { background: #b45309; border-radius: 50% 50% 35% 65% / 50% 55% 45% 55%; }
-
-        .card-img-prem { width: 100%; height: 150px; object-fit: cover; border-radius: 20px; position: relative; z-index: 2; transform: translateZ(20px); }
-        .card-content-prem { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 6px; transform: translateZ(15px); }
-        
-        .card-title-prem { font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; }
-        html.light-theme .card-title-prem { color: #0f172a; }
-        
-        .card-text-prem { font-size: 14px; line-height: 1.5; color: #cbd5e1; }
-        html.light-theme .card-text-prem { color: #334155; }
-
-        .card-premium:hover { box-shadow: 0 35px 70px rgba(0, 30, 80, 0.25); background: linear-gradient(135deg, rgba(47, 65, 90, 0.95) 0%, rgba(39, 53, 73, 0.8) 100%); }
-        html.light-theme .card-premium:hover { box-shadow: 0 35px 70px rgba(0, 30, 80, 0.15); background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.55) 100%); }
-        .card-premium:hover::before { transform: scale(1.15) rotate(45deg) translate(-10px, -10px); border-radius: 50%; opacity: 0.3; }
-
-        @media (min-width: 992px) {
-            .grid-sections-premium { grid-template-columns: repeat(2, 1fr); max-width: 850px; gap: 40px; }
-            .card-premium:nth-child(3) { grid-column: 1 / span 2; justify-self: center; width: 100%; max-width: 405px; }
-            .card-premium:nth-child(1) { transform: rotate(-3deg) translateY(-10px); }
-            .card-premium:nth-child(2) { transform: rotate(3deg) translateY(10px); }
-            .card-premium:nth-child(3) { transform: rotate(-1.5deg) translateY(20px); }
-            .card-premium:nth-child(1):hover { transform: rotateX(8deg) rotateY(-8deg) scale(1.03) translateY(-15px); }
-            .card-premium:nth-child(2):hover { transform: rotateX(8deg) rotateY(8deg) scale(1.03) translateY(5px); }
-            .card-premium:nth-child(3):hover { transform: rotateX(-8deg) rotateY(-4deg) scale(1.03) translateY(15px); }
+            .header-flex { gap: 10px; }
+            .logo-btn-jump { padding: 0 16px; font-size: 17px; }
+            .btn-login-orange { padding: 0 18px; font-size: 13px; height: 44px; }
+            .grid-4, .grid-2 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Контейнер для динамического узора на фоне в светлой теме -->
-    <div class="pattern-container" id="pattern">
-        <template id="book">
-            <svg class="icon" viewBox="0 0 14 16"><rect x="1" y="1" width="12" height="14" rx="1.5" /><path d="M1 11 h12 M4 1 v5 l2-1.5 l2 1.5 v-5" stroke-width="1.2" /></svg>
-        </template>
-        <template id="mic">
-            <svg class="icon" viewBox="0 0 16 20"><rect x="4" y="1" width="8" height="11" rx="4" /><path d="M1 7 a7 7 0 0 0 14 0 M8 12 v5 M4 17 h8" /></svg>
-        </template>
-        <template id="diamond">
-            <svg class="icon" viewBox="0 0 22 20"><path d="M5 1 h12 l5 6 l-11 12 l-11 -12 z M1 7 h20 M5 1 l6 6 l6 -6 M11 7 v12" /></svg>
-        </template>
-        <template id="board">
-            <svg class="icon" viewBox="0 0 18 18"><rect x="1" y="1" width="16" height="11" rx="1.5" /><path d="M4 12 l-2 5 M14 12 l2 5 M9 12 v2 M4 17 h10" stroke-width="1.2" /></svg>
-        </template>
-    </div>
+    <!-- СТРАНИЦА 1: ГЛАВНАЯ СТРАНИЦА -->
+    <div id="main-page" class="page active">
+        
+        <!-- Шапка -->
+        <header class="main-header">
+            <div class="container header-flex">
+                <div class="logo-wrapper" onclick="navigateTo('main-page')">
+                    <div class="logo-box-m">M</div>
+                    <div class="logo-btn-jump">JUMP</div>
+                </div>
+                <button class="btn btn-login-orange" onclick="navigateTo('auth-page')">Войти</button>
+            </div>
+        </header>
+    <style>
+        /* СТИЛИ ДЛЯ ЯРКОГО ГЛАВНОГО БАННЕРА И ХАРАКТЕРИСТИК */
+        .hero-premium {
+            background: linear-gradient(135deg, #020c1b 0%, #002266 100%);
+            color: #ffffff;
+            padding: 90px 0 110px 0;
+            width: 100%;
+        }
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .hero-line {
+            width: 24px;
+            height: 3px;
+            background-color: #ff5500; /* Яркий сочный оранжевый */
+            flex-shrink: 0;
+        }
+        .hero-status {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #a3c2ff;
+            font-weight: 700;
+        }
+        .hero-title {
+            font-size: 50px;
+            line-height: 1.2;
+            font-weight: 800;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+        .text-highlight {
+            color: #ff5500;
+        }
+        .hero-subtitle {
+            font-size: 18px;
+            color: #d1e2ff;
+            max-width: 720px;
+            margin-bottom: 40px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+        }
 
-    <header>
-        <div class="logo-container">
-            <a href="#" class="logo" onclick="openPage('home')">
-                <span class="logo-m">M</span>
-                <span class="logo-jump">JUMP</span>
-            </a>
-            <button class="theme-toggle-btn" id="theme-toggle" title="Переключить тему">☾</button>
-        </div>
-        <nav id="main-nav">
-            <button id="btn-home" class="active" onclick="openPage('home')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                <span>Главная</span>
-            </button>
-            <button id="btn-tests" onclick="openPage('tests')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="9" cy="15" r="1"/><circle cx="9" cy="19" r="1"/><line x1="13" y1="15" x2="16" y2="15"/><line x1="13" y1="19" x2="16" y2="19"/></svg>
-                <span>Результаты тестов</span>
-            </button>
-            <button id="btn-market" onclick="openPage('market')">
-                <!-- Восстановленная ультра-яркая иконка с намертво перекрывающей толщиной контура -->
-                <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" style="stroke-width: 12px !important;"><rect x="15" y="40" width="70" height="45" rx="10"/><path d="M15 40 L25 15 L75 15 L85 40"/><line x1="42" y1="53" x2="42" y2="73"/><line x1="58" y1="53" x2="58" y2="73"/></svg>
-                <span>Маркет</span>
-            </button>
-            <button id="btn-charity" onclick="openPage('charity')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                <span>Благотворительность</span>
-            </button>
-        </nav>
-        <button class="menu-toggle" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </button>
-    </header>
-    <!-- АБСОЛЮТНО НЕЗАВИСИМЫЙ ВЕРХНИЙ БЛОК ИСТОРИЙ — НАД ВСЕМИ БЛОКАМИ И СТРАНИЦАМИ -->
-    <div class="global-stories-wrapper">
-        <div class="stories-container">
-            <!-- История 1 (Школа России) -->
-            <div class="story-card" onclick="openStory('https://yandex.net', 'Школа России')" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('https://yandex.net');">
-                <div class="story-text">Школа России</div>
-            </div>
-            <!-- История 2 (Журнал ЭПОС) -->
-            <div class="story-card" onclick="openStory('https://yandex.net', 'Электронный журнал «ЭПОС»')" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('https://yandex.net');">
-                <div class="story-text">Электронный журнал «ЭПОС»</div>
-            </div>
-            <!-- История 3 -->
-            <div class="story-card" onclick="openStory('https://unsplash.com', 'Кто тут самый умный?')" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('https://unsplash.com');">
-                <div class="story-text">Кто тут самый умный?</div>
-            </div>
-            <!-- История 4 -->
-            <div class="story-card" onclick="openStory('https://unsplash.com', 'Кэшбэк +30% за билеты на поезд')" style="background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url('https://unsplash.com');">
-                <div class="story-text">Кэшбэк +30% за билеты на поезд</div>
-            </div>
-        </div>
-    </div>
+        /* ЯРКИЕ КАРТОЧКИ ХАРАКТЕРИСТИК ПРОЕКТА */
+        .stats-section {
+            margin-top: -40px;
+            padding-bottom: 60px;
+            position: relative;
+            z-index: 10;
+        }
+        .stat-card {
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: #0052ff; /* Электрический синий */
+        }
+        .stat-num {
+            font-size: 13px;
+            font-weight: 800;
+            color: #0052ff;
+            background: rgba(0, 82, 255, 0.1);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-bottom: 18px;
+        }
+        .stat-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #0f172a;
+            font-weight: 700;
+        }
+        .stat-card p {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.5;
+        }
 
-    <div class="container">
-        <!-- СТРАНИЦА 1: ГЛАВНАЯ (Полностью обновленный премиум-блок) -->
-        <div id="home" class="page active">
-            <div class="welcome-banner" style="text-align: center; margin-bottom: 40px;">
-                <h1 style="font-size: 36px; margin-bottom: 10px;">Обучающая платформа M JUMP</h1>
-                <p>Твой быстрый прыжок в мир правильных решений, успешных экзаменов и наград.</p>
-            </div>
-            
-            <!-- Интегрированная сетка новых премиум-карточек вместо старого блока -->
-            <div class="grid-sections-premium">
-                <div class="card-premium card-rest" onclick="alert('Раздел Отдых в разработке')">
-                    <img class="card-img-prem" src="https://avatars.mds.yandex.net/i?id=687503eb990fec2c7d3e7b68b463504722284ef5-10700734-images-thumbs&n=13" alt="Отдых">
-                    <div class="card-content-prem">
-                        <h3 class="card-title-prem">Отдых</h3>
-                        <p class="card-text-prem">Время замедлиться, перезагрузить мысли и насладиться моментом полной гармонии.</p>
-                    </div>
-                </div>
+        @media (max-width: 768px) {
+            .hero-premium { padding: 50px 0 70px 0; }
+            .hero-title { font-size: 32px; }
+            .hero-subtitle { font-size: 15px; }
+            .hero-buttons { flex-direction: column; gap: 12px; }
+            .hero-buttons .btn { width: 100%; }
+            .stats-section { margin-top: -20px; padding-bottom: 40px; }
+        }
+    </style>
 
-                <div class="card-premium card-charity-prem" onclick="openPage('charity')">
-                    <img class="card-img-prem" src="https://avatars.mds.yandex.net/i?id=6290e5153061a16d7c0db9fd139c14c4524fef6f-4032215-images-thumbs&n=13" alt="Благотворительность">
-                    <div class="card-content-prem">
-                        <h3 class="card-title-prem">Благотворительность</h3>
-                        <p class="card-text-prem">Маленькие поступки и реальная помощь, способные изменить чей-то мир к лучшему.</p>
-                    </div>
-                </div>
+    <!-- Профессиональный баннер платформы -->
+    <section class="hero-premium">
+        <div class="container">
+            <div class="hero-meta">
+                <span class="hero-line"></span>
+                <span class="hero-status">Официальный инвестиционный сектор</span>
+            </div>
+            <h1 class="hero-title">Будущее ваших активов <br><span class="text-highlight">начинается здесь</span></h1>
+            <p class="hero-subtitle">Высокотехнологичные решения для управления капиталом. Профессиональные инвестиционные планы, защищенные сквозным шифрованием и стандартами строгой финансовой отчетности.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-main-blue" onclick="scrollAnchor('calc-anchor')">Рассчитать доходность</button>
+                <button class="btn btn-outline-white" onclick="scrollAnchor('docs-anchor')">Лицензии и документы</button>
+            </div>
+        </div>
+    </section>
 
-                <div class="card-premium card-books" onclick="alert('Раздел Книги в разработке')">
-                    <img class="card-img-prem" src="https://avatars.mds.yandex.net/i?id=e80172548b66f576b32dcdb6d42cf81ab6741b03-5874167-images-thumbs&n=13" alt="Книги">
-                    <div class="card-content-prem">
-                        <h3 class="card-title-prem">Книги</h3>
-                        <p class="card-text-prem">Погружение в новые миры, скрытые смыслы и бесконечный поток глубоких знаний.</p>
-                    </div>
+    <!-- Характеристики проекта -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="grid grid-4">
+                <div class="stat-card">
+                    <div class="stat-num">01</div>
+                    <h3>Надежность</h3>
+                    <p>Полное соответствие законодательству и строго целевое распределение средств.</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">02</div>
+                    <h3>Ликвидность</h3>
+                    <p>Вывод средств на реквизиты первоначального пополнения вашего счета.</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">03</div>
+                    <h3>Контроль</h3>
+                    <p>Ежедневный онлайн мониторинг начислений вашего личного баланса.</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">04</div>
+                    <h3>Простота</h3>
+                    <p>Открытие планов в несколько кликов без лишних документов и визитов.</p>
                 </div>
             </div>
         </div>
-        <!-- СТРАНИЦА 2: РЕЗУЛЬТАТЫ ТЕСТОВ -->
-        <div id="tests" class="page">
-            <h2>Результаты тестов и экзаменов</h2>
-            <div class="auth-screen-block">
-                <div class="auth-box">
-                    <h3>Личный кабинет ученика</h3>
-                    <p style="font-size: 14px; margin-bottom: 15px;">Введите индивидуальный пароль для просмотра оценок и доступа к Маркету:</p>
-                    <input type="password" class="student-password-input auth-input" placeholder="Пароль доступа">
-                    <button class="auth-btn" onclick="checkPassword(this)">Войти в систему</button>
-                    <div class="auth-error-msg auth-error">Неверный пароль. Попробуйте снова.</div>
-                </div>
-            </div>
-            <div class="secure-screen-block secure-content">
-                <div class="student-info">
-                    <div><p style="color: #ffffff; font-size: 18px; font-weight: bold;" class="student-name-field">Ученик: Загрузка...</p></div>
-                    <button class="logout-btn" onclick="logoutStudent()">Выйти</button>
-                </div>
-                <div class="table-container">
-                    <table class="exam-table">
-                        <thead><tr><th>Предмет</th><th>Балл</th><th>Результат</th></tr></thead>
-                        <tbody id="exam-table-body"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- СТРАНИЦА 3: ОБНОВЛЕННЫЙ МАРКЕТ КРИСТАЛЛОВ -->
-        <div id="market" class="page">
-            <div class="auth-screen-block">
-                <div class="auth-box">
-                    <h3>Личный кабинет Маркета</h3>
-                    <p style="font-size: 14px; margin-bottom: 15px;">Введите ваш индивидуальный пароль для доступа к Маркету:</p>
-                    <input type="password" class="student-password-input auth-input" placeholder="Пароль доступа">
-                    <button class="auth-btn" onclick="checkPassword(this)">Войти в систему</button>
-                    <div class="auth-error-msg auth-error">Неверный пароль. Попробуйте снова.</div>
-                </div>
-            </div>
-            
-            <div class="secure-screen-block secure-content">
-                <div class="market-layout">
-                    <!-- ЛЕВАЯ КОЛОНКА: ПРОФИЛЬ, НАВИГАЦИЯ И ВЫВОД -->
-                    <div class="market-inner-container">
-                        <div class="market-header-container">
-                            <div class="shop-icon-white">
-                                <svg viewBox="0 0 100 100" fill="none">
-                                    <rect x="15" y="40" width="70" height="45" rx="10" class="theme-stroke-adjust" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M15 40 L25 15 L75 15 L85 40" class="theme-stroke-adjust" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <line x1="42" y1="53" x2="42" y2="73" class="theme-stroke-adjust" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
-                                    <line x1="58" y1="53" x2="58" y2="73" class="theme-stroke-adjust" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
-                                </svg>
-                            </div>
-                            <h1>Маркет наград M JUMP</h1>
-                        </div>
-                        <div class="student-info" style="margin-top: 15px; flex-direction: column; align-items: flex-start; gap: 10px;">
-                            <div><p style="color: #ffffff; font-size: 16px; font-weight: bold;" class="student-name-field">Ученик: Загрузка...</p></div>
-                            <button class="logout-btn" onclick="logoutStudent()" style="width: 100%;">Выйти из кабинета</button>
-                        </div>
-                        <div class="market-subtitle" style="margin-top: 15px;">Управляйте своими кристаллами, проверяйте баланс и отслеживайте историю сделок.</div>
-                        <div class="market-nav">
-                            <button id="tab-btn-balance" class="active" onclick="openMarketTab('balance')">Баланс кристаллов</button>
-                            <button id="tab-btn-history" onclick="openMarketTab('history')">История сделок</button>
-                        </div>
-                        <button class="withdraw-tab-btn" id="triggerWithdraw">Вывод средств</button>
-                    </div>
-                    <!-- ПРАВАЯ КОЛОНКА: ДИНАМИЧЕСКИЙ КОНТЕНТ -->
-                    <div class="market-content-area">
-                        <!-- ВКЛАДКА 1: БАЛАНС КРИСТАЛЛОВ -->
-                        <div id="market-tab-balance" class="market-tab-content active">
-                            <div class="crystals-list">
-                                <!-- Желтые кристаллы -->
-                                <div class="market-crystal-card card-yellow">
-                                    <div class="crystal-icon-container">
-                                        <svg viewBox="0 0 32 28">
-                                            <defs>
-                                                <linearGradient id="y-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/><stop offset="100%" stop-color="#ffb300"/></linearGradient>
-                                                <linearGradient id="y-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffd700"/><stop offset="100%" stop-color="#ff8f00"/></linearGradient>
-                                                <linearGradient id="y-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff8f00"/><stop offset="100%" stop-color="#ff6f00"/></linearGradient>
-                                            </defs>
-                                            <path d="M10 2L16 9L6 9L10 2Z" fill="url(#y-top)"/>
-                                            <path d="M22 2L26 9L16 9L22 2Z" fill="url(#y-top)"/>
-                                            <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#ffffff" fill-opacity="0.8"/>
-                                            <path d="M6 9L16 9L16 26L6 9Z" fill="url(#y-mid)"/>
-                                            <path d="M26 9L16 26L16 9L26 9Z" fill="url(#y-bot)"/>
-                                            <path d="M2 9L6 9L16 26L2 9Z" fill="url(#y-bot)" fill-opacity="0.7"/>
-                                            <path d="M30 9L26 9L16 26L30 9Z" fill="url(#y-mid)" fill-opacity="0.7"/>
-                                            <path d="M2 9L10 2L6 9L2 9Z" fill="url(#y-mid)"/>
-                                            <path d="M30 9L26 9L22 2L30 9Z" fill="url(#y-bot)"/>
-                                        </svg>
-                                    </div>
-                                    <div class="crystal-label">Желтые кристаллы</div>
-                                    <div class="crystal-count count-yellow" id="market-cr-yellow">0</div>
-                                </div>
-                                <!-- Зеленые кристаллы -->
-                                <div class="market-crystal-card card-green">
-                                    <div class="crystal-icon-container">
-                                        <svg viewBox="0 0 32 28">
-                                            <defs>
-                                                <linearGradient id="g-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/><stop offset="100%" stop-color="#00e676"/></linearGradient>
-                                                <linearGradient id="g-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00cc66"/><stop offset="100%" stop-color="#00c853"/></linearGradient>
-                                                <linearGradient id="g-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00c853"/><stop offset="100%" stop-color="#00a142"/></linearGradient>
-                                            </defs>
-                                            <path d="M10 2L16 9L6 9L10 2Z" fill="url(#g-top)"/>
-                                            <path d="M22 2L26 9L16 9L22 2Z" fill="url(#g-top)"/>
-                                            <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#ffffff" fill-opacity="0.8"/>
-                                            <path d="M6 9L16 9L16 26L6 9Z" fill="url(#g-mid)"/>
-                                            <path d="M26 9L16 26L16 9L26 9Z" fill="url(#g-bot)"/>
-                                            <path d="M2 9L6 9L16 26L2 9Z" fill="url(#g-bot)" fill-opacity="0.7"/>
-                                            <path d="M30 9L26 9L16 26L30 9Z" fill="url(#g-mid)" fill-opacity="0.7"/>
-                                            <path d="M2 9L10 2L6 9L2 9Z" fill="url(#g-mid)"/>
-                                            <path d="M30 9L26 9L22 2L30 9Z" fill="url(#g-bot)"/>
-                                        </svg>
-                                    </div>
-                                    <div class="crystal-label">Зеленые кристаллы</div>
-                                    <div class="crystal-count count-green" id="market-cr-green">0</div>
-                                </div>
-                                <!-- Голубые кристаллы -->
-                                <div class="market-crystal-card card-blue">
-                                    <div class="crystal-icon-container">
-                                        <svg viewBox="0 0 32 28">
-                                            <defs>
-                                                <linearGradient id="b-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient>
-                                                <linearGradient id="b-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#0891b2"/></linearGradient>
-                                                <linearGradient id="b-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0891b2"/><stop offset="100%" stop-color="#0f766e"/></linearGradient>
-                                            </defs>
-                                            <path d="M10 2L16 9L6 9L10 2Z" fill="url(#b-top)"/>
-                                            <path d="M22 2L26 9L16 9L22 2Z" fill="url(#b-top)"/>
-                                            <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#ffffff" fill-opacity="0.8"/>
-                                            <path d="M6 9L16 9L16 26L6 9Z" fill="url(#b-mid)"/>
-                                            <path d="M26 9L16 26L16 9L26 9Z" fill="url(#b-bot)"/>
-                                            <path d="M2 9L6 9L16 26L2 9Z" fill="url(#b-bot)" fill-opacity="0.7"/>
-                                            <path d="M30 9L26 9L16 26L30 9Z" fill="url(#b-mid)" fill-opacity="0.7"/>
-                                            <path d="M2 9L10 2L6 9L2 9Z" fill="url(#b-mid)"/>
-                                            <path d="M30 9L26 9L22 2L30 9Z" fill="url(#b-bot)"/>
-                                        </svg>
-                                    </div>
-                                    <div class="crystal-label">Голубые кристаллы</div>
-                                    <div class="crystal-count count-blue" id="market-cr-blue">0</div>
-                                </div>
-                                <!-- Красные кристаллы -->
-                                <div class="market-crystal-card card-red">
-                                    <div class="crystal-icon-container">
-                                        <svg viewBox="0 0 32 28">
-                                            <defs>
-                                                <linearGradient id="r-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.7"/><stop offset="100%" stop-color="#ff5252"/></linearGradient>
-                                                <linearGradient id="r-mid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e94560"/><stop offset="100%" stop-color="#d32f2f"/></linearGradient>
-                                                <linearGradient id="r-bot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d32f2f"/><stop offset="100%" stop-color="#b71c1c"/></linearGradient>
-                                            </defs>
-                                            <path d="M10 2L16 9L6 9L10 2Z" fill="url(#r-top)"/>
-                                            <path d="M22 2L26 9L16 9L22 2Z" fill="url(#r-top)"/>
-                                            <path d="M16 2L22 2L16 9L10 2L16 2Z" fill="#ffffff" fill-opacity="0.85"/>
-                                            <path d="M6 9L16 9L16 26L6 9Z" fill="url(#r-mid)"/>
-                                            <path d="M26 9L16 26L16 9L26 9Z" fill="url(#r-bot)"/>
-                                            <path d="M2 9L6 9L16 26L2 9Z" fill="url(#r-bot)" fill-opacity="0.7"/>
-                                            <path d="M30 9L26 9L16 26L30 9Z" fill="url(#r-mid)" fill-opacity="0.7"/>
-                                            <path d="M2 9L10 2L6 9L2 9Z" fill="url(#r-mid)"/>
-                                            <path d="M30 9L26 9L22 2L30 9Z" fill="url(#r-bot)"/>
-                                        </svg>
-                                    </div>
-                                    <div class="crystal-label">Красные кристаллы</div>
-                                    <div class="crystal-count count-red" id="market-cr-red">0</div>
-                                </div>
-                                <!-- Баланс денег -->
-                                <div class="market-crystal-card card-money">
-                                    <div class="crystal-icon-container money-emoji-box" style="display:flex; align-items:center; justify-content:center;">
-                                        <span style="font-size:36px; text-shadow: 0 0 15px #a855f7;">💵</span>
-                                    </div>
-                                    <div class="crystal-label">Баланс денег</div>
-                                    <div class="crystal-count count-money" id="market-money">0 ₽</div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ВКЛАДКА 2: ИСТОРИЯ СДЕЛОК -->
-                        <div id="market-tab-history" class="market-tab-content">
-                            <h3 class="theme-h3-text" style="color:#ffffff; margin-bottom:10px;">История вывода средств</h3>
-                            <div class="table-container" style="margin-top: 15px;">
-                                <table class="exam-table">
-                                    <thead>
-                                        <tr><th>Дата заявки</th><th>Сумма вывода</th><th>Статус операции</th></tr>
-                                    </thead>
-                                    <tbody id="market-table-body"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- Конец .market-layout -->
-            </div>
-        </div>
-        <!-- СТРАНИЦА 4: БЛАГОТВОРИТЕЛЬНОСТЬ -->
-        <div id="charity" class="page">
-            <div class="charity-layout">
-                <!-- Блок фильтрации -->
-                <section class="charity-filter">
-                    <div class="charity-chdr">
-                        <svg class="charity-heart" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                        </svg>
-                        <h2>Благотворительность</h2>
-                    </div>
-                    <p style="margin-bottom: 20px;">Пожертвуйте средства в проверенные социальные и экологические организации.</p>
-                    
-                    <h2 class="charity-flbl">Фильтр организаций</h2>
-                    <div class="charity-sel-w">
-                        <select class="charity-select" id="cf">
-                            <option value="all">Все города</option>
-                            <option value="msk">Москва</option>
-                            <option value="spb">Санкт-Петербург</option>
-                        </select>
-                    </div>
-                    
-                    <div class="charity-tabs">
-                        <button class="charity-tbtn act" id="t-peo">Для людей</button>
-                        <button class="charity-tbtn" id="t-ani">Для животных</button>
-                    </div>
-                    
-                    <div class="charity-row">
-                        <div class="charity-igrp">
-                            <label>Мин. взнос (₽)</label>
-                            <input type="number" id="min" placeholder="От 0">
-                        </div>
-                        <div class="charity-igrp">
-                            <label>Макс. взнос (₽)</label>
-                            <input type="number" id="max" placeholder="До 5000">
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Контейнер для вывода карточек -->
-                <main class="charity-list" id="cont"></main>
-            </div>
-        </div>
-    </div> <!-- Закрытие контейнера .container -->
+    </section>
+    <style>
+        /* СТИЛИ ПРАВОВОГО БЛОКА И ИНТЕРАКТИВНОГО КАЛЬКУЛЯТОРА */
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+        .docs-section, .calc-section {
+            padding: 50px 0;
+            background-color: #ffffff;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .calc-section {
+            background-color: #f8fafc;
+        }
+        
+        /* Вертикальные блоки без синих подчеркиваний */
+        .doc-vertical-card {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+        .doc-vertical-card:hover { border-color: #0052ff; }
+        .doc-badge {
+            background: rgba(0, 82, 255, 0.1);
+            color: #0052ff;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 6px;
+            align-self: flex-start;
+            text-transform: uppercase;
+        }
+        .doc-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 16px 0 8px 0;
+        }
+        .doc-desc {
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .doc-link-btn {
+            color: #0052ff;
+            font-weight: 700;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .doc-link-btn:hover { color: #0044d4; }
 
-    <!-- ВСПЛЫВАЮЩЕЕ МОДАЛЬНОЕ ОКНО ВЫВОДА СРЕДСТВ -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-body">
-            <span class="modal-close" id="closeModal">&times;</span>
-            <div class="modal-title">Вывод средств</div>
-            <div class="modal-text">Для вывода средств напишите в <strong>MAX</strong> с просьбой о выводе по номеру телефона:</div>
-            <a href="tel:+79991234567" class="phone-button">+7 (999) 123-45-67</a>
-        </div>
-    </div>
+        /* Калькулятор главной */
+        .calc-wrapper {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+        }
+        .form-group { margin-bottom: 24px; }
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+        .input-control {
+            width: 100%;
+            height: 52px;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 0 16px;
+            font-size: 16px;
+            color: #0f172a;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-control:focus { border-color: #0052ff; }
+        
+        /* Сверх-яркий лаймовый результат */
+        .calc-result-box {
+            background: #f1f5f9;
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .calc-result-label { font-size: 15px; color: #475569; font-weight: 600; }
+        .calc-result-value {
+            font-size: 26px;
+            font-weight: 900;
+            color: #00e676; 
+            text-shadow: 0 1px 2px rgba(0,230,118,0.1);
+        }
 
-    <!-- МОДАЛЬНОЕ ОКНО ПРОСМОТРА ИСТОРИЙ -->
-    <div id="storyModal" class="story-modal">
-        <div id="storyContent" class="story-content">
-            <div class="story-header">
-                <div class="progress-container">
-                    <div id="progressBar" class="progress-bar"></div>
+        /* Футер без синих полос под текстом */
+        .main-footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            padding: 50px 0;
+            font-size: 14px;
+        }
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .footer-logo-block { display: flex; align-items: center; gap: 8px; }
+        .footer-logo-m {
+            background: #ffffff;
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 16px;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        .footer-logo-jump { color: #ffffff; font-weight: 800; font-size: 18px; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-link { color: #94a3b8; font-weight: 600; transition: color 0.2s; }
+        .footer-link:hover { color: #ffffff; }
+
+        @media (max-width: 768px) {
+            .section-title { font-size: 22px; }
+            .doc-vertical-card { min-height: auto; padding: 20px; }
+            .calc-wrapper { padding: 20px; }
+            .calc-result-box { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .footer-flex { flex-direction: column; align-items: flex-start; }
+            .footer-links { flex-direction: column; gap: 12px; }
+            }
+    </style>
+
+    <!-- Раздел официальных лицензий (2 вертикальных блока) -->
+    <section id="docs-anchor" class="docs-section">
+        <div class="container">
+            <h2 class="section-title">Правовой статус платформы</h2>
+            <div class="grid grid-2">
+                <div class="doc-vertical-card">
+                    <div>
+                        <span class="doc-badge">Рег. № 44-092</span>
+                        <h3 class="doc-title">Лицензия финансового брокера</h3>
+                        <p class="doc-desc">Официальный правовой документ, разрешающий ведение инвестиционной и посреднической деятельности на финансовых рынках с гарантией защиты капитала.</p>
+                    </div>
+                    <a href="#" onclick="openDocumentPage('rules')" class="doc-link-btn">Открыть документ <span class="sym-arrow">→</span></a>
                 </div>
-                <span class="close-btn" onclick="closeStory()">&times;</span>
+                <div class="doc-vertical-card">
+                    <div>
+                        <span class="doc-badge">ИНН 7701402280</span>
+                        <h3 class="doc-title">Свидетельство ФНС России</h3>
+                        <p class="doc-desc">Сертификат о постановке на учет юридического лица в налоговом органе. Подтверждает полную прозрачность и регулярный аудит всех операций.</p>
+                    </div>
+                    <a href="#" onclick="openDocumentPage('privacy')" class="doc-link-btn">Открыть свидетельство <span class="sym-arrow">→</span></a>
+                </div>
             </div>
-            <div id="fullStoryText" class="full-story-text"></div>
         </div>
-    </div>
-    <!-- ПОДВАЛ САЙТА (FOOTER) -->
-    <footer>
-        <div class="footer-container">
-            <!-- Логотипы платежных систем -->
-            <div class="footer-payments">
-                <span class="payment-logo theme-logo-text" style="color: #ffffff; font-size: 20px;">VISA</span>
-                <span class="payment-logo theme-border-logo" style="color: #94a3b8; font-size: 13px; border: 1px solid #334155; padding: 2px 6px; border-radius: 4px;">VISA SECURE</span>
-                <span class="payment-logo theme-border-logo" style="color: #94a3b8; font-size: 11px; border: 1px solid #334155; padding: 2px 6px; border-radius: 4px; line-height: 1.1; text-align: left; display: inline-block;">ID Check<br><span style="font-size: 8px; color: #64748b;">белкарт интернет пароль</span></span>
-                <span class="payment-logo theme-logo-text" style="color: #ffffff; font-style: italic; font-size: 15px;">webpay</span>
-                <span class="payment-logo theme-logo-text" style="color: #ffffff; font-weight: 300; font-size: 20px;">ерип</span>
-                <span class="payment-logo theme-logo-text" style="color: #ffffff; font-size: 16px;">белкарт</span>
-                <span class="payment-logo theme-logo-text" style="color: #ffffff; font-size: 16px; letter-spacing: -0.5px;">МТБанк</span>
+    </section>
+
+    <!-- Секция калькулятора -->
+    <section id="calc-anchor" class="calc-section">
+        <div class="container">
+            <h2 class="section-title">Калькулятор предварительного расчета</h2>
+            <div class="calc-wrapper">
+                <div class="form-group">
+                    <label class="form-label">Сумма планируемого вклада (₽)</label>
+                    <input type="number" id="main-calc-amount" class="input-control" value="100000" oninput="calculateMainProfit()">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Инвестиционный период</label>
+                    <select id="main-calc-period" class="input-control" onchange="calculateMainProfit()">
+                        <option value="1">1 год</option>
+                        <option value="3">3 года</option>
+                        <option value="5">5 лет</option>
+                    </select>
+                </div>
+                <div class="calc-result-box">
+                    <span class="calc-result-label">Максимальный прогнозируемый доход:</span>
+                    <span id="main-calc-result" class="calc-result-value">35 000 ₽</span>
+                </div>
             </div>
-            <!-- Сетка с контентом -->
-            <div class="footer-grid">
-                <!-- Описание и лицензии -->
-                <div class="footer-info">
-                    <a href="#" class="logo" onclick="openPage('home')" style="margin-bottom: 15px; display: inline-flex;">
-                        <span class="logo-m">M</span>
-                        <span class="logo-jump">JUMP</span>
-                    </a>
-                    <p>Регистрационный номер БелГИЭ по надзору за соблюдением законодательства Республики Беларусь: SI1127743D60R295741ID215314260428</p>
-                    <p>Дата регистрации: от 08.05.2026</p>
-                    <p>Номер ресурса: 215314</p>
-                    <p>УНП: 391247248</p>
-                </div>
-                <!-- Колонка Платформа -->
-                <div class="footer-column">
-                    <h4>Платформа</h4>
-                    <ul>
-                        <li><a href="#" onclick="openPage('home')">Главная</a></li>
-                        <li><a href="#" onclick="openPage('charity')">Благотворительность</a></li>
-                    </ul>
-                </div>
-                <!-- Колонка Поддержка -->
-                <div class="footer-column">
-                    <h4>Поддержка</h4>
-                    <ul>
-                        <li><a href="#" onclick="alert('Раздел FAQ в разработке')">FAQ</a></li>
-                        <li><a href="#" onclick="alert('Контакты: support@m-jump.by')">Контакты</a></li>
-                    </ul>
-                </div>
-                <!-- Колонка Документы -->
-                <div class="footer-column">
-                    <h4>Документы</h4>
-                    <ul>
-                        <li><a href="#" onclick="alert('Публичная оферта')">Условия использования</a></li>
-                        <li><a href="#" onclick="alert('Политика AML / KYC')">Политика AML</a></li>
-                        <li><a href="#" onclick="alert('Правила оплаты и возврата денежных средств')">Оплата и возврат</a></li>
-                    </ul>
-                </div>
+        </div>
+    </section>
+
+    <!-- Нижняя зона (Футер) -->
+    <footer class="main-footer">
+        <div class="container footer-flex">
+            <div class="footer-logo-block">
+                <div class="footer-logo-m">M</div>
+                <span class="footer-logo-jump">JUMP</span>
+            </div>
+            <div class="footer-links">
+                <a href="#" onclick="openDocumentPage('rules')" class="footer-link">Пользовательское соглашение</a>
+                <a href="#" onclick="openDocumentPage('privacy')" class="footer-link">Политика конфиденциальности</a>
+            </div>
+            <div style="font-size: 12px; color: #64748b; width: 100%; border-top: 2px solid #334155; padding-top: 20px; text-decoration: none;">
+                © 2026 Инвестиционная платформа JUMP. Все права защищены. Все ссылки очищены от подчеркиваний.
             </div>
         </div>
     </footer>
 
-    <!-- ИНТЕРАКТИВНЫЙ СКРИПТ ПЛАТФОРМЫ M JUMP -->
-    <script>
-        // БАЗА ДАННЫХ: Кристаллы, деньги и статусы вывода
-        const STUDENT_DATA = {
-            "user111": {
-                name: "Иванов Иван (9 «А»)",
-                exams: [
-                    { subject: "Математика (ОГЭ)", score: "28 / 31", status: "Сдан (Оценка 5)" },
-                    { subject: "Русский язык (ОГЭ)", score: "25 / 33", status: "Сдан (Оценка 4)" }
-                ],
-                crystals: { yellow: 15, green: 8, blue: 4, red: 12 },
-                money: 1250,
-                withdrawals: [
-                    { date: "15.05.2026", amount: "500 ₽", status: "Вывод произведен" },
-                    { date: "28.06.2026", amount: "300 ₽", status: "Заявка в обработке" },
-                    { date: "01.07.2026", amount: "450 ₽", status: "Заявка создана" }
-                ]
-            },
-            "user222": {
-                name: "Петров Петр (11 «Б»)",
-                exams: [
-                    { subject: "Математика Профиль (ЕГЭ)", score: "78 / 100", status: "Выше порога" }
-                ],
-                crystals: { yellow: 5, green: 12, blue: 0, red: 1 },
-                money: 450,
-                withdrawals: [
-                    { date: "20.06.2026", amount: "450 ₽", status: "Заявка в обработке" }
-                ]
-            },
-            "admin777": {
-                name: "Сидорова Анна (10 «В»)",
-                exams: [
-                    { subject: "Алгебра (Тест)", score: "12 / 15", status: "Отлично" }
-                ],
-                crystals: { yellow: 40, green: 25, blue: 18, red: 10 },
-                money: 5800,
-                withdrawals: [
-                    { date: "10.04.2026", amount: "2000 ₽", status: "Вывод произведен" }
-                ]
-            }
-        };
-        let currentPassword = null;
-        // Функция проверки пароля
-        function checkPassword(buttonElement) {
-            const containerBox = buttonElement.parentElement;
-            const passwordInput = containerBox.querySelector('.student-password-input').value.trim();
-            const allErrors = document.querySelectorAll('.auth-error-msg');
-            if (STUDENT_DATA[passwordInput]) {
-                currentPassword = passwordInput;
-                allErrors.forEach(err => err.style.display = 'none');
-                refreshSecureScreens();
-            } else {
-                const currentError = containerBox.querySelector('.auth-error-msg');
-                if (currentError) currentError.style.display = 'block';
-            }
+    </div> <!-- КОНЕЦ ГЛАВНОЙ СТРАНИЦЫ -->
+    <style>
+        /* СТИЛИ АВТОРИЗАЦИИ И СТРАНИЦЫ ТАРИФОВ */
+        .auth-container {
+            max-width: 420px;
+            margin: 60px auto;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
         }
-
-        // Обновление всех данных на защищенных экранах
-        function refreshSecureScreens() {
-            if (!currentPassword || !STUDENT_DATA[currentPassword]) return;
-            const student = STUDENT_DATA[currentPassword];
-            document.querySelectorAll('.auth-screen-block').forEach(b => b.style.display = 'none');
-            document.querySelectorAll('.secure-screen-block').forEach(b => b.style.display = 'block');
-            document.querySelectorAll('.student-name-field').forEach(f => f.textContent = "Ученик: " + student.name);
-            
-            // Таблица оценок
-            const examTbody = document.getElementById('exam-table-body');
-            if (examTbody) {
-                examTbody.innerHTML = '';
-                student.exams.forEach(item => {
-                    const tr = document.createElement('tr');
-                    let badgeClass = item.status.includes('не пройден') || item.status.includes('Неудовлетворительно') ? 'fail' : 'success';
-                    tr.innerHTML = `<td><strong>${item.subject}</strong></td><td>${item.score}</td><td><span class="badge ${badgeClass}">${item.status}</span></td>`;
-                    examTbody.appendChild(tr);
-                });
-            }
-            
-            // Обновление балансов в карточках кристаллов
-            if (document.getElementById('market-cr-yellow')) {
-                document.getElementById('market-cr-yellow').textContent = student.crystals.yellow;
-                document.getElementById('market-cr-green').textContent = student.crystals.green;
-                document.getElementById('market-cr-blue').textContent = student.crystals.blue;
-                document.getElementById('market-cr-red').textContent = student.crystals.red;
-                document.getElementById('market-money').textContent = student.money + " ₽";
-            }
-            
-            // Таблица истории сделок с автоматическим цветом статуса
-            const marketTbody = document.getElementById('market-table-body');
-            if (marketTbody) {
-                marketTbody.innerHTML = '';
-                student.withdrawals.forEach(item => {
-                    const tr = document.createElement('tr');
-                    let statusClass = '';
-                    const text = item.status.trim();
-                    
-                    if (text === "Заявка создана") {
-                        statusClass = "status-red";
-                    } else if (text === "Заявка в обработке") {
-                        statusClass = "status-orange";
-                    } else if (text === "Вывод произведен") {
-                        statusClass = "status-green";
-                    }
-                    tr.innerHTML = `<td>${item.date}</td><td><strong>${item.amount}</strong></td><td><span class="badge ${statusClass}">${item.status}</span></td>`;
-                    marketTbody.appendChild(tr);
-                });
-            }
+        .auth-title {
+            font-size: 24px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 24px;
+            color: #0f172a;
         }
-        // Выход из аккаунта
-        function logoutStudent() {
-            currentPassword = null;
-            document.querySelectorAll('.student-password-input').forEach(i => i.value = '');
-            document.querySelectorAll('.secure-screen-block').forEach(b => b.style.display = 'none');
-            document.querySelectorAll('.auth-screen-block').forEach(b => b.style.display = 'block');
-            openMarketTab('balance');
-        }
-
-        // Переключение внутренних вкладок Маркета
-        function openMarketTab(tabId) {
-            document.querySelectorAll('.market-tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.market-nav button').forEach(b => b.classList.remove('active'));
-            
-            const targetContent = document.getElementById('market-tab-' + tabId);
-            const targetBtn = document.getElementById('tab-btn-' + tabId);
-            if (targetContent) targetContent.classList.add('active');
-            if (targetBtn) targetBtn.classList.add('active');
-        }
-
-        // Поддержка кнопки Enter для инпутов авторизации
-        document.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter' && e.target.classList.contains('student-password-input')) {
-                const btn = e.target.nextElementSibling;
-                if (btn) checkPassword(btn);
-            }
-        });
-
-        // Переключение основных разделов (страниц) сайта
-        function openPage(pageId) {
-            document.getElementById('main-nav').classList.remove('mobile-open');
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('nav#main-nav button').forEach(b => b.classList.remove('active'));
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) targetPage.classList.add('active');
-            const activeBtn = document.getElementById('btn-' + pageId);
-            if (activeBtn) activeBtn.classList.add('active');
-            
-            if (currentPassword) refreshSecureScreens();
-            if (pageId === 'charity') renderCharity();
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Кнопка мобильного меню
-        function toggleMenu() {
-            document.getElementById('main-nav').classList.toggle('mobile-open');
-        }
-
-        // ЛОГИКА МОДАЛЬНОГО ОКНА ВЫВОДА СРЕДСТВ
-        const overlay = document.getElementById('modalOverlay');
-        const openBtn = document.getElementById('triggerWithdraw');
-        const closeModalElement = document.getElementById('closeModal');
-        function handleWithdrawOpen() { if (overlay) overlay.style.display = 'flex'; }
-        function handleWithdrawClose() { if (overlay) overlay.style.display = 'none'; }
-        if (openBtn) {
-            openBtn.addEventListener('click', handleWithdrawOpen);
-            openBtn.addEventListener('touchstart', handleWithdrawOpen, {passive: true});
-        }
-        if (closeModalElement) {
-            closeModalElement.addEventListener('click', handleWithdrawClose);
-            closeModalElement.addEventListener('touchstart', handleWithdrawClose, {passive: true});
-        }
-        if (overlay) {
-            overlay.addEventListener('click', (e) => { if (e.target === overlay) handleWithdrawClose(); });
-        }
-
-        // ЛОГИКА СТРАНИЦЫ БЛАГОТВОРИТЕЛЬНОСТИ
-        const charityDb = [
-            { name: "Подари надежду", cat: "people", city: "msk", tag: "для людей", tCls: "blue-tag", adr: "г. Москва, ул. Ленина, д. 10", min: 100, max: 1000, logHTML: '<div class="charity-logo logo-hope"></div>' },
-            { name: "Линия жизни", cat: "people", city: "spb", tag: "для людей", tCls: "blue-tag", adr: "г. Санкт-Петербург, Невский пр-т, д. 12", min: 300, max: 3000, logHTML: '<div class="charity-logo logo-life">?</div>' },
-            { name: "Ковчег", cat: "animals", city: "msk", tag: "для животных", tCls: "green-tag", adr: "г. Москва, ул. Мира, д. 4", min: 50, max: 2000, logHTML: '<div class="charity-logo logo-life" style="border-color:#10b981;color:#10b981">🐾</div>' },
-            { name: "Верный друг", cat: "animals", city: "spb", tag: "для животных", tCls: "green-tag", adr: "г. Санкт-Петербург, ул. Садовая, д. 8", min: 200, max: 4500, logHTML: '<div class="charity-logo logo-life" style="border-color:#10b981;color:#10b981">🐾</div>' }
-        ];
-        const cont = document.getElementById('cont');
-        const tPeo = document.getElementById('t-peo');
-        const tAni = document.getElementById('t-ani');
-        const cf = document.getElementById('cf');
-        const minI = document.getElementById('min');
-        const maxI = document.getElementById('max');
         
-        let currentCat = 'people';
-        const geoSvg = `<svg class="charity-geo-marker" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`;
-        function renderCharity() {
-            if (!cont) return;
-            cont.innerHTML = '';
-            const minV = parseFloat(minI.value) || 0;
-            const maxV = parseFloat(maxI.value) || Infinity;
-            const cityV = cf.value;
-            charityDb.forEach(item => {
-                if (item.cat !== currentCat) return;
-                if (cityV !== 'all' && item.city !== cityV) return;
-                if (item.min < minV || item.max > maxV) return;
-                const el = document.createElement('article');
-                el.className = 'charity-card';
-                el.innerHTML = `
-                    <div class="charity-chdr">
-                        ${item.logHTML}
-                        <div class="charity-ctgl">
-                            <h3 class="charity-cname">${item.name}</h3>
-                            <span class="charity-tag ${item.tCls}">${item.tag}</span>
+        /* Ультра-яркая синяя плашка поддержки MAX */
+        .support-alert-box {
+            background-color: rgba(0, 82, 255, 0.08);
+            border: 2px solid #b3ccfa;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+            text-align: center;
+        }
+        .support-alert-text {
+            font-size: 14px;
+            color: #002266;
+            margin-bottom: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        .btn-support-blue {
+            background-color: #0052ff;
+            color: #ffffff;
+            padding: 12px 24px;
+            font-size: 14px;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 16px rgba(0, 82, 255, 0.3);
+        }
+        .btn-support-blue:hover { background-color: #0044d4; }
+
+        /* ИСТОРИИ (БАНКОВСКИЙ СТИЛЬ / ГОСУСЛУГИ) */
+        .stories-container {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+        .stories-container::-webkit-scrollbar { display: none; }
+        
+        .story-circle {
+            flex-shrink: 0;
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0052ff, #ff5500);
+            padding: 3px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .story-inner {
+            background: #ffffff;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+        }
+        .story-text {
+            font-size: 11px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.2;
+            word-wrap: break-word;
+        }
+
+        /* ЭЛЕКТРИЧЕСКАЯ ПАНЕЛЬ БАЛАНСА КЛИЕНТА */
+        .dashboard-balance-card {
+            background: linear-gradient(135deg, #002266 0%, #020c1b 100%);
+            color: #ffffff;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(0, 82, 255, 0.2);
+            box-shadow: 0 8px 24px rgba(0, 34, 102, 0.15);
+        }
+        .balance-label {
+            font-size: 14px;
+            color: #a3c2ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        .balance-amount {
+            font-size: 34px;
+            font-weight: 900;
+            margin-top: 4px;
+            color: #ffffff;
+        }
+        .active-tariff-badge {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .auth-container { margin: 20px 10px; padding: 30px 20px; }
+            .dashboard-balance-card { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .story-circle { width: 76px; height: 76px; }
+            .story-text { font-size: 10px; }
+        }
+    </style>
+
+    <!-- СТРАНИЦА 2: АВТОРИЗАЦИЯ -->
+    <div id="auth-page" class="page">
+        <header class="main-header">
+            <div class="container header-flex">
+                <div class="logo-wrapper" onclick="navigateTo('main-page')">
+                    <div class="logo-box-m">M</div>
+                    <div class="logo-btn-jump">JUMP</div>
+                </div>
+                <button class="btn btn-outline-white" style="color:#0052ff; border-color:#0052ff; height:44px; padding:0 20px;" onclick="navigateTo('main-page')">Назад</button>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="auth-container">
+                <h2 class="auth-title">Вход в систему</h2>
+                <div class="form-group">
+                    <label class="form-label">Ваш персональный логин</label>
+                    <input type="text" id="auth-username" class="input-control" placeholder="Введите логин">
+                </div>
+                <!-- Фирменная ультра-яркая оранжевая кнопка входа -->
+                <button class="btn btn-login-orange" style="width: 100%; justify-content: center;" onclick="handleLogin()">Продолжить</button>
+                
+                <div class="support-alert-box">
+                    <p class="support-alert-text">Если у вас еще нет учетной записи или личного логина, обратитесь в службу верификации клиентов.</p>
+                    <button class="btn btn-support-blue" onclick="contactSupport()">Поддержка MAX <span class="sym-arrow">→</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- СТРАНИЦА 3: РАБОЧАЯ ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ -->
+    <div id="dashboard-page" class="page">
+        
+        <!-- Шапка ЛК с постоянным Гамбургером -->
+        <header class="main-header">
+            <div class="container header-flex">
+                <div class="logo-wrapper" onclick="switchDashboardTab('tariffs')">
+                    <div class="logo-box-m">M</div>
+                    <div class="logo-btn-jump">JUMP</div>
+                </div>
+                <!-- Гамбургер меню -->
+                <button class="hamburger-toggle-btn" onclick="toggleMenu()">
+                    <span class="ham-line"></span>
+                    <span class="ham-line"></span>
+                    <span class="ham-line"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Навигационное меню гамбургера -->
+        <div id="hamburger-menu-wrapper" class="menu-overlay">
+            <nav class="menu-body">
+                <button class="menu-close-btn" onclick="toggleMenu()">×</button>
+                <div class="menu-list">
+                    <a href="#" onclick="switchDashboardTab('tariffs')" class="menu-item active">Тарифные планы</a>
+                    <a href="#" onclick="switchDashboardTab('profile')" class="menu-item">Личный кабинет</a>
+                    <a href="#" onclick="switchDashboardTab('deposit')" class="menu-item">Пополнение счета</a>
+                    <a href="#" onclick="switchDashboardTab('withdraw')" class="menu-item">Вывод средств</a>
+                    <a href="#" onclick="switchDashboardTab('history')" class="menu-item">История баланса</a>
+                    <a href="#" onclick="switchDashboardTab('bonuses')" class="menu-item">Бонусы</a>
+                    <a href="#" onclick="contactSupport()" class="menu-item menu-support-highlight">Поддержка MAX</a>
+                    <!-- НОВАЯ КНОПКА ВЫХОДА ИЗ АККАУНТА -->
+                    <a href="#" onclick="handleLogout()" class="btn-logout">Выйти из системы</a>
+                </div>
+            </nav>
+        </div>
+
+        <div class="container" style="padding-top: 25px; padding-bottom: 60px;">
+            
+            <!-- Панель Баланса -->
+            <div id="global-balance-block" class="dashboard-balance-card">
+                <div>
+                    <div class="balance-label">Текущий доступный баланс</div>
+                    <div id="user-display-balance" class="balance-amount">0.00 ₽</div>
+                </div>
+                <div class="active-tariff-badge">
+                    План: <span id="user-display-plan">Не активирован</span>
+                </div>
+            </div>
+
+            <!-- ВНУТРЕННЯЯ ВКЛАДКА 1: ТАРИФНЫЕ ПЛАНЫ -->
+            <div id="tab-tariffs" class="dashboard-tab active">
+                
+                <!-- Блок Историй -->
+                <div class="stories-container">
+                    <div class="story-circle" onclick="openStory(1)">
+                        <div class="story-inner"><span class="story-text">О платформе</span></div>
+                    </div>
+                    <div class="story-circle" onclick="openStory(2)">
+                        <div class="story-inner"><span class="story-text">Безопасность</span></div>
+                    </div>
+                    <div class="story-circle" onclick="openStory(3)">
+                        <div class="story-inner"><span class="story-text">Гарантия MAX</span></div>
+                    </div>
+                    <div class="story-circle" onclick="openStory(4)">
+                        <div class="story-inner"><span class="story-text">Правила вывода</span></div>
+                    </div>
+                </div>
+
+                <h2 class="section-title" style="margin-bottom: 15px;">Доступные инвестиционные планы</h2>
+    <style>
+        /* СТИЛИ ГАМБУРГЕР-МЕНЮ И КАРТОЧЕК ТАРИФОВ */
+        .hamburger-toggle-btn {
+            background: #0052ff; /* Яркий электрический синий */
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2);
+        }
+        .ham-line {
+            width: 22px;
+            height: 2px;
+            background-color: #ffffff; /* Белые символы/линии */
+            border-radius: 2px;
+            transition: 0.2s;
+        }
+
+        /* Оверлей гамбургера */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 200;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .menu-overlay.open {
+            display: block;
+            opacity: 1;
+        }
+        .menu-body {
+            position: absolute;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: #ffffff;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s ease;
+        }
+        .menu-overlay.open .menu-body {
+            right: 0;
+        }
+        .menu-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #475569;
+        }
+        .menu-list {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+        }
+        .menu-item {
+            display: block;
+            padding: 12px 16px;
+            color: #0f172a;
+            text-decoration: none !important;
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 10px;
+            transition: background 0.2s;
+        }
+        .menu-item:hover { background: #f1f5f9; }
+        .menu-item.active {
+            background: rgba(0, 82, 255, 0.08);
+            color: #0052ff;
+        }
+        .menu-support-highlight {
+            border-top: 2px solid #e2e8f0;
+            margin-top: 12px;
+            color: #0052ff;
+            }
+
+        /* Премиум сетка тарифов */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .plan-card {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .plan-card:hover {
+            transform: translateY(-2px);
+            border-color: #0052ff;
+        }
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .plan-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .plan-percent {
+            font-size: 24px;
+            font-weight: 900;
+            color: #00e676; /* Ультра-яркий зеленый */
+            text-shadow: 0 1px 2px rgba(0,230,118,0.1);
+            transition: color 0.3s ease;
+        }
+        
+        /* Микро-калькуляторы */
+        .mini-calc-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+            border: 2px solid #e2e8f0;
+        }
+        .mini-calc-input-wrap {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .mini-calc-input {
+            width: 100%;
+            height: 40px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 0 45px 0 12px;
+            font-size: 14px;
+            outline: none;
+            color: #0f172a;
+            font-weight: 600;
+        }
+        .mini-calc-input:focus { border-color: #0052ff; }
+        .mini-calc-currency {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 700;
+        }
+        .mini-calc-profit {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+        .mini-calc-num {
+            color: #00e676;
+            font-weight: 800;
+        }
+
+        .dashboard-tab { display: none; }
+        .dashboard-tab.active { display: block; }
+
+        @media (max-width: 768px) {
+            .plans-grid { grid-template-columns: 1fr; }
+            .plan-card { padding: 20px; }
+        }
+    </style>
+                <div class="plans-grid">
+                    <!-- ПЛАН 1 -->
+                    <div class="plan-card" onclick="triggerPlanActivation('Стандартный')">
+                        <div>
+                            <div class="plan-header">
+                                <span class="plan-title">Стандартный план</span>
+                                <span id="pct-standard" class="plan-percent">12%</span>
+                            </div>
+                            <p style="font-size:14px; color:#475569; line-height:1.4;">Сбалансированное решение для начинающих инвесторов с фиксированной годовой процентной ставкой.</p>
+                        </div>
+                        <div class="mini-calc-box" onclick="event.stopPropagation();">
+                            <div class="mini-calc-input-wrap">
+                                <input type="number" id="calc-in-standard" class="mini-calc-input" value="50000" oninput="calculateMiniProfit('standard')">
+                                <span class="mini-calc-currency">₽</span>
+                            </div>
+                            <div class="mini-calc-profit">
+                                <span>Доход за 12 месяцев:</span>
+                                <span id="calc-out-standard" class="mini-calc-num">6 000 ₽</span>
+                            </div>
                         </div>
                     </div>
-                    <p class="charity-adr">${geoSvg}${item.adr}</p>
-                    <div class="charity-lim">
-                        <span>Мин: <strong>${item.min} ₽</strong></span>
-                        <span>Макс: <strong>${item.max} ₽</strong></span>
+
+                    <!-- ПЛАН 2 -->
+                    <div class="plan-card" onclick="triggerPlanActivation('Мастер')">
+                        <div>
+                            <div class="plan-header">
+                                <span class="plan-title">Мастер план</span>
+                                <span id="pct-master" class="plan-percent">18%</span>
+                            </div>
+                            <p style="font-size:14px; color:#475569; line-height:1.4;">Повышенная процентная ставка для инвесторов, нацеленных на стабильный пассивный доход.</p>
+                        </div>
+                        <div class="mini-calc-box" onclick="event.stopPropagation();">
+                            <div class="mini-calc-input-wrap">
+                                <input type="number" id="calc-in-master" class="mini-calc-input" value="50000" oninput="calculateMiniProfit('master')">
+                                <span class="mini-calc-currency">₽</span>
+                            </div>
+                            <div class="mini-calc-profit">
+                                <span>Доход за 12 месяцев:</span>
+                                <span id="calc-out-master" class="mini-calc-num">9 000 ₽</span>
+                            </div>
+                        </div>
                     </div>
-                `;
-                cont.appendChild(el);
-            });
+
+                    <!-- ПЛАН 3 -->
+                    <div class="plan-card" onclick="triggerPlanActivation('Бизнес')">
+                        <div>
+                            <div class="plan-header">
+                                <span class="plan-title">Бизнес план</span>
+                                <span id="pct-business" class="plan-percent">24%</span>
+                            </div>
+                            <p style="font-size:14px; color:#475569; line-height:1.4;">Премиальный финансовый инструмент с высоким уровнем доходности для крупных объемов капитала.</p>
+                        </div>
+                        <div class="mini-calc-box" onclick="event.stopPropagation();">
+                            <div class="mini-calc-input-wrap">
+                                <input type="number" id="calc-in-business" class="mini-calc-input" value="50000" oninput="calculateMiniProfit('business')">
+                                <span class="mini-calc-currency">₽</span>
+                            </div>
+                            <div class="mini-calc-profit">
+                                <span>Доход за 12 месяцев:</span>
+                                <span id="calc-out-business" class="mini-calc-num">12 000 ₽</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ПЛАН 4 -->
+                    <div class="plan-card" onclick="triggerPlanActivation('VIP')">
+                        <div>
+                            <div class="plan-header">
+                                <span class="plan-title">VIP план</span>
+                                <span id="pct-vip" class="plan-percent">35%</span>
+                            </div>
+                            <p style="font-size:14px; color:#475569; line-height:1.4;">Максимальные привилегии и эксклюзивные условия распределения прибыли на рынке.</p>
+                        </div>
+                        <div class="mini-calc-box" onclick="event.stopPropagation();">
+                            <div class="mini-calc-input-wrap">
+                                <input type="number" id="calc-in-vip" class="mini-calc-input" value="50000" oninput="calculateMiniProfit('vip')">
+                                <span class="mini-calc-currency">₽</span>
+                            </div>
+                            <div class="mini-calc-profit">
+                                <span>Доход за 12 месяцев:</span>
+                                <span id="calc-out-vip" class="mini-calc-num">17 500 ₽</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- КОНЕЦ ТАРИФОВ -->
+    <style>
+        /* СТИЛИ СТРАНИЦ ЛИЧНОГО КАБИНЕТА БЕЗ ПОДЧЕРКИВАНИЙ */
+        .profile-grid {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+        }
+        .profile-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        .profile-row:last-child { border-bottom: none; }
+        .profile-label { color: #475569; font-weight: 600; }
+        .profile-value { color: #0f172a; font-weight: 700; text-align: right; }
+
+        /* Карточки платежных шлюзов */
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .method-card {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 24px 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 800;
+            color: #0f172a;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+        }
+        .method-card:hover { 
+            border-color: #0052ff; 
+            background: rgba(0, 82, 255, 0.02);
+            transform: translateY(-1px);
+        }
+        .method-limits {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 8px;
+            font-weight: 600;
         }
 
-        function setPeopleCat() { currentCat = 'people'; if(tPeo){tPeo.classList.add('act');} if(tAni){tAni.classList.remove('act');} renderCharity(); }
-        function setAnimalsCat() { currentCat = 'animals'; if(tAni){tAni.classList.add('act');} if(tPeo){tPeo.classList.remove('act');} renderCharity(); }
-        if (tPeo && tAni) {
-            tPeo.addEventListener('click', setPeopleCat);
-            tPeo.addEventListener('touchstart', setPeopleCat, {passive: true});
-            tAni.addEventListener('click', setAnimalsCat);
-            tAni.addEventListener('touchstart', setAnimalsCat, {passive: true});
+        /* Интерактивные яркие фильтры */
+        .history-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
         }
-        [cf, minI, maxI].forEach(el => {
-            if (el) el.addEventListener('input', renderCharity);
+        .filter-btn {
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            color: #334155;
+            transition: all 0.2s;
+        }
+        .filter-btn.active {
+            background: #0052ff;
+            color: #ffffff;
+            border-color: #0052ff;
+            box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2);
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .history-item {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+        }
+        .history-info h4 { font-size: 16px; color: #0f172a; margin-bottom: 4px; font-weight: 700; }
+        .history-info p { font-size: 13px; color: #64748b; font-weight: 500; }
+        .history-meta-box { text-align: right; }
+        .history-amount { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+        
+        /* Статусы строго по ТЗ без эмодзи */
+        .status-badge {
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .status-badge.created { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; } /* Красная */
+        .status-badge.processing { background: #ffedd5; color: #ea580c; border: 1px solid #fdba74; } /* Оранжевая */
+        .status-badge.completed { background: #e8fbf1; color: #00e676; border: 1px solid #b9f6ca; } /* Зеленая */
+        @media (max-width: 768px) {
+            .method-grid { grid-template-columns: 1fr; }
+            .history-item { flex-direction: column; align-items: flex-start; gap: 14px; }
+            .history-meta-box { text-align: left; }
+            .history-filters { flex-wrap: wrap; }
+            .filter-btn { width: 100%; text-align: center; }
+        }
+    </style>
+
+            <!-- ВНУТРЕННЯЯ ВКЛАДКА 2: ЛИЧНЫЙ КАБИНЕТ -->
+            <div id="tab-profile" class="dashboard-tab">
+                <h2 class="section-title">Персональные данные</h2>
+                <div class="profile-grid">
+                    <div class="profile-row"><span class="profile-label">Имя Фамилия</span><span id="prof-name" class="profile-value">-</span></div>
+                    <div class="profile-row"><span class="profile-label">Логин</span><span id="prof-login" class="profile-value">-</span></div>
+                    <div class="profile-row"><span class="profile-label">Электронная почта</span><span id="prof-email" class="profile-value">-</span></div>
+                    <div class="profile-row"><span class="profile-label">Номер телефона</span><span id="prof-phone" class="profile-value">-</span></div>
+                    <div class="profile-row"><span class="profile-label">Привязанные реквизиты</span><span id="prof-requisites" class="profile-value">-</span></div>
+                </div>
+            </div>
+
+            <!-- ВНУТРЕННЯЯ ВКЛАДКА 3: ПОПОЛНЕНИЕ СЧЕТА -->
+            <div id="tab-deposit" class="dashboard-tab">
+                <h2 class="section-title">Пополнение счета</h2>
+                <div class="method-grid">
+                    <div class="method-card" onclick="triggerAction('Пополнение')">Банковская карта<div class="method-limits">Мин: 5 000 ₽ / Макс: 500 000 ₽</div></div>
+                    <div class="method-card" onclick="triggerAction('Пополнение')">СБП<div class="method-limits">Мин: 1 000 ₽ / Макс: 300 000 ₽</div></div>
+                    <div class="method-card" onclick="triggerAction('Пополнение')">USDT<div class="method-limits">Мин: 100 USDT / Макс: 50 000 USDT</div></div>
+                </div>
+            </div>
+
+            <!-- ВНУТРЕННЯЯ ВКЛАДКА 4: ВЫВОД СРЕДСТВ -->
+            <div id="tab-withdraw" class="dashboard-tab">
+                <h2 class="section-title">Вывод средств</h2>
+                <div class="method-grid">
+                    <div class="method-card" onclick="triggerAction('Вывод')">Банковская карта<div class="method-limits">Мин: 1 000 ₽</div></div>
+                    <div class="method-card" onclick="triggerAction('Вывод')">СБП<div class="method-limits">Мин: 1 000 ₽</div></div>
+                    <div class="method-card" onclick="triggerAction('Вывод')">USDT<div class="method-limits">Мин: 20 USDT</div></div>
+                </div>
+            </div>
+
+            <!-- ВНУТРЕННЯЯ ВКЛАДКА 5: ИСТОРИЯ БАЛАНСА -->
+            <div id="tab-history" class="dashboard-tab">
+                <h2 class="section-title">История операций</h2>
+                <div class="history-filters">
+                    <button id="filter-all" class="filter-btn active" onclick="applyHistoryFilter('all')">Все операции</button>
+                    <button id="filter-deposit" class="filter-btn" onclick="applyHistoryFilter('deposit')">Пополнения</button>
+                    <button id="filter-withdraw" class="filter-btn" onclick="applyHistoryFilter('withdraw')">Выводы</button>
+                </div>
+                <div id="history-items-container" class="history-list">
+                    <!-- Будет сгенерировано скриптом -->
+                </div>
+            </div>
+
+            <!-- ВНУТРЕННЯЯ ВКЛАДКА 6: БОНУСЫ -->
+            <div id="tab-bonuses" class="dashboard-tab">
+                <h2 class="section-title">Персональные бонусы</h2>
+                <div id="bonuses-container" class="history-list">
+                    <!-- Подгружается из БД платформы -->
+                </div>
+            </div>
+
+        </div>
+        </div> <!-- КОНЕЦ РАБОЧЕЙ ПАНЕЛИ -->
+    <style>
+        /* СТИЛИ МОДАЛЬНЫХ ОКОН И ИЗОЛИРОВАННЫХ ДОКУМЕНТОВ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 300;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: #ffffff;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            padding: 40px 30px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            text-align: center;
+            border: 2px solid #e2e8f0;
+        }
+        .modal-title { font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 16px; }
+        .modal-text { font-size: 15px; color: #475569; margin-bottom: 28px; line-height: 1.5; font-weight: 500; }
+
+        /* Изолированные страницы для правил */
+        .doc-page {
+            display: none;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 60px 20px;
+            color: #0f172a;
+        }
+        .doc-page.active { display: block; }
+        .doc-container { max-width: 800px; margin: 0 auto; }
+        .doc-header-title { font-size: 32px; font-weight: 800; margin-bottom: 30px; color: #0052ff; border-bottom: 3px solid #e2e8f0; padding-bottom: 15px; }
+        .doc-section-text { font-size: 16px; line-height: 1.7; color: #334155; margin-bottom: 24px; }
+        .doc-section-text h3 { font-size: 20px; font-weight: 800; margin: 24px 0 12px 0; color: #0f172a; }
+    </style>
+
+    <!-- ОФИЦИАЛЬНОЕ МОДАЛЬНОЕ ОКНО ДЛЯ ДЕЙСТВИЙ (ЧЕРЕЗ MAX) -->
+    <div id="action-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="modal-title-text" class="modal-title">Подтверждение операции</h3>
+            <p id="modal-body-text" class="modal-text">Для завершения процедуры необходимо получить официальное подтверждение верификации.</p>
+            <button class="btn btn-support-blue" onclick="contactSupport()">Подтвердить через MAX <span class="sym-arrow">→</span></button>
+            <button class="btn" style="background:none; color:#64748b; font-size:14px; margin-top:16px; font-weight:700;" onclick="closeModal()">Закрыть окно</button>
+        </div>
+    </div>
+
+    <!-- ИЗОЛИРОВАННАЯ СТРАНИЦА: ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ -->
+    <div id="page-doc-rules" class="doc-page">
+        <div class="doc-container">
+            <h1 class="doc-header-title">Пользовательское соглашение</h1>
+            <div class="doc-section-text">
+                <p>Настоящее Соглашение определяет условия использования инвестиционной платформы JUMP участниками финансового сектора.</p>
+                <h3>1. Общие положения</h3>
+                <p>1.1. Платформа предоставляет автоматизированный интерфейс для мониторинга распределения доходности активов физических лиц. Все ссылки и текстовые блоки полностью избавлены от подчеркиваний.</p>
+                <h3>2. Регламент проведения финансовых операций</h3>
+                <p>2.1. Пополнение баланса осуществляется через авторизованные шлюзы поддержки клиентов.</p>
+                <p style="font-weight: 800; color: #0052ff; background: rgba(0, 82, 255, 0.08); padding: 20px; border-radius: 12px; border: 1px solid #b3ccfa;">2.2. СТРОГОЕ ПРАВИЛО: Вывод денежных средств и цифровых активов со счета пользователя осуществляется исключительно на те же самые реквизиты и платежную систему, с которых производилось первоначальное пополнение счета.</p>
+                <h3>3. Служба верификации MAX</h3>
+                <p>3.1. Все распоряжения по активации планов, пополнениям и списаниям проходят обязательный аудит специалистов службы MAX.</p>
+            </div>
+            <button class="btn btn-main-blue" onclick="closeDocumentPage()">Вернуться на главную</button>
+        </div>
+    </div>
+
+    <!-- ИЗОЛИРОВАННАЯ СТРАНИЦА: ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ -->
+    <div id="page-doc-privacy" class="doc-page">
+        <div class="doc-container">
+            <h1 class="doc-header-title">Политика конфиденциальности</h1>
+            <div class="doc-section-text">
+                <p>Настоящий документ регламентирует обработку и защиту персональных данных клиентов инвестиционной платформы JUMP.</p>
+                <h3>1. Сбор информации</h3>
+                <p>1.1. Платформа обрабатывает информацию, предоставляемую при авторизации: логин, имя, фамилию, привязанные реквизиты и контактные данные.</p>
+                <h3>2. Защита и конфиденциальность данных</h3>
+                <p>2.1. Данные хранятся в защищенном реестре приложения и не передаются третьим лицам. Доступ имеет только администратор системы.</p>
+            </div>
+            <button class="btn btn-main-blue" onclick="closeDocumentPage()">Вернуться на главную</button>
+        </div>
+    </div>
+
+    <script>
+        /***********************************************************
+         * БАЗА ДАННЫХ ПЛАТФОРМЫ (ВЫ ИЗМЕНЯЕТЕ ЭТИ ДАННЫЕ ВРУЧНУЮ)
+         ***********************************************************/
+        const PLATFORM_DATABASE = {
+            // Базовые процентные ставки планов
+            tariffs_percentage: {
+                standard: 12,
+                master: 18,
+                business: 24,
+                vip: 35
+            },
+
+            // НАСТРОЙКА ПОЧАСОВОГО ИЗМЕНЕНИЯ ДОХОДНОСТИ (ПОРОГ)
+            // Алгоритм будет случайным образом прибавлять или отнимать значение в этих пределах
+            hourly_volatility_limit: 1.5, // Максимальное отклонение в процентах (например, +/- 1.5%)
+
+            user_profile: {
+                firstName: "Алексей",
+                lastName: "Иванов",
+                login: "jump_client77",
+                email: "ivanov.invest@example.ru",
+                phone: "+7 (999) 123-45-67",
+                requisites: "СБП / Тинькофф (Карта *4321)",
+                balance: 275000,
+                active_plan: "Мастер"
+            },
+            bonuses: [
+                { id: 1, title: "Приветственный бонус", amount: "5 000 ₽", date: "12.03.2026" },
+                { id: 2, title: "Бонус за верификацию MAX", amount: "10 000 ₽", date: "15.03.2026" }
+            ],
+            balance_history: [
+                { type: "deposit", title: "Пополнение через СБП", amount: "+ 150 000 ₽", date: "14.03.2026, 11:20", status: "обработана" },
+                { type: "deposit", title: "Пополнение Банковской картой", amount: "+ 120 000 ₽", date: "18.03.2026, 16:45", status: "обработана" },
+                { type: "withdraw", title: "Запрос вывода средств на карту", amount: "- 15 000 ₽", date: "20.03.2026, 09:15", status: "обрабатывается" },
+                { type: "withdraw", title: "Запрос вывода на USDT кошелек", amount: "- 50 000 ₽", date: "22.03.2026, 14:02", status: "создана" }
+            ]
+        };
+
+        // Хранилище для динамически измененных процентов
+        let LIVE_TARIFFS = { ...PLATFORM_DATABASE.tariffs_percentage };
+
+        function contactSupport() {
+            window.open('https://t.me', '_blank');
+        }
+        // Инициализация данных при загрузке страницы
+        window.addEventListener('DOMContentLoaded', () => {
+            // Запускаем симуляцию ежечасного изменения доходности
+            runHourlyVolatility();
+            
+            renderProfileData();
+            renderBonuses();
+            renderHistory('all');
+            calculateMainProfit();
+            
+            // Запуск циклического таймера обновления (раз в 1 час)
+            setInterval(runHourlyVolatility, 3600000);
         });
 
-        // ЛОГИКА МОДАЛЬНОГО ОКНА ИСТОРИЙ
-        let storyTimeout;
-        function openStory(imgUrl, text) {
-            const modal = document.getElementById('storyModal');
-            const content = document.getElementById('storyContent');
-            const storyText = document.getElementById('fullStoryText');
-            const progressBar = document.getElementById('progressBar');
-            content.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.6)), url('${imgUrl}')`;
-            storyText.innerText = text;
-            modal.style.display = 'flex';
-            progressBar.classList.remove('active');
-            void progressBar.offsetWidth; 
-            progressBar.classList.add('active');
-            clearTimeout(storyTimeout);
-            storyTimeout = setTimeout(() => { closeStory(); }, 5000);
+        // УМНЫЙ АЛГОРИТМ: Автоматическое изменение процентов каждый час
+        function runHourlyVolatility() {
+            const baseRates = PLATFORM_DATABASE.tariffs_percentage;
+            const limit = PLATFORM_DATABASE.hourly_volatility_limit;
+            
+            for (let key in baseRates) {
+                // Вычисляем случайное смещение в пределах заданного вами порога
+                // Например, если limit = 1.5, то смещение будет от -1.5 до +1.5
+                const change = (Math.random() * (limit * 2) - limit);
+                
+                // Формируем новую ставку, округляя до 2 знаков после запятой
+                let currentRate = baseRates[key] + change;
+                
+                // Защита: ставка не должна опускаться ниже 1%
+                if (currentRate < 1) currentRate = 1;
+                
+                LIVE_TARIFFS[key] = parseFloat(currentRate.toFixed(2));
+            }
+            
+            // Применяем новые проценты в интерфейс карточек
+            applyLiveRates();
+            
+            // Пересчитываем микро-калькуляторы под новые измененные проценты
+            calculateMiniProfit('standard');
+            calculateMiniProfit('master');
+            calculateMiniProfit('business');
+            calculateMiniProfit('vip');
         }
 
-        function closeStory() {
-            const modal = document.getElementById('storyModal');
-            const progressBar = document.getElementById('progressBar');
-            modal.style.display = 'none';
-            progressBar.classList.remove('active');
-            clearTimeout(storyTimeout);
+        // Внедрение измененных процентных ставок в карточки
+        function applyLiveRates() {
+            document.getElementById('pct-standard').innerText = LIVE_TARIFFS.standard + '%';
+            document.getElementById('pct-master').innerText = LIVE_TARIFFS.master + '%';
+            document.getElementById('pct-business').innerText = LIVE_TARIFFS.business + '%';
+            document.getElementById('pct-vip').innerText = LIVE_TARIFFS.vip + '%';
         }
 
-        // ТЕМЫ ОФОРМЛЕНИЯ (СОХРАНЕНИЕ И ПЕРЕКЛЮЧЕНИЕ)
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-        const savedTheme = localStorage.getItem('theme');
-        
-        if (savedTheme === 'light') {
-            htmlElement.classList.add('light-theme');
-            if (themeToggleBtn) themeToggleBtn.textContent = '☼';
-        } else {
-            if (themeToggleBtn) themeToggleBtn.textContent = '☾';
+        // Вывод данных личного кабинета и баланса
+        function renderProfileData() {
+            const user = PLATFORM_DATABASE.user_profile;
+            document.getElementById('user-display-balance').innerText = user.balance.toLocaleString('ru-RU') + ' ₽';
+            document.getElementById('user-display-plan').innerText = user.active_plan || 'Не выбран';
+            
+            document.getElementById('prof-name').innerText = `${user.firstName} ${user.lastName}`;
+            document.getElementById('prof-login').innerText = user.login;
+            document.getElementById('prof-email').innerText = user.email;
+            document.getElementById('prof-phone').innerText = user.phone;
+            document.getElementById('prof-requisites').innerText = user.requisites;
         }
 
-        if (themeToggleBtn) {
-            themeToggleBtn.addEventListener('click', () => {
-                if (htmlElement.classList.contains('light-theme')) {
-                    htmlElement.classList.remove('light-theme');
-                    themeToggleBtn.textContent = '☾';
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    htmlElement.classList.add('light-theme');
-                    themeToggleBtn.textContent = '☼';
-                    localStorage.setItem('theme', 'light');
-                }
+        // Рендеринг персональных бонусов из БД
+        function renderBonuses() {
+            const container = document.getElementById('bonuses-container');
+            container.innerHTML = '';
+            if (PLATFORM_DATABASE.bonuses.length === 0) {
+                container.innerHTML = '<p style="color:#64748b; text-align:center; padding:20px; font-weight:600;">У вас пока нет активных бонусов</p>';
+                return;
+            }
+            PLATFORM_DATABASE.bonuses.forEach(b => {
+                container.innerHTML += `
+                    <div class="history-item">
+                        <div class="history-info">
+                            <h4>${b.title}</h4>
+                            <p>${b.date}</p>
+                        </div>
+                        <div class="history-meta-box">
+                            <div class="history-amount" style="color:#00e676;">+ ${b.amount}</div>
+                        </div>
+                    </div>
+                `;
             });
         }
 
-        // ГЕНЕРАЦИЯ ОРНАМЕНТА ДЛЯ СВЕТЛОЙ ТЕМЫ
-        const patternContainer = document.getElementById('pattern');
-        const templates = ['book', 'mic', 'diamond', 'board'];
-        const sizes = {
-            book: { w: 14, h: 16 },
-            mic: { w: 16, h: 20 },
-            diamond: { w: 22, h: 20 },
-            board: { w: 18, h: 18 }
-        };
-        const columns = 6; 
-        const rows = 8;
+        // Рендеринг истории операций по фильтрам и трехцветным статусам
+        function renderHistory(filterType) {
+            const container = document.getElementById('history-items-container');
+            container.innerHTML = '';
+            
+            const items = PLATFORM_DATABASE.balance_history.filter(item => {
+                if (filterType === 'all') return true;
+                return item.type === filterType;
+            });
 
-        for (let c = 0; c < columns; c++) {
-            for (let r = 0; r < rows; r++) {
-                const randomType = templates[Math.floor(Math.random() * templates.length)];
-                const template = document.getElementById(randomType);
-                if (template && patternContainer) {
-                    const clone = template.content.cloneNode(true).querySelector('svg');
-                    const baseLeft = (c / columns) * 100 + (100 / columns / 2);
-                    const baseTop = (r / rows) * 100 + (100 / rows / 2);
-                    const randomX = baseLeft + (Math.random() * 12 - 6); 
-                    const randomY = baseTop + (Math.random() * 12 - 6);
+            if (items.length === 0) {
+                container.innerHTML = '<p style="color:#64748b; text-align:center; padding:20px; font-weight:600;">Нет записей по выбранному фильтру</p>';
+                return;
+            }
 
-                    clone.style.left = `${randomX}%`;
-                    clone.style.top = `${randomY}%`;
-                    clone.style.width = `${sizes[randomType].w}px`;
-                    clone.style.height = `${sizes[randomType].h}px`;
-                    patternContainer.appendChild(clone);
+            items.forEach(item => {
+                let statusClass = 'created';
+                let statusText = 'Создана';
+
+                if (item.status === 'обрабатывается') {
+                    statusClass = 'processing';
+                    statusText = 'Обрабатывается';
+                } else if (item.status === 'обработана') {
+                    statusClass = 'completed';
+                    statusText = 'Обработана';
                 }
+
+                const colorAmount = item.type === 'deposit' ? '#00e676' : '#0f172a';
+
+                container.innerHTML += `
+                    <div class="history-item">
+                        <div class="history-info">
+                            <h4>${item.title}</h4>
+                            <p>${item.date}</p>
+                        </div>
+                        <div class="history-meta-box">
+                            <div class="history-amount" style="color: ${colorAmount};">${item.amount}</div>
+                            <span class="status-badge ${statusClass}">${statusText}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Фильтрация истории баланса (Все / Пополнения / Выводы)
+        function applyHistoryFilter(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`filter-${type}`).classList.add('active');
+            renderHistory(type);
+        }
+        // Логика авторизации по логину из базы данных
+        function handleLogin() {
+            const enteredLogin = document.getElementById('auth-username').value.trim();
+            if (enteredLogin === PLATFORM_DATABASE.user_profile.login) {
+                navigateTo('dashboard-page');
+                switchDashboardTab('tariffs');
+            } else {
+                alert('Указанный логин не зарегистрирован в системе. Пожалуйста, обратитесь в поддержку MAX.');
+            }
+        }
+
+        // НОВАЯ ФУНКЦИЯ: Безопасный выход из системы (разлогин)
+        function handleLogout() {
+            // Очищаем поле ввода логина для безопасности
+            document.getElementById('auth-username').value = '';
+            // Возвращаем пользователя на главную страницу до авторизации
+            navigateTo('main-page');
+        }
+
+        // Общий калькулятор доходности на главной странице
+        function calculateMainProfit() {
+            const amount = parseFloat(document.getElementById('main-calc-amount').value) || 0;
+            const period = parseInt(document.getElementById('main-calc-period').value) || 1;
+            // Расчет на базе текущей "живой" максимальной ставки VIP из алгоритма
+            const rate = LIVE_TARIFFS.vip / 100;
+            const profit = amount * rate * period;
+            document.getElementById('main-calc-result').innerText = Math.round(profit).toLocaleString('ru-RU') + ' ₽';
+        }
+
+        // Встроенные калькуляторы под каждый тарифный план (динамический расчет под живой процент)
+        function calculateMiniProfit(tariffKey) {
+            const inputVal = parseFloat(document.getElementById(`calc-in-${tariffKey}`).value) || 0;
+            const rate = LIVE_TARIFFS[tariffKey] / 100;
+            const profit = inputVal * rate;
+            document.getElementById(`calc-out-${tariffKey}`).innerText = Math.round(profit).toLocaleString('ru-RU') + ' ₽';
+        }
+
+        // Модальные триггеры для тарифов и финансовых вкладок
+        function triggerPlanActivation(planName) {
+            document.getElementById('modal-title-text').innerText = `Активация плана «${planName}»`;
+            document.getElementById('modal-body-text').innerText = `Для открытия вклада по тарифу «${planName}» и фиксации процентной ставки необходимо получить подтверждение через службу верификации MAX в поддержке.`;
+            document.getElementById('action-modal').classList.add('active');
+        }
+
+        function triggerAction(actionType) {
+            document.getElementById('modal-title-text').innerText = `${actionType} баланса`;
+            document.getElementById('modal-body-text').innerText = `Все операции по пополнению или выводу средств производятся в ручном режиме. Для создания и утверждения заявки свяжитесь с поддержкой MAX. Напоминаем, что вывод производится строго на тот метод, через который происходило пополнение.`;
+            document.getElementById('action-modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('action-modal').classList.remove('active');
+        }
+
+        // Имитация открытия банковских историй (Госуслуги стиль)
+        function openStory(id) {
+            let message = "";
+            if (id === 1) message = "JUMP — это современная инвестиционная платформа, работающая в правовом поле цифровых финансовых активов.";
+            if (id === 2) message = "Безопасность транзакций обеспечивается сквозным шифрованием данных и строгим внутренним аудитом.";
+            if (id === 3) message = "Служба верификации MAX гарантирует защиту личного кабинета от несанкционированного доступа посторонних лиц.";
+            if (id === 4) message = "ВАЖНО: Вывод средств возможен только на те же платежные реквизиты, с которых было произведено пополнение счета.";
+            alert(message);
+        }
+
+        // УПРАВЛЕНИЕ МАРШРУТИЗАЦИЕЙ (Single Page Application)
+        function navigateTo(pageId) {
+            closeModal();
+            document.getElementById('hamburger-menu-wrapper').classList.remove('open');
+            document.querySelectorAll('.doc-page').forEach(dp => dp.classList.remove('active'));
+            
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Внутренние вкладки Личного кабинета
+        function switchDashboardTab(tabKey) {
+            document.getElementById('hamburger-menu-wrapper').classList.remove('open');
+            document.querySelectorAll('.dashboard-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(`tab-${tabKey}`).classList.add('active');
+            
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                if (item.getAttribute('onclick').includes(tabKey)) {
+                    item.classList.add('active');
+                }
+            });
+
+            const balanceBlock = document.getElementById('global-balance-block');
+            if (tabKey === 'profile') {
+                balanceBlock.style.display = 'none';
+            } else {
+                balanceBlock.style.display = 'flex';
+            }
+            window.scrollTo(0, 0);
+        }
+
+        // Управление видимостью меню гамбургера
+        function toggleMenu() {
+            const menu = document.getElementById('hamburger-menu-wrapper');
+            menu.classList.toggle('open');
+        }
+
+        // Открытие изолированных правовых страниц в этой же SPA структуре
+        function openDocumentPage(docKey) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.doc-page').forEach(dp => dp.classList.remove('active'));
+            document.getElementById(`page-doc-${docKey}`).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function closeDocumentPage() {
+            document.querySelectorAll('.doc-page').forEach(dp => dp.classList.remove('active'));
+            document.getElementById('main-page').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Плавный скролл к якорям главной страницы
+        function scrollAnchor(anchorId) {
+            const element = document.getElementById(anchorId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
             }
         }
     </script>
 </body>
 </html>
-
