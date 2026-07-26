@@ -62,23 +62,58 @@
         }
         
         /* Сочный неоновый оранжевый для кнопки входа */
-       .btn-login-orange {
-            background-color: #ff5500;
-            color: #ffffff;
-            padding: 0 28px;
-            font-size: 15px;
-            height: 44px;
-            box-shadow: 0 6px 20px rgba(255, 85, 0, 0.4);
-            width: auto;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .btn-login-orange:hover { 
-            background-color: #ff3c00; 
-            box-shadow: 0 8px 24px rgba(255, 60, 0, 0.5);
-            transform: translateY(-1px);
-        }
-        .btn-login-orange:active { transform: scale(0.98); }
+      /* БЛОК ДЛЯ МОБИЛОК */
+.btn-login-orange {
+    background-color: #ff5500 !important;
+    color: #ffffff !important;
+    
+    /* Размеры */
+    height: 44px !important;
+    width: auto !important;
+    box-sizing: border-box !important;
+    padding: 0 16px !important;            
+    
+    /* ТОЧНОЕ СКРУГЛЕНИЕ УГЛОВ */
+    border-radius: 12px !important;       /* Умеренно мягкие круглые углы */
+
+    /* Центрирование текста */
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+
+    /* Шрифт */
+    font-size: 13px !important;       
+    font-weight: 700 !important;      
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    
+    /* Стилизация и эффекты */
+    border: none !important;
+    box-shadow: 0 6px 20px rgba(255, 85, 0, 0.4) !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+/* БЛОК ДЛЯ ПК */
+@media (min-width: 769px) {
+    .btn-login-orange {
+        padding: 0 24px !important;        
+        font-size: 14px !important;       
+    }
+}
+
+/* АНИМАЦИИ */
+.btn-login-orange:hover { 
+    background-color: #ff3c00 !important; 
+    box-shadow: 0 8px 24px rgba(255, 60, 0, 0.5) !important;
+    transform: translateY(-1px) !important;
+}
+
+.btn-login-orange:active { 
+    transform: scale(0.98) !important; 
+}
+
 
         /* Электрический синий */
         .btn-main-blue {
