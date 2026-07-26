@@ -340,8 +340,10 @@
             </div>
         </div>
     </section>
-    <style>
-        /* СТИЛИ ПРАВОВОГО БЛОКА И ИНТЕРАКТИВНОГО КАЛЬКУЛЯТОРА */
+<style>
+        /* ======================================================== */
+        /* ВАШИ СТАРЫЕ СТИЛИ ПРАВОВОГО БЛОКА И ДРУГИХ ЭЛЕМЕНТОВ (НЕ ТРОНУТЫ) */
+        /* ======================================================== */
         .section-title {
             font-size: 28px;
             font-weight: 800;
@@ -358,7 +360,7 @@
             background-color: #f8fafc;
         }
         
-        /* Вертикальные блоки без синих подчеркиваний */
+        /* Вертикальные blocks без синих подчеркиваний */
         .doc-vertical-card {
             background: #ffffff;
             border: 2px solid #e2e8f0;
@@ -403,7 +405,7 @@
         }
         .doc-link-btn:hover { color: #0044d4; }
 
-        /* Калькулятор главной */
+        /* Старый калькулятор (оставлен для совместимости классов, если нужно) */
         .calc-wrapper {
             background: #ffffff;
             border: 2px solid #e2e8f0;
@@ -432,7 +434,6 @@
         }
         .input-control:focus { border-color: #0052ff; }
         
-        /* Сверх-яркий лаймовый результат */
         .calc-result-box {
             background: #f1f5f9;
             border-radius: 14px;
@@ -489,8 +490,216 @@
             .calc-result-box { flex-direction: column; align-items: flex-start; gap: 8px; }
             .footer-flex { flex-direction: column; align-items: flex-start; }
             .footer-links { flex-direction: column; gap: 12px; }
+        }
+
+        /* ======================================================== */
+        /* ОБНОВЛЕННЫЕ ИНТЕГРИРОВАННЫЕ СТИЛИ ДЛЯ НОВОГО КАЛЬКУЛЯТОРА */
+        /* ======================================================== */
+        .uni-calc-wrapper {
+            --bright-blue: #0052ff;
+            --bright-blue-light: rgba(0, 82, 255, 0.08);
+            --bright-orange: #ff6b00;
+            --bright-orange-light: rgba(255, 107, 0, 0.08);
+            --bright-green: #00e676;
+            
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        .uni-calc-wrapper *, 
+        .uni-calc-wrapper *::before, 
+        .uni-calc-wrapper *::after {
+            box-sizing: border-box;
+        }
+        .uni-calc-wrapper .calculator-card {
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .uni-calc-wrapper .calc-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .uni-calc-wrapper .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .uni-calc-wrapper .label-row {
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #334155;
+        }
+        .uni-calc-wrapper .value-block-field {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            font-weight: 700;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            background: #ffffff;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .uni-calc-wrapper .value-block-field.active-blue {
+            border-color: var(--bright-blue);
+            box-shadow: 0 0 0 4px var(--bright-blue-light);
+        }
+        .uni-calc-wrapper .value-block-field.active-orange {
+            border-color: var(--bright-orange);
+            box-shadow: 0 0 0 4px var(--bright-orange-light);
+        }
+        .uni-calc-wrapper .blue-text { font-size: 18px; color: var(--bright-blue); }
+        .uni-calc-wrapper .orange-text { font-size: 18px; color: var(--bright-orange); }
+
+        .uni-calc-wrapper .input-field {
+            width: 100%;
+            padding: 0 16px;
+            font-size: 16px !important;
+            font-weight: 600;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fff;
+            height: 52px;
+            color: #0f172a;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .uni-calc-wrapper .input-field:focus {
+            border-color: var(--bright-blue);
+            box-shadow: 0 0 0 4px var(--bright-blue-light);
+        }
+        .uni-calc-wrapper .slider-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-top: 12px;
+            height: 20px;
+        }
+        .uni-calc-wrapper .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
+            outline: none;
+            margin: 0;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+        .uni-calc-wrapper .slider-progress {
+            position: absolute;
+            left: 0;
+            height: 6px;
+            border-radius: 3px 0 0 3px;
+            pointer-events: none;
+            z-index: 1;
+            width: 0%;
+        }
+        .uni-calc-wrapper .slider-blue-progress { background: var(--bright-blue); }
+        .uni-calc-wrapper .slider-orange-progress { background: var(--bright-orange); }
+
+        .uni-calc-wrapper .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transition: transform 0.1s;
+        }
+        .uni-calc-wrapper .slider::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transition: transform 0.1s;
+        }
+        .uni-calc-wrapper .slider:active::-webkit-slider-thumb { transform: scale(1.1); }
+        .uni-calc-wrapper .slider:active::-moz-range-thumb { transform: scale(1.1); }
+
+        .uni-calc-wrapper .slider-blue::-webkit-slider-thumb { background: var(--bright-blue); }
+        .uni-calc-wrapper .slider-blue::-moz-range-thumb { background: var(--bright-blue); }
+
+        .uni-calc-wrapper .slider-orange::-webkit-slider-thumb { background: var(--bright-orange); }
+        .uni-calc-wrapper .slider-orange::-moz-range-thumb { background: var(--bright-orange); }
+
+        .uni-calc-wrapper .result-box {
+            background-color: #f1f5f9;
+            border: none;
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .uni-calc-wrapper .result-label {
+            color: #475569;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+        .uni-calc-wrapper .result-value {
+            color: var(--bright-green);
+            font-size: 26px;
+            font-weight: 900;
+            text-shadow: 0 1px 2px rgba(0,230,118,0.1);
+        }
+
+        @media (min-width: 1024px) {
+            .uni-calc-wrapper .calculator-card {
+                flex-direction: row;
+                gap: 40px;
+                align-items: flex-start;
             }
-    </style>
+            .uni-calc-wrapper .calc-inputs {
+                flex: 1.1;
+            }
+            .uni-calc-wrapper .result-box {
+                flex: 0.9;
+                align-self: stretch;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 40px;
+            }
+            .uni-calc-wrapper .result-label {
+                margin-bottom: 10px;
+            }
+            .uni-calc-wrapper .result-value {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .uni-calc-wrapper .result-box {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+</style>
+
 
     <!-- Раздел официальных лицензий (2 вертикальных блока) -->
     <section id="docs-anchor" class="docs-section">
@@ -517,30 +726,72 @@
         </div>
     </section>
 
-    <!-- Секция калькулятора -->
-    <section id="calc-anchor" class="calc-section">
-        <div class="container">
-            <h2 class="section-title">Калькулятор предварительного расчета</h2>
-            <div class="calc-wrapper">
-                <div class="form-group">
-                    <label class="form-label">Сумма планируемого вклада (₽)</label>
-                    <input type="number" id="main-calc-amount" class="input-control" value="100000" oninput="calculateMainProfit()">
+    
+<!-- Родная секция калькулятора с платформы -->
+<section id="calc-anchor" class="calc-section">
+    <div class="container">
+        <!-- Родной заголовок секции -->
+        <h2 class="section-title">Калькулятор предварительного расчета</h2>
+        
+        <!-- Новый интерактивный калькулятор внутри -->
+        <div class="uni-calc-wrapper">
+            <div class="calculator-card">
+                
+                <!-- Левая колонка с параметрами -->
+                <div class="calc-inputs">
+                    <!-- Сумма вклада -->
+                    <div class="input-group" id="group-amount">
+                        <div class="label-row">
+                            <span>Сумма планируемого вклада (₽)</span>
+                        </div>
+                        <!-- Старый рабочий ID: main-calc-amount -->
+                        <input type="number" id="main-calc-amount" class="input-field" value="100000" min="0">
+                    </div>
+
+                    <!-- Ползунок % ставки -->
+                    <div class="input-group" id="group-rate">
+                        <div class="label-row">
+                            <span>Процентная ставка</span>
+                        </div>
+                        <div class="value-block-field blue-text" id="box-rate">
+                            <span id="rate-val">24</span>%
+                        </div>
+                        <div class="slider-container">
+                            <div class="slider-progress slider-blue-progress"></div>
+                            <input type="range" id="rate" class="slider slider-blue" min="12" max="45" value="24">
+                        </div>
+                    </div>
+
+                    <!-- Ползунок срока -->
+                    <div class="input-group" id="group-period">
+                        <div class="label-row">
+                            <span>Инвестиционный период</span>
+                        </div>
+                        <div class="value-block-field orange-text" id="box-period">
+                            <span id="period-val">12</span> <span id="month-txt">месяцев</span>
+                        </div>
+                        <div class="slider-container">
+                            <div class="slider-progress slider-orange-progress"></div>
+                            <!-- Старый рабочий ID: main-calc-period -->
+                            <input type="range" id="main-calc-period" class="slider slider-orange" min="1" max="12" value="12">
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-label">Инвестиционный период</label>
-                    <select id="main-calc-period" class="input-control" onchange="calculateMainProfit()">
-                        <option value="1">1 год</option>
-                        <option value="3">3 года</option>
-                        <option value="5">5 лет</option>
-                    </select>
+
+                <!-- Правая колонка / Блок результата -->
+                <div class="result-box">
+                    <div class="result-label">Максимальный прогнозируемый доход:</div>
+                    <!-- Старый рабочий ID: main-calc-result -->
+                    <div class="result-value" id="main-calc-result">0 ₽</div>
                 </div>
-                <div class="calc-result-box">
-                    <span class="calc-result-label">Максимальный прогнозируемый доход:</span>
-                    <span id="main-calc-result" class="calc-result-value">35 000 ₽</span>
-                </div>
+
             </div>
         </div>
-    </section>
+
+    </div>
+</section>
+
+
 
     <!-- Нижняя зона (Футер) -->
     <footer class="main-footer">
@@ -1554,7 +1805,7 @@
             });
         }
 
-        // Фильтрация истории баланса
+       // Фильтрация истории баланса
         function applyHistoryFilter(type) {
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             const activeBtn = document.getElementById(`filter-${type}`);
@@ -1586,19 +1837,92 @@
             navigateTo('main-page');
         }
 
-        // Общий калькулятор доходности
-        function calculateMainProfit() {
-            const calcInput = document.getElementById('main-calc-amount');
-            const calcPeriod = document.getElementById('main-calc-period');
-            const calcResult = document.getElementById('main-calc-result');
-            if (!calcInput || !calcPeriod || !calcResult) return;
+        // ========================================================
+        // ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР ДЛЯ СЕКЦИИ С СТАРЫМИ ID
+        // ========================================================
+        function initMainCalculator() {
+            const container = document.querySelector('.uni-calc-wrapper');
+            if (!container) return;
+            
+            const amountInput = container.querySelector('#main-calc-amount');
+            const rateSlider = container.querySelector('#rate');
+            const periodSlider = container.querySelector('#main-calc-period');
 
-            const amount = parseFloat(calcInput.value) || 0;
-            const period = parseInt(calcPeriod.value) || 1;
-            const rate = LIVE_TARIFFS.vip / 100;
-            const profit = amount * rate * period;
-            calcResult.innerText = Math.round(profit).toLocaleString('ru-RU') + ' ₽';
+            const rateVal = container.querySelector('#rate-val');
+            const periodVal = container.querySelector('#period-val');
+            const monthTxt = container.querySelector('#month-txt');
+            const profitDisplay = container.querySelector('#main-calc-result');
+            
+            const boxRate = container.querySelector('#box-rate');
+            const boxPeriod = container.querySelector('#box-period');
+            
+            const rateProgress = rateSlider ? rateSlider.previousElementSibling : null;
+            const periodProgress = periodSlider ? periodSlider.previousElementSibling : null;
+
+            if (!amountInput || !rateSlider || !periodSlider || !profitDisplay) return;
+
+            function updateProgress(slider, progressEl) {
+                if (!slider || !progressEl) return;
+                const min = slider.min || 0;
+                const max = slider.max || 100;
+                const percentage = ((slider.value - min) / (max - min)) * 100;
+                progressEl.style.width = percentage + '%';
+            }
+
+            function getMonthWord(number) {
+                if (number === 1) return 'месяц';
+                if (number >= 2 && number <= 4) return 'месяца';
+                return 'месяцев';
+            }
+
+            function formatCurrency(number) {
+                return Math.round(number).toLocaleString('ru-RU') + ' ₽';
+            }
+
+            function calculate() {
+                const amount = parseFloat(amountInput.value) || 0;
+                const rate = parseFloat(rateSlider.value) / 100;
+                const months = parseInt(periodSlider.value);
+
+                const profit = amount * (rate / 12) * months;
+                profitDisplay.textContent = formatCurrency(profit);
+            }
+
+            amountInput.addEventListener('input', calculate);
+
+            rateSlider.addEventListener('input', () => {
+                if (rateVal) rateVal.textContent = rateSlider.value;
+                updateProgress(rateSlider, rateProgress);
+                calculate();
+            });
+            rateSlider.addEventListener('mousedown', () => boxRate && boxRate.classList.add('active-blue'));
+            rateSlider.addEventListener('touchstart', () => boxRate && boxRate.classList.add('active-blue'), {passive: true});
+            window.addEventListener('mouseup', () => boxRate && boxRate.classList.remove('active-blue'));
+            window.addEventListener('touchend', () => boxRate && boxRate.classList.remove('active-blue'));
+
+            periodSlider.addEventListener('input', () => {
+                const months = periodSlider.value;
+                if (periodVal) periodVal.textContent = months;
+                if (monthTxt) monthTxt.textContent = getMonthWord(parseInt(months));
+                updateProgress(periodSlider, periodProgress);
+                calculate();
+            });
+            periodSlider.addEventListener('mousedown', () => boxPeriod && boxPeriod.classList.add('active-orange'));
+            periodSlider.addEventListener('touchstart', () => boxPeriod && boxPeriod.classList.add('active-orange'), {passive: true});
+            window.addEventListener('mouseup', () => boxPeriod && boxPeriod.classList.remove('active-orange'));
+            window.addEventListener('touchend', () => boxPeriod && boxPeriod.classList.remove('active-orange'));
+
+            if (rateVal) rateVal.textContent = rateSlider.value;
+            if (periodVal) periodVal.textContent = periodSlider.value;
+            if (monthTxt) monthTxt.textContent = getMonthWord(parseInt(periodSlider.value));
+            updateProgress(rateSlider, rateProgress);
+            updateProgress(periodSlider, periodProgress);
+            calculate();
         }
+
+        // Запуск инициализации калькулятора (вызов функции)
+        initMainCalculator();
+
 
         // Встроенные калькуляторы тарифов
         function calculateMiniProfit(tariffKey) {
