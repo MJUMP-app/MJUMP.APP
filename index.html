@@ -196,7 +196,52 @@
                 <button class="btn btn-login-orange" onclick="navigateTo('auth-page')">Войти</button>
             </div>
         </header>
-    <style>
+  <style>
+        /* БАЗОВАЯ СЕТКА И ОГРАНИЧЕНИЕ ЭКРАНА */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* КНОПКИ БАННЕРА */
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+        .btn-main-blue {
+            background-color: #0052ff;
+            color: #ffffff;
+        }
+        .btn-main-blue:hover {
+            background-color: #0041cc;
+        }
+        .btn-outline-white {
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+        }
+        .btn-outline-white:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
         /* СТИЛИ ДЛЯ ЯРКОГО ГЛАВНОГО БАННЕРА И ХАРАКТЕРИСТИК */
         .hero-premium {
             background: linear-gradient(135deg, #020c1b 0%, #002266 100%);
@@ -213,7 +258,7 @@
         .hero-line {
             width: 24px;
             height: 3px;
-            background-color: #ff5500; /* Яркий сочный оранжевый */
+            background-color: #ff5500;
             flex-shrink: 0;
         }
         .hero-status {
@@ -249,7 +294,7 @@
         /* ЯРКИЕ КАРТОЧКИ ХАРАКТЕРИСТИК ПРОЕКТА */
         .stats-section {
             margin-top: -40px;
-            padding-bottom: 60px;
+            padding-bottom: 30px; /* Уменьшили нижний отступ */
             position: relative;
             z-index: 10;
         }
@@ -263,7 +308,7 @@
         }
         .stat-card:hover {
             transform: translateY(-3px);
-            border-color: #0052ff; /* Электрический синий */
+            border-color: #0052ff;
         }
         .stat-num {
             font-size: 13px;
@@ -287,17 +332,20 @@
             line-height: 1.5;
         }
 
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 768px) {
             .hero-premium { padding: 50px 0 70px 0; }
             .hero-title { font-size: 32px; }
             .hero-subtitle { font-size: 15px; }
             .hero-buttons { flex-direction: column; gap: 12px; }
             .hero-buttons .btn { width: 100%; }
-            .stats-section { margin-top: -20px; padding-bottom: 40px; }
+            .stats-section { margin-top: -20px; padding-bottom: 20px; }
+            .grid-4 { grid-template-columns: 1fr; }
         }
-    </style>
-
-    <!-- Профессиональный баннер платформы -->
+</style>
+<!-- Профессиональный баннер платформы -->
     <section class="hero-premium">
         <div class="container">
             <div class="hero-meta">
@@ -340,6 +388,139 @@
             </div>
         </div>
     </section>
+<style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background-color: #e9ecf2;
+        }
+        
+        /* СЕКЦИЯ ПРОМО С МИНИМАЛЬНЫМ ВЕРХНИМ ОТСТУПОМ */
+        .promo-section {
+            width: 100%;
+            padding: 10px 20px 60px 20px; /* Убрали лишнее расстояние сверху */
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Главный промо-блок */
+        .promo-block {
+            background: linear-gradient(180deg, #ffffff 55%, #dcdcdc 100%);
+            border-radius: 32px;
+            box-shadow: 0 30px 70px rgba(0, 82, 255, 0.05), 0 2px 12px rgba(0, 0, 0, 0.01);
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 40px 80px; /* Сжали паддинги */
+            gap: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .text-container {
+            flex: 1;
+            width: 50%;
+            z-index: 2;
+        }
+        
+        .promo-title {
+            color: #0052FF;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.15;
+            text-transform: uppercase;
+            letter-spacing: -1.5px;
+        }
+        
+        .highlight-orange {
+            background: linear-gradient(135deg, #FF5100 0%, #FF8800 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .highlight-orange-end {
+            background: linear-gradient(135deg, #FF4500 0%, #FF7700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .image-container {
+            flex: 1;
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            height: 100%; /* Занимает строго высоту контента */
+        }
+
+        .promo-image {
+            width: 100%;
+            height: auto;
+            max-width: 420px; 
+            object-fit: contain;
+            display: block;
+        }
+
+        .image-container::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 25%; 
+            background: linear-gradient(to bottom, rgba(220, 220, 220, 0) 0%, rgba(220, 220, 220, 0.7) 40%, #dcdcdc 100%);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1024px) {
+            .promo-title { font-size: 2.6rem; }
+            .promo-block { padding: 35px 40px; gap: 30px; }
+        }
+
+        @media (max-width: 768px) {
+            .promo-section { padding-top: 10px; }
+            .promo-block {
+                flex-direction: column;
+                padding: 40px 24px;
+                gap: 30px;
+                text-align: center;
+            }
+            .text-container { width: 100%; }
+            .promo-title { font-size: 2.2rem; letter-spacing: -0.5px; }
+            .image-container { width: 100%; }
+        }
+</style>
+<div class="promo-section">
+    <div class="promo-block">
+        <!-- Левая сторона: 50% ширины -->
+        <div class="text-container">
+            <h1 class="promo-title">
+                Инвестиции с <span class="highlight-orange">удобным</span> интерфейсом — это <span class="highlight-orange-end">круто!</span>
+            </h1>
+        </div>
+        
+        <!-- Правая сторона: 50% ширины -->
+        <div class="image-container">
+            <img class="promo-image" src="https://avatars.mds.yandex.net/get-altay/19300554/2a0000019f9ea10cd078fa25ab017a8c82c6/L" alt="JUMP Инвестиции">
+        </div>
+    </div>
+</div>
+
+
+
 <style>
         /* ======================================================== */
         /* ВАШИ СТАРЫЕ СТИЛИ ПРАВОВОГО БЛОКА И ДРУГИХ ЭЛЕМЕНТОВ (НЕ ТРОНУТЫ) */
