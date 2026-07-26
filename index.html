@@ -341,6 +341,185 @@
         </div>
     </section>
 <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background-color: #e9ecf2;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        /* Главный промо-блок: равномерное распределение контента */
+        .promo-block {
+            background: linear-gradient(180deg, #ffffff 55%, #dcdcdc 100%);
+            border-radius: 32px 32px 0 0; 
+            box-shadow: 0 30px 70px rgba(0, 82, 255, 0.05), 0 2px 12px rgba(0, 0, 0, 0.01);
+            width: 100%;
+            max-width: 100% !important; 
+            display: flex;
+            flex-direction: row; 
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 5% 0 5%; 
+            gap: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Текстовая колонка уменьшена до 40% */
+        .text-container {
+            flex: 0 0 calc(40% - 20px); /* Изменено: теперь занимает 40% ширины */
+            width: 40%;
+            z-index: 2;
+            padding-bottom: 60px; 
+        }
+        
+        .promo-title {
+            color: #0052FF;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.15;
+            text-transform: uppercase;
+            letter-spacing: -1.5px;
+        }
+        
+        /* Градиентный оранжевый текст */
+        .highlight-orange {
+            background: linear-gradient(135deg, #FF5100 0%, #FF8800 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        .highlight-orange-end {
+            background: linear-gradient(135deg, #FF4500 0%, #FF7700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Колонка изображения увеличена до 60% */
+        .image-container {
+            flex: 0 0 calc(60% - 20px); /* Изменено: теперь занимает 60% ширины */
+            width: 60%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; 
+            position: relative;
+            z-index: 1;
+            border-radius: 40px 40px 0 0; 
+            overflow: hidden;
+            align-self: flex-end; 
+        }
+
+        /* Картинка, адаптированная под новую ширину */
+        .promo-image {
+            width: 100%;
+            height: auto;
+            max-width: 540px; /* Изменено: увеличена максимальная ширина картинки */
+            max-height: 580px;
+            object-fit: contain;
+            display: block;
+            border-radius: 40px 40px 0 0; 
+        }
+
+        /* Усиленное серое затемнение, распределенное по всей ширине колонки */
+        .image-container::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 35%; 
+            background: linear-gradient(to bottom, rgba(220, 220, 220, 0) 0%, rgba(220, 220, 220, 0.7) 40%, #dcdcdc 100%);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* Адаптивность для планшетов */
+        @media (max-width: 1024px) {
+            .promo-title {
+                font-size: 2.6rem;
+            }
+            .promo-block {
+                padding: 45px 4% 0 4% ;
+                gap: 30px;
+            }
+            .text-container {
+                flex: 0 0 calc(40% - 15px); /* Сохраняем пропорцию 40% на планшетах */
+                padding-bottom: 45px;
+            }
+            .image-container {
+                flex: 0 0 calc(60% - 15px); /* Сохраняем пропорцию 60% на планшетах */
+            }
+        }
+
+        /* Адаптивность для мобильной версии */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .promo-block {
+                flex-direction: column; 
+                padding: 50px 24px 0 24px;
+                gap: 40px;
+                text-align: center;
+                background: linear-gradient(180deg, #ffffff 55%, #dcdcdc 100%);
+                border-radius: 32px 32px 0 0;
+            }
+            .text-container {
+                width: 100%;
+                flex: 1 1 auto;
+                padding-bottom: 0;
+            }
+            .promo-title {
+                font-size: 2.2rem;
+                letter-spacing: -0.5px;
+            }
+            .image-container {
+                width: 100%;
+                flex: 1 1 auto;
+                border-radius: 30px 30px 0 0;
+            }
+            .promo-image {
+                max-height: 440px;
+                border-radius: 30px 30px 0 0;
+            }
+            .image-container::after {
+                height: 30%;
+                background: linear-gradient(to bottom, rgba(220, 220, 220, 0) 0%, rgba(220, 220, 220, 0.7) 40%, #dcdcdc 100%);
+            }
+        }
+</style>
+
+
+
+
+ <div class="container">
+    <div class="promo-block">
+        <!-- Левая сторона: 50% ширины -->
+        <div class="text-container">
+            <h1 class="promo-title">
+                Инвестиции с <span class="highlight-orange">удобным</span> интерфейсом — это <span class="highlight-orange-end">круто!</span>
+            </h1>
+        </div>
+        
+        <!-- Правая сторона: 50% ширины -->
+        <div class="image-container">
+            <img class="promo-image" src="https://avatars.mds.yandex.net/get-altay/19300554/2a0000019f9ea10cd078fa25ab017a8c82c6/L" alt="JUMP Инвестиции">
+        </div>
+    </div>
+</div>
+
+
+<style>
         /* ======================================================== */
         /* ВАШИ СТАРЫЕ СТИЛИ ПРАВОВОГО БЛОКА И ДРУГИХ ЭЛЕМЕНТОВ (НЕ ТРОНУТЫ) */
         /* ======================================================== */
