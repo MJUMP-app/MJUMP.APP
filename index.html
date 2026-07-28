@@ -2514,7 +2514,7 @@
 
 
 
-    // Настройка ширины контейнера пополнения (мобильный/ПК)
+  <script>
     function adjustDepositContainerWidth() {
         const container = document.getElementById('mainDepositContainer');
         if (!container) return;
@@ -2529,8 +2529,6 @@
     document.addEventListener('DOMContentLoaded', adjustDepositContainerWidth);
 
     let isPaymentRedirected = false;
-    
-    // ВСТАВЬТЕ ССЫЛКУ НА ВАШ САЙТ ОПЛАТЫ / ПЛАТЕЖНУЮ СТРАНИЦУ НИЖЕ:
     const PAYMENT_URL = "https://your-payment-page.com"; 
 
     const depositFormEl = document.getElementById('depositForm');
@@ -2539,11 +2537,10 @@
             e.preventDefault(); 
             const form = this;
             const button = document.getElementById('depSubmitBtn');
+            const formData = new FormData(form);
             
-            // ШАГ 1: Открытие страницы оплаты во вкладке браузера и заморозка полей
             if (!isPaymentRedirected) {
                 window.open(PAYMENT_URL, '_blank');
-
                 document.getElementById('depAmountInput').disabled = true;
                 document.getElementById('depLoginInput').disabled = true;
                 document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = true);
@@ -2554,7 +2551,6 @@
                 return;
             }
 
-            // ШАГ 2: Пользователь вернулся, нажал подтверждение -> AJAX-отправка в Google Форму
             button.textContent = 'Обработка...';
             button.disabled = true;
 
@@ -2562,14 +2558,15 @@
             document.getElementById('depLoginInput').disabled = false;
             document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = false);
             
-            const formData = new FormData(form);
             fetch(form.action, { method: 'POST', body: formData, mode: 'no-cors' })
             .then(() => {
                 const container = document.getElementById('mainDepositContainer');
                 if (container) container.classList.add('mobile-width');
                 window.removeEventListener('resize', adjustDepositContainerWidth);
-                document.getElementById('deposit-step-form').style.style.display = 'none';
-                document.getElementById('deposit-step-success').style.style.display = 'block';
+                
+                // ИСПРАВЛЕНО: убрано лишнее .style
+                document.getElementById('deposit-step-form').style.display = 'none';
+                document.getElementById('deposit-step-success').style.display = 'block';
                 form.reset();
             })
             .catch(error => {
@@ -2582,6 +2579,7 @@
             });
         });
     }
+</script>
 
 
 
