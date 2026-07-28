@@ -1535,121 +1535,437 @@
                     </div>
                 </div>
             </div> <!-- КОНЕЦ ТАРИФОВ -->
-    <style>
-        /* СТИЛИ СТРАНИЦ ЛИЧНОГО КАБИНЕТА БЕЗ ПОДЧЕРКИВАНИЙ */
-        .profile-grid {
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
-        }
-        .profile-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 14px 0;
-            border-bottom: 2px solid #f1f5f9;
-        }
-        .profile-row:last-child { border-bottom: none; }
-        .profile-label { color: #475569; font-weight: 600; }
-        .profile-value { color: #0f172a; font-weight: 700; text-align: right; }
+<style>
+    /* ==========================================================================
+       1. ВАШИ ИСХОДНЫЕ СТИЛИ (ПРОФИЛЬ, ПОПОЛНЕНИЕ, ИСТОРИЯ) - БЕЗ ИЗМЕНЕНИЙ
+       ========================================================================== */
+    .profile-grid {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+    }
+    .profile-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 14px 0;
+        border-bottom: 2px solid #f1f5f9;
+    }
+    .profile-row:last-child { border-bottom: none; }
+    .profile-label { color: #475569; font-weight: 600; }
+    .profile-value { color: #0f172a; font-weight: 700; text-align: right; }
 
-        /* Карточки платежных шлюзов */
-        .method-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        .method-card {
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 24px 20px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 800;
-            color: #0f172a;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.01);
-        }
-        .method-card:hover { 
-            border-color: #0052ff; 
-            background: rgba(0, 82, 255, 0.02);
-            transform: translateY(-1px);
-        }
-        .method-limits {
-            font-size: 13px;
-            color: #64748b;
-            margin-top: 8px;
-            font-weight: 600;
-        }
+    /* Карточки платежных шлюзов (ПОПОЛНЕНИЕ) */
+    .method-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+    .method-card {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 24px 20px;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 800;
+        color: #0f172a;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+    }
+    .method-card:hover { 
+        border-color: #0052ff; 
+        background: rgba(0, 82, 255, 0.02);
+        transform: translateY(-1px);
+    }
+    .method-limits {
+        font-size: 13px;
+        color: #64748b;
+        margin-top: 8px;
+        font-weight: 600;
+    }
 
-        /* Интерактивные яркие фильтры */
-        .history-filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-        .filter-btn {
-            background: #ffffff;
-            border: 2px solid #cbd5e1;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            color: #334155;
-            transition: all 0.2s;
-        }
-        .filter-btn.active {
-            background: #0052ff;
-            color: #ffffff;
-            border-color: #0052ff;
-            box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2);
-        }
+    /* Интерактивные фильтры истории */
+    .history-filters {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 24px;
+    }
+    .filter-btn {
+        background: #ffffff;
+        border: 2px solid #cbd5e1;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        color: #334155;
+        transition: all 0.2s;
+    }
+    .filter-btn.active {
+        background: #0052ff;
+        color: #ffffff;
+        border-color: #0052ff;
+        box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2);
+    }
 
-        .history-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+    .history-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .history-item {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 18px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+    }
+    .history-info h4 { font-size: 16px; color: #0f172a; margin-bottom: 4px; font-weight: 700; }
+    .history-info p { font-size: 13px; color: #64748b; font-weight: 500; }
+    .history-meta-box { text-align: right; }
+    .history-amount { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+    
+    .status-badge {
+        font-size: 12px;
+        font-weight: 800;
+        padding: 4px 10px;
+        border-radius: 6px;
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .status-badge.created { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+    .status-badge.processing { background: #ffedd5; color: #ea580c; border: 1px solid #fdba74; }
+    .status-badge.completed { background: #e8fbf1; color: #00e676; border: 1px solid #b9f6ca; }
+
+    @media (max-width: 768px) {
+        .method-grid { grid-template-columns: 1fr; }
+        .history-item { flex-direction: column; align-items: flex-start; gap: 14px; }
+        .history-meta-box { text-align: left; }
+        .history-filters { flex-wrap: wrap; }
+        .filter-btn { width: 100%; text-align: center; }
+    }
+
+    /* ==========================================================================
+       2. НОВЫЕ СТИЛИ ДЛЯ РАЗДЕЛА ВЫВОДА СРЕДСТВ (ВЫРАВНЕНЫ ПО ЦЕНТРУ)
+       ========================================================================== 
+       /* Общие исправленные стили контейнеров для Вывода и Пополнения */
+    .form-container, .deposit-form-container {
+        width: 100%;
+        max-width: 900px; 
+        transition: max-width 0.3s ease;
+        margin: 0 auto;
+    }
+
+    /* Правильное ограничение мобильной ширины (без лишних пробелов в селекторах) */
+    .form-container.mobile-width, .deposit-form-container.mobile-width {
+        max-width: 100%; /* Позволяет форме красиво заполнять всю ширину вашего мобильного шаблона */
+    }
+
+    
+    .mobile-width {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+    .step-badge {
+        display: inline-block;
+        background: #edf2ff;
+        color: #0052ff;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+    .input-group {
+        margin-bottom: 16px;
+    }
+    .custom-input {
+        width: 100%;
+        padding: 18px;
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        font-size: 16px;
+        color: #1a202c;
+        outline: none;
+        transition: all 0.2s ease;
+    }
+    .custom-input:focus {
+        border-color: #0052ff;
+        box-shadow: 0 4px 16px rgba(0, 82, 255, 0.08);
+    }
+    .method-radio {
+        display: none;
+    }
+    .methods-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .new-method-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 26px 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        cursor: pointer;
+        text-align: center;
+        border: 2px solid transparent;
+        transition: all 0.2s ease;
+        height: 100%;
+    }
+    .card-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0c1017;
+        margin-bottom: 8px;
+    }
+    .card-text {
+        font-size: 14px;
+        color: #718096;
+        font-weight: 500;
+    }
+    .new-method-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    }
+    .method-radio:checked + .new-method-card {
+        border-color: #0052ff;
+        background: #fcfdff;
+    }
+    .btn-submit {
+        width: 100%;
+        padding: 18px;
+        background-color: #ff5500;
+        color: white;
+        border: none;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.1s;
+        margin-top: 8px;
+        box-shadow: 0 4px 12px rgba(255, 85, 0, 0.15);
+    }
+    .btn-submit:hover {
+        background-color: #e04b00;
+    }
+    .success-screen {
+        display: none;
+    }
+    .success-box {
+        width: 100%;
+        background-color: #f0fdf4;
+        border: 2px dashed #22c55e;
+        border-radius: 20px;
+        padding: 24px 30px;
+        box-shadow: 0 4px 16px rgba(34, 197, 94, 0.04);
+    }
+    .success-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: #14532d;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+    .success-text {
+        font-size: 15px;
+        color: #166534;
+        line-height: 1.5;
+        font-weight: 500;
+    }
+
+    /* НА ПК (ОТ 768px) КАРТОЧКИ И ИНПУТЫ СТРОГО В ОДИН ГОРИЗОНТАЛЬНЫЙ РЯД */
+    @media (min-width: 768px) {
+        .methods-grid {
+            flex-direction: row !important;
         }
-        .history-item {
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 18px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+        .methods-grid label {
+            flex: 1 !important;
         }
-        .history-info h4 { font-size: 16px; color: #0f172a; margin-bottom: 4px; font-weight: 700; }
-        .history-info p { font-size: 13px; color: #64748b; font-weight: 500; }
-        .history-meta-box { text-align: right; }
-        .history-amount { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
-        
-        /* Статусы строго по ТЗ без эмодзи */
-        .status-badge {
-            font-size: 12px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 6px;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .inputs-row {
+            display: flex !important;
+            gap: 16px !important;
         }
-        .status-badge.created { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; } /* Красная */
-        .status-badge.processing { background: #ffedd5; color: #ea580c; border: 1px solid #fdba74; } /* Оранжевая */
-        .status-badge.completed { background: #e8fbf1; color: #00e676; border: 1px solid #b9f6ca; } /* Зеленая */
-        @media (max-width: 768px) {
-            .method-grid { grid-template-columns: 1fr; }
-            .history-item { flex-direction: column; align-items: flex-start; gap: 14px; }
-            .history-meta-box { text-align: left; }
-            .history-filters { flex-wrap: wrap; }
-            .filter-btn { width: 100%; text-align: center; }
+        .inputs-row .input-group {
+            flex: 1 !important;
         }
-    </style>
+    }
+    /* ==========================================================================
+       НОВЫЕ СТИЛИ ИСКЛЮЧИТЕЛЬНО ДЛЯ РАЗДЕЛА ПОПОЛНЕНИЯ СЧЕТА
+       ========================================================================== */
+    .deposit-form-container {
+        width: 100%;
+        max-width: 900px; 
+        transition: max-width 0.3s ease;
+        margin: 0 auto; /* ВЫРАВНИВАНИЕ ПО ЦЕНТРУ СТРАНИЦЫ */
+    }
+    .deposit-form-container .mobile-width {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+    .deposit-form-container .step-badge {
+        display: inline-block;
+        background: #edf2ff;
+        color: #0052ff;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+    .deposit-form-container .input-group {
+        margin-bottom: 16px;
+    }
+    .deposit-form-container .custom-input {
+        width: 100%;
+        padding: 18px;
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        font-size: 16px;
+        color: #1a202c;
+        outline: none;
+        transition: all 0.2s ease;
+    }
+    .deposit-form-container .custom-input:focus {
+        border-color: #0052ff;
+        box-shadow: 0 4px 16px rgba(0, 82, 255, 0.08);
+    }
+    .deposit-form-container .custom-input:disabled, 
+    .deposit-form-container .method-radio:disabled + .dep-method-card {
+        opacity: 0.6;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    .deposit-form-container .method-radio {
+        display: none;
+    }
+    .deposit-form-container .inputs-row {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+    }
+    .deposit-form-container .methods-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .deposit-form-container .dep-method-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 26px 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        cursor: pointer;
+        text-align: center;
+        border: 2px solid transparent;
+        transition: all 0.2s ease;
+        height: 100%;
+    }
+    .deposit-form-container .card-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0c1017;
+        margin-bottom: 8px;
+    }
+    .deposit-form-container .card-text {
+        font-size: 14px;
+        color: #718096;
+        font-weight: 500;
+    }
+    .deposit-form-container .dep-method-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+    }
+    .deposit-form-container .method-radio:checked + .dep-method-card {
+        border-color: #0052ff;
+        background: #fcfdff;
+    }
+    .deposit-form-container .btn-submit {
+        width: 100%;
+        padding: 18px;
+        background-color: #0052ff;
+        color: white;
+        border: none;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.1s;
+        margin-top: 8px;
+        box-shadow: 0 4px 12px rgba(0, 82, 255, 0.15);
+    }
+    .deposit-form-container .btn-submit:hover {
+        background-color: #0043d0;
+    }
+    .deposit-form-container .btn-submit.confirm-mode {
+        background-color: #22c55e;
+        box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+    }
+    .deposit-form-container .btn-submit.confirm-mode:hover {
+        background-color: #16a34a;
+    }
+    .deposit-form-container .success-screen {
+        display: none;
+    }
+    .deposit-form-container .success-box {
+        width: 100%;
+        background-color: #f0fdf4;
+        border: 2px dashed #22c55e;
+        border-radius: 20px;
+        padding: 24px 30px;
+        box-shadow: 0 4px 16px rgba(34, 197, 94, 0.04);
+    }
+    .deposit-form-container .success-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: #14532d;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+    .deposit-form-container .success-text {
+        font-size: 15px;
+        color: #166534;
+        line-height: 1.5;
+        font-weight: 500;
+    }
+
+    /* НА ПК (ОТ 768px): КАРТОЧКИ И ИНПУТЫ ПОПОЛНЕНИЯ СТРОГО В ОДИН ГОРИЗОНТАЛЬНЫЙ РЯД */
+    @media (min-width: 768px) {
+        .deposit-form-container .methods-grid {
+            flex-direction: row !important;
+        }
+        .deposit-form-container .methods-grid label {
+            flex: 1 !important;
+        }
+        .deposit-form-container .inputs-row {
+            flex-direction: row !important;
+            gap: 16px !important;
+        }
+        .deposit-form-container .inputs-row .input-group {
+            flex: 1 !important;
+        }
+    }
+
+
+</style>
+
+
+
 
             <!-- ВНУТРЕННЯЯ ВКЛАДКА 2: ЛИЧНЫЙ КАБИНЕТ -->
             <div id="tab-profile" class="dashboard-tab">
@@ -1663,26 +1979,151 @@
                 </div>
             </div>
 
-            <!-- ВНУТРЕННЯЯ ВКЛАДКА 3: ПОПОЛНЕНИЕ СЧЕТА -->
-            <div id="tab-deposit" class="dashboard-tab">
-                <h2 class="section-title">Пополнение счета</h2>
-                <div class="method-grid">
-                    <div class="method-card" onclick="triggerAction('Пополнение')">Банковская карта<div class="method-limits">Мин: 100 ₽ / Макс: 5000 ₽ | Комиссия 1₽, но не более 10₽</div></div>
-                    <div class="method-card" onclick="triggerAction('Пополнение')">СБП<div class="method-limits">Мин: 100 ₽ / Макс: 5000 ₽ | Комиссия 1₽, но не более 10₽</div></div>
-                    <div class="method-card" onclick="triggerAction('Пополнение')">USDT<div class="method-limits">Мин: 2 USDT / Макс: 50 USDT | Комиссия 0.010$, но не более 0.10$</div></div>
+         <!-- ВНУТРЕННЯЯ ВКЛАДКА: ПОПОЛНЕНИЕ СЧЕТА -->
+<div id="tab-deposit" class="dashboard-tab">
+    
+    <div class="deposit-form-container mobile-width" id="mainDepositContainer">
+
+        <!-- ЭТАП 1: Форма ввода -->
+        <div id="deposit-step-form">
+            <div class="step-badge">Этап 1</div>
+            <div class="page-title" style="font-size: 28px; font-weight: 800; color: #1a202c; margin-bottom: 24px; padding-left: 5px;">Пополнение счета</div>
+            
+            <!-- ВСТАВЬТЕ ССЫЛКУ НА ВАШУ Google ФОРМУ В АТРИБУТ action -->
+            <form id="depositForm" action="https://google.com" method="POST">
+                
+                <div class="inputs-row">
+                    <div class="input-group">
+                        <input class="custom-input" type="number" id="depAmountInput" name="entry.444444" placeholder="Укажите сумму пополнения" required min="1">
+                    </div>
+                    <div class="input-group">
+                        <input class="custom-input" type="text" id="depLoginInput" name="entry.666666" placeholder="Ваш ID или Логин в системе" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="methods-grid">
+                        
+                        <label>
+                            <input type="radio" class="method-radio dep-radio" name="entry.555555" value="Банковская карта" required checked>
+                            <span class="dep-method-card">
+                                <div class="card-title">Банковская карта</div>
+                                <div class="card-text">Мин: 50 ₽ | Зачисление моментально</div>
+                            </span>
+                        </label>
+                        
+                        <label>
+                            <input type="radio" class="method-radio dep-radio" name="entry.555555" value="СБП">
+                            <span class="dep-method-card">
+                                <div class="card-title">СБП</div>
+                                <div class="card-text">Мин: 50 ₽ | Зачисление моментально</div>
+                            </span>
+                        </label>
+                        
+                        <label>
+                            <input type="radio" class="method-radio dep-radio" name="entry.555555" value="USDT">
+                            <span class="dep-method-card">
+                                <div class="card-title">USDT (TRC-20)</div>
+                                <div class="card-text">Мин: 1 USDT | До 10 минут</div>
+                            </span>
+                        </label>
+                        
+                    </div>
+                </div>
+
+                <button type="submit" id="depSubmitBtn" class="btn-submit">Перейти к оплате</button>
+            </form>
+        </div>
+
+        <!-- ЭТАП 2: Успешный экран -->
+        <div id="deposit-step-success" class="success-screen">
+            <div class="step-badge">Этап 2</div>
+            <div class="page-title" style="font-size: 28px; font-weight: 800; color: #1a202c; margin-bottom: 24px; padding-left: 5px;">Статус пополнения</div>
+            
+            <div class="success-box">
+                <div class="success-title">Заявка на пополнение отправлена!</div>
+                <div class="success-text">Ожидайте подтверждения транзакции сетью. Средства будут начислены на ваш баланс в ближайшее время.</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+         
+<!-- ВНУТРЕННЯЯ ВКЛАДКА 4: ВЫВОД СРЕДСТВ -->
+<div id="tab-withdraw" class="dashboard-tab">
+    
+    <div class="form-container mobile-width" id="mainContainer">
+
+        <!-- ЭТАП 1: Форма ввода -->
+        <div id="step-form">
+            <div class="step-badge">Этап 1</div>
+            <h2 class="section-title" style="font-size: 28px; font-weight: 800; color: #1a202c; margin-bottom: 24px; padding-left: 5px;">Вывод средств</h2>
+            
+            <form id="withdrawalForm" action="https://google.com" method="POST">
+                
+                <div class="inputs-row">
+                    <div class="input-group">
+                        <input class="custom-input" type="number" name="entry.111111" placeholder="Укажите сумму вывода" required min="1">
+                    </div>
+                    <div class="input-group">
+                        <input class="custom-input" type="text" name="entry.333333" placeholder="Введите реквизиты для получения" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="methods-grid">
+                        
+                        <label>
+                            <input type="radio" class="method-radio" name="entry.222222" value="Банковская карта" required checked>
+                            <span class="new-method-card">
+                                <div class="card-title">Банковская карта</div>
+                                <div class="card-text">Мин: 100 ₽ | Комиссия 1₽, но не более 10₽</div>
+                            </span>
+                        </label>
+
+                        <label>
+                            <input type="radio" class="method-radio" name="entry.222222" value="СБП">
+                            <span class="new-method-card">
+                                <div class="card-title">СБП</div>
+                                <div class="card-text">Мин: 100 ₽ | Комиссия 1₽, но не более 10₽</div>
+                            </span>
+                        </label>
+
+                        <label>
+                            <input type="radio" class="method-radio" name="entry.222222" value="USDT">
+                            <span class="new-method-card">
+                                <div class="card-title">USDT</div>
+                                <div class="card-text">Мин: 2 USDT | Комиссия 0.010$, но не более 0.10$</div>
+                            </span>
+                        </label>
+
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-submit">Отправить заявку</button>
+            </form>
+        </div>
+
+        <!-- ЭТАП 2: Страница успешного создания заявки -->
+        <div id="step-success" class="success-screen">
+            <div class="step-badge">Этап 2</div>
+            <h2 class="section-title" style="font-size: 28px; font-weight: 800; color: #1a202c; margin-bottom: 24px; padding-left: 5px;">Статус заявки</h2>
+            
+            <div class="success-box">
+                <div class="success-title">Заявка на вывод успешно создана.</div>
+                <div class="success-text">
+                    Статус в истории заявки скоро появится! Заявка обрабатывается от 2 минут до 5 рабочих дней.
                 </div>
             </div>
+        </div>
 
-            <!-- ВНУТРЕННЯЯ ВКЛАДКА 4: ВЫВОД СРЕДСТВ -->
-            <div id="tab-withdraw" class="dashboard-tab">
-                <h2 class="section-title">Вывод средств</h2>
-                <div class="method-grid">
-                    <div class="method-card" onclick="triggerAction('Вывод')">Банковская карта<div class="method-limits">Мин: 100 ₽ | Комиссия 1₽, но не более 10₽ </div></div>
-                    <div class="method-card" onclick="triggerAction('Вывод')">СБП<div class="method-limits">Мин: 100 ₽ | Комиссия 1₽, но не более 10₽</div></div>
-                    <div class="method-card" onclick="triggerAction('Вывод')">USDT<div class="method-limits">Мин: 2 USDT | Комиссия 0.010$, но не более 0.10$</div></div>
-                </div>
-            </div>
+    </div>
+</div>
 
+
+       
             <!-- ВНУТРЕННЯЯ ВКЛАДКА 5: ИСТОРИЯ БАЛАНСА -->
             <div id="tab-history" class="dashboard-tab">
                 <h2 class="section-title">История операций</h2>
@@ -2020,6 +2461,129 @@
                 `;
             });
         }
+   
+     
+    // Настройка ширины контейнера формы вывода (мобильный/ПК)
+    function adjustContainerWidth() {
+        const container = document.getElementById('mainContainer');
+        if (!container) return;
+        if (window.innerWidth >= 768) {
+            container.classList.remove('mobile-width');
+        } else {
+            container.classList.add('mobile-width');
+        }
+    }
+    
+    window.addEventListener('resize', adjustContainerWidth);
+    document.addEventListener('DOMContentLoaded', adjustContainerWidth);
+
+    // AJAX обработка отправки формы вывода средств
+    const formEl = document.getElementById('withdrawalForm');
+    if (formEl) {
+        formEl.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            const form = this;
+            const button = document.getElementById('submitBtn');
+            const formData = new FormData(form);
+            
+            button.textContent = 'Отправка заявки...';
+            button.disabled = true;
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'
+            })
+            .then(() => {
+                const container = document.getElementById('mainContainer');
+                if (container) container.classList.add('mobile-width');
+                window.removeEventListener('resize', adjustContainerWidth);
+
+                document.getElementById('step-form').style.display = 'none';
+                document.getElementById('step-success').style.display = 'block';
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                button.textContent = 'Ошибка сети. Повторить?';
+                button.disabled = false;
+            });
+        });
+    }
+
+
+
+    // Настройка ширины контейнера пополнения (мобильный/ПК)
+    function adjustDepositContainerWidth() {
+        const container = document.getElementById('mainDepositContainer');
+        if (!container) return;
+        if (window.innerWidth >= 768) {
+            container.classList.remove('mobile-width');
+        } else {
+            container.classList.add('mobile-width');
+        }
+    }
+    
+    window.addEventListener('resize', adjustDepositContainerWidth);
+    document.addEventListener('DOMContentLoaded', adjustDepositContainerWidth);
+
+    let isPaymentRedirected = false;
+    
+    // ВСТАВЬТЕ ССЫЛКУ НА ВАШ САЙТ ОПЛАТЫ / ПЛАТЕЖНУЮ СТРАНИЦУ НИЖЕ:
+    const PAYMENT_URL = "https://your-payment-page.com"; 
+
+    const depositFormEl = document.getElementById('depositForm');
+    if (depositFormEl) {
+        depositFormEl.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            const form = this;
+            const button = document.getElementById('depSubmitBtn');
+            
+            // ШАГ 1: Открытие страницы оплаты во вкладке браузера и заморозка полей
+            if (!isPaymentRedirected) {
+                window.open(PAYMENT_URL, '_blank');
+
+                document.getElementById('depAmountInput').disabled = true;
+                document.getElementById('depLoginInput').disabled = true;
+                document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = true);
+
+                button.textContent = 'Я оплатил, подтвердить заявку';
+                button.classList.add('confirm-mode');
+                isPaymentRedirected = true;
+                return;
+            }
+
+            // ШАГ 2: Пользователь вернулся, нажал подтверждение -> AJAX-отправка в Google Форму
+            button.textContent = 'Обработка...';
+            button.disabled = true;
+
+            document.getElementById('depAmountInput').disabled = false;
+            document.getElementById('depLoginInput').disabled = false;
+            document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = false);
+            
+            const formData = new FormData(form);
+            fetch(form.action, { method: 'POST', body: formData, mode: 'no-cors' })
+            .then(() => {
+                const container = document.getElementById('mainDepositContainer');
+                if (container) container.classList.add('mobile-width');
+                window.removeEventListener('resize', adjustDepositContainerWidth);
+                document.getElementById('deposit-step-form').style.style.display = 'none';
+                document.getElementById('deposit-step-success').style.style.display = 'block';
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                button.textContent = 'Ошибка сети. Повторить?';
+                button.disabled = false;
+                document.getElementById('depAmountInput').disabled = true;
+                document.getElementById('depLoginInput').disabled = true;
+                document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = true);
+            });
+        });
+    }
+
+
 
        // Фильтрация истории баланса
         function applyHistoryFilter(type) {
@@ -2159,11 +2723,7 @@
             document.getElementById('action-modal').classList.add('active');
         }
 
-        function triggerAction(actionType) {
-            document.getElementById('modal-title-text').innerText = `${actionType} баланса`;
-            document.getElementById('modal-body-text').innerText = `Все операции по пополнению или выводу средств производятся в ручном режиме. Для создания и утверждения заявки свяжитесь с поддержкой MAX. Напоминаем, что вывод производится строго на тот метод, через который происходило пополнение.`;
-            document.getElementById('action-modal').classList.add('active');
-        }
+       
 
         function closeModal() {
             const modal = document.getElementById('action-modal');
