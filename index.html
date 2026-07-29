@@ -1360,13 +1360,15 @@
         </div>
     </div> 
 
-    <!-- Четыре светлые карточки валют в один ряд -->
-    <div class="sub-cards-row" class="dashboard-balance-card">
+  <!-- Четыре светлые карточки валют -->
+<div id="crypto-balance-section">
+    <div class="sub-cards-row">
         <!-- Биткоин -->
         <div class="sub-card btc-card">
             <div class="coin-icon">₿</div>
             <div class="sub-card-content">
                 <div class="sub-currency">Bitcoin</div>
+                <!-- ВАЖНО: Проверьте id="sub-btc-val" -->
                 <div id="sub-btc-val" class="sub-balance">0.00 BTC</div>
             </div>
         </div>
@@ -1375,6 +1377,7 @@
             <div class="coin-icon">₮</div>
             <div class="sub-card-content">
                 <div class="sub-currency">USDT</div>
+                <!-- ВАЖНО: Проверьте id="sub-usdt-val" -->
                 <div id="sub-usdt-val" class="sub-balance">0.00 $</div>
             </div>
         </div>
@@ -1383,6 +1386,7 @@
             <div class="coin-icon">Ð</div>
             <div class="sub-card-content">
                 <div class="sub-currency">Dogecoin</div>
+                <!-- ВАЖНО: Проверьте id="sub-doge-val" -->
                 <div id="sub-doge-val" class="sub-balance">0.00 DOGE</div>
             </div>
         </div>
@@ -1391,6 +1395,7 @@
             <div class="coin-icon">€</div>
             <div class="sub-card-content">
                 <div class="sub-currency">Евро</div>
+                <!-- ВАЖНО: Проверьте id="sub-euro-val" -->
                 <div id="sub-euro-val" class="sub-balance">0.00 €</div>
             </div>
         </div>
@@ -2503,37 +2508,30 @@
         }
                 ]
         };
-          // 3. УНИВЕРСАЛЬНАЯ ФУНКЦИЯ ДЛЯ ПЕРЕСЧЕТА ЦЕНТРАЛЬНОГО БАЛАНСА И ОБНОВЛЕНИЯ ЭКРАНА
-function renderUserData(userIndex = 0) {
+       function renderUserData(userIndex = 0) {
     const user = state.users[userIndex];
     if (!user) return;
 
     const profile = user.user_profile;
     const crypto = profile.crypto_balances;
 
-    // Конвертируем каждую доступную валюту в рубли по курсу
-    const btcInRub  = crypto.btc * CURRENCY_RATES.btc;
-    const usdtInRub = crypto.usdt * CURRENCY_RATES.usdt;
-    const dogeInRub = crypto.doge * CURRENCY_RATES.doge;
-    const euroInRub = crypto.euro * CURRENCY_RATES.euro;
+    // ... код расчета центрального баланса ...
 
-    // Формируем итоговый центральный баланс: рубли + сумма всей крипты и фиата
-    const totalCentralBalance = profile.balance + btcInRub + usdtInRub + dogeInRub + euroInRub;
+    // Проверяем, нашел ли скрипт элементы на странице, и вставляем данные
+    const btcEl = document.getElementById("sub-btc-val");
+    const usdtEl = document.getElementById("sub-usdt-val");
+    const dogeEl = document.getElementById("sub-doge-val");
+    const euroEl = document.getElementById("sub-euro-val");
 
-    // Обновляем текстовые данные в центральном блоке вашей платформы
-    document.getElementById("user-display-balance").textContent = totalCentralBalance.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ₽";
-    document.getElementById("user-display-plan").textContent = profile.active_plan;
-
-    // Обновляем балансы в маленьких карточках под центральным блоком
-    if (document.getElementById("sub-btc-val"))  document.getElementById("sub-btc-val").textContent  = `${crypto.btc} BTC`;
-    if (document.getElementById("sub-usdt-val")) document.getElementById("sub-usdt-val").textContent = `${crypto.usdt} $`;
-    if (document.getElementById("sub-doge-val")) document.getElementById("sub-doge-val").textContent = `${crypto.doge} DOGE`;
-    if (document.getElementById("sub-euro-val")) document.getElementById("sub-euro-val").textContent = `${crypto.euro} €`;
+    if (btcEl)  btcEl.textContent  = `${crypto.btc} BTC`;
+    if (usdtEl) usdtEl.textContent = `${crypto.usdt} $`;
+    if (dogeEl) dogeEl.textContent = `${crypto.doge} DOGE`;
+    if (euroEl) euroEl.textContent = `${crypto.euro} €`;
 }
 
-// Автоматический вызов при загрузке страницы для первого пользователя (0 = Алексей)
+// Запуск строго ПОСЛЕ того, как весь HTML загрузился
 document.addEventListener("DOMContentLoaded", () => {
-    renderUserData(0); 
+    renderUserData(0); // 0 - Алексей, 1 - Макар, 2 - Михаил
 });
 
         // ГЛОБАЛЬНАЯ ПЕРЕМЕННАЯ: Хранит данные текущего авторизованного пользователя
