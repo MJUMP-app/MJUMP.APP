@@ -1029,7 +1029,7 @@
     </div> <!-- КОНЕЦ ГЛАВНОЙ СТРАНИЦЫ -->
    <style>
         /* ==========================================================================
-           1. СТИЛИ АВТОРИЗАЦИИ И СТРАНИЦЫ ТАРИФОВ (ИСХОДНЫЕ)
+           1. СТИЛИ ПЛАТФОРМЫ (АВТОРИЗАЦИЯ, ПОДДЕРЖКА, ИСТОРИИ, ЦЕНТРАЛЬНЫЙ БАЛАНС)
            ========================================================================== */
         .auth-container {
             max-width: 420px;
@@ -1076,9 +1076,7 @@
         }
         .btn-support-blue:hover { background-color: #0044d4; }
 
-        /* ==========================================================================
-           2. ИСТОРИИ (БАНКОВСКИЙ СТИЛЬ / ГОСУСЛУГИ) (ИСХОДНЫЕ)
-           ========================================================================== */
+        /* ИСТОРИИ (БАНКОВСКИЙ СТИЛЬ / ГОСУСЛУГИ) */
         .stories-container {
             display: flex;
             gap: 12px;
@@ -1118,9 +1116,7 @@
             word-wrap: break-word;
         }
 
-        /* ==========================================================================
-           3. ЭЛЕКТРИЧЕСКАЯ ПАНЕЛЬ БАЛАНСА КЛИЕНТА (ИСХОДНЫЕ)
-           ========================================================================== */
+        /* ЭЛЕКТРИЧЕСКАЯ ПАНЕЛЬ БАЛАНСА КЛИЕНТА */
         .dashboard-balance-card {
             background: linear-gradient(135deg, #002266 0%, #020c1b 100%);
             color: #ffffff;
@@ -1156,29 +1152,30 @@
         }
 
         /* ==========================================================================
-           4. НОВЫЕ СТИЛИ ДЛЯ ДОПОЛНИТЕЛЬНЫХ ВАЛЮТ (ДОБАВЛЕНО)
+           2. ИЗОЛИРОВАННЫЕ СТИЛИ НОВЫХ ВАЛЮТНЫХ КАРТОЧЕК (НЕ МЕШАЮТ САЙТУ)
            ========================================================================== */
-        /* Горизонтальный ряд для четырех маленьких карточек */
-        .sub-cards-row {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 30px; /* Отступ снизу для интеграции в общую сетку */
+        #crypto-balance-section {
             width: 100%;
+            margin-bottom: 30px;
         }
-
-        /* Сброс внутренних отступов для карточек валют */
-        .sub-cards-row *, 
-        .sub-cards-row *::before, 
-        .sub-cards-row *::after {
+        /* Внутренний сброс отступов только для элементов внутри нашей секции */
+        #crypto-balance-section *, 
+        #crypto-balance-section *::before, 
+        #crypto-balance-section *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
+        /* Горизонтальный ряд для четырех маленьких карточек */
+        #crypto-balance-section .sub-cards-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+        }
         /* Базовый светлый стиль для маленьких карточек */
-        .sub-cards-row .sub-card {
+        #crypto-balance-section .sub-card {
             flex: 1;
             border-radius: 16px;
             padding: 14px;
@@ -1191,33 +1188,26 @@
             position: relative;
             transition: transform 0.2s ease;
         }
-
-        .sub-cards-row .sub-card:hover {
+        #crypto-balance-section .sub-card:hover {
             transform: translateY(-2px);
         }
-
-        .sub-cards-row .sub-card-content {
+        #crypto-balance-section .sub-card-content {
             max-width: 75%;
         }
-
-        .sub-cards-row .sub-currency {
+        #crypto-balance-section .sub-currency {
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 14px;
-            font-family: inherit;
         }
-
-        .sub-cards-row .sub-balance {
+        #crypto-balance-section .sub-balance {
             font-size: 13px;
             font-weight: 700;
             white-space: nowrap;
-            font-family: inherit;
         }
-
-        /* Общий стиль для монеток в верхнем правом углу */
-        .sub-cards-row .coin-icon {
+        /* Иконка монетки в верхнем правом углу */
+        #crypto-balance-section .coin-icon {
             position: absolute;
             top: 14px;
             right: 14px;
@@ -1232,52 +1222,54 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* Настройка цвета под каждую валюту */
-        .sub-cards-row .btc-card { background: #fff9f2; }
-        .sub-cards-row .btc-card .sub-currency { color: #c4730d; }
-        .sub-cards-row .btc-card .sub-balance { color: #2d3748; }
-        .sub-cards-row .btc-card .coin-icon { background: #f7931a; color: #ffffff; }
+        /* Цвета для Bitcoin */
+        #crypto-balance-section .btc-card { background: #fff9f2; }
+        #crypto-balance-section .btc-card .sub-currency { color: #c4730d; }
+        #crypto-balance-section .btc-card .sub-balance { color: #2d3748; }
+        #crypto-balance-section .btc-card .coin-icon { background: #f7931a; color: #ffffff; }
 
-        .sub-cards-row .usdt-card { background: #f1faf7; }
-        .sub-cards-row .usdt-card .sub-currency { color: #167053; }
-        .sub-cards-row .usdt-card .sub-balance { color: #2d3748; }
-        .sub-cards-row .usdt-card .coin-icon { background: #26a17b; color: #ffffff; }
+        /* Цвета для USDT */
+        #crypto-balance-section .usdt-card { background: #f1faf7; }
+        #crypto-balance-section .usdt-card .sub-currency { color: #167053; }
+        #crypto-balance-section .usdt-card .sub-balance { color: #2d3748; }
+        #crypto-balance-section .usdt-card .coin-icon { background: #26a17b; color: #ffffff; }
 
-        .sub-cards-row .doge-card { background: #fffdf0; }
-        .sub-cards-row .doge-card .sub-currency { color: #aa820a; }
-        .sub-cards-row .doge-card .sub-balance { color: #2d3748; }
-        .sub-cards-row .doge-card .coin-icon { background: #ba9f33; color: #ffffff; }
+        /* Цвета для Dogecoin */
+        #crypto-balance-section .doge-card { background: #fffdf0; }
+        #crypto-balance-section .doge-card .sub-currency { color: #aa820a; }
+        #crypto-balance-section .doge-card .sub-balance { color: #2d3748; }
+        #crypto-balance-section .doge-card .coin-icon { background: #ba9f33; color: #ffffff; }
 
-        .sub-cards-row .euro-card { background: #f2f6ff; }
-        .sub-cards-row .euro-card .sub-currency { color: #0d46b0; }
-        .sub-cards-row .euro-card .sub-balance { color: #2d3748; }
-        .sub-cards-row .euro-card .coin-icon { background: #155ee6; color: #ffffff; }
+        /* Цвета для Евро */
+        #crypto-balance-section .euro-card { background: #f2f6ff; }
+        #crypto-balance-section .euro-card .sub-currency { color: #0d46b0; }
+        #crypto-balance-section .euro-card .sub-balance { color: #2d3748; }
+        #crypto-balance-section .euro-card .coin-icon { background: #155ee6; color: #ffffff; }
 
         /* ==========================================================================
-           5. АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ ЭКРАНОВ (ИСХОДНАЯ + ОБНОВЛЕННАЯ)
+           3. АДАПТИВНОСТЬ ДЛЯ ВСЕХ ЭЛЕМЕНТОВ СТРАНИЦЫ
            ========================================================================== */
         @media (max-width: 768px) {
-            /* Исходные адаптивные стили */
             .auth-container { margin: 20px 10px; padding: 30px 20px; }
             .dashboard-balance-card { flex-direction: column; align-items: flex-start; gap: 16px; }
             .story-circle { width: 76px; height: 76px; }
             .story-text { font-size: 10px; }
 
-            /* Адаптив для маленьких карточек валют (сетка 2х2) */
-            .sub-cards-row {
+            /* Мобильная сетка 2х2 для карточек валют */
+            #crypto-balance-section .sub-cards-row {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
                 gap: 8px;
             }
-            .sub-cards-row .sub-card {
+            #crypto-balance-section .sub-card {
                 padding: 12px;
                 min-height: 90px;
             }
-            .sub-cards-row .sub-balance {
+            #crypto-balance-section .sub-balance {
                 font-size: 12px;
             }
         }
-    </style>
+</style>
 
     <!-- СТРАНИЦА 2: АВТОРИЗАЦИЯ -->
     <div id="auth-page" class="page">
@@ -1348,19 +1340,18 @@
 
         <div class="container" style="padding-top: 25px; padding-bottom: 60px;">
             
-             <div class="container">
-    <!-- Центральная главная карточка баланса -->
-    <div id="global-balance-block" class="dashboard-balance-card">
-        <div>
-            <div class="balance-label">Текущий доступный баланс</div>
-            <div id="user-display-balance" class="balance-amount">0.00 ₽</div>
-        </div>
-        <div class="active-tariff-badge">
-            План: <span id="user-display-plan">Не активирован</span>
-        </div>
-    </div> 
+              <!-- Центральная панель баланса -->
+<div id="global-balance-block" class="dashboard-balance-card">
+    <div>
+        <div class="balance-label">Текущий доступный баланс</div>
+        <div id="user-display-balance" class="balance-amount">0.00 ₽</div>
+    </div>
+    <div class="active-tariff-badge">
+        План: <span id="user-display-plan">Не активирован</span>
+    </div>
+</div>
 
-  <!-- Четыре светлые карточки валют -->
+<!-- Изолированный блок валют (вставляется строго под центральным балансом) -->
 <div id="crypto-balance-section">
     <div class="sub-cards-row">
         <!-- Биткоин -->
@@ -1368,7 +1359,6 @@
             <div class="coin-icon">₿</div>
             <div class="sub-card-content">
                 <div class="sub-currency">Bitcoin</div>
-                <!-- ВАЖНО: Проверьте id="sub-btc-val" -->
                 <div id="sub-btc-val" class="sub-balance">0.00 BTC</div>
             </div>
         </div>
@@ -1377,7 +1367,6 @@
             <div class="coin-icon">₮</div>
             <div class="sub-card-content">
                 <div class="sub-currency">USDT</div>
-                <!-- ВАЖНО: Проверьте id="sub-usdt-val" -->
                 <div id="sub-usdt-val" class="sub-balance">0.00 $</div>
             </div>
         </div>
@@ -1386,7 +1375,6 @@
             <div class="coin-icon">Ð</div>
             <div class="sub-card-content">
                 <div class="sub-currency">Dogecoin</div>
-                <!-- ВАЖНО: Проверьте id="sub-doge-val" -->
                 <div id="sub-doge-val" class="sub-balance">0.00 DOGE</div>
             </div>
         </div>
@@ -1395,13 +1383,11 @@
             <div class="coin-icon">€</div>
             <div class="sub-card-content">
                 <div class="sub-currency">Евро</div>
-                <!-- ВАЖНО: Проверьте id="sub-euro-val" -->
                 <div id="sub-euro-val" class="sub-balance">0.00 €</div>
             </div>
         </div>
     </div>
 </div>
-
 
             <!-- ВНУТРЕННЯЯ ВКЛАДКА 1: ТАРИФНЫЕ ПЛАНЫ -->
             <div id="tab-tariffs" class="dashboard-tab active">
@@ -2426,98 +2412,100 @@
             hourly_volatility_limit: 1.5, // Максимальное отклонение в процентах
 
             // МАССИВ ПОЛЬЗОВАТЕЛЕЙ ПЛАТФОРМЫ
-            users: [
-                {
-                    user_profile: {
-                        firstName: "Алексей",
-                        lastName: "Иванов",
-                        login: "jump_client77",
-                        email: "ivanov.invest@example.ru",
-                        phone: "+7 (999) 123-45-67",
-                        requisites: "СБП / Тинькофф (Карта *4321)",
-                        balance: 275000,
-                        active_plan: "Мастер",
-                        // Добавленные балансы валют 
+           users: [
+        {
+            user_profile: {
+                firstName: "Алексей",
+                lastName: "Иванов",
+                login: "jump_client77",
+                email: "ivanov.invest@example.ru",
+                phone: "+7 (999) 123-45-67",
+                requisites: "СБП / Тинькофф (Карта *4321)",
+                balance: 275000,
+                active_plan: "Мастер",
+                // Индивидуальные валюты для Алексея
                 crypto_balances: {
                     btc: 0.0024,
                     usdt: 150.50,
                     doge: 420.69,
                     euro: 85.20
-}
-                    },
-                    bonuses: [
-                        { id: 1, title: "Приветственный бонус", amount: "5 000 ₽", date: "12.03.2026" },
-                        { id: 2, title: "Бонус за верификацию MAX", amount: "10 000 ₽", date: "15.03.2026" }
-                    ],
-                    balance_history: [
-                        { type: "deposit", title: "Пополнение через СБП", amount: "+ 150 000 ₽", date: "14.03.2026, 11:20", status: "обработана" },
-                        { type: "deposit", title: "Пополнение Банковской картой", amount: "+ 120 000 ₽", date: "18.03.2026, 16:45", status: "обработана" },
-                        { type: "withdraw", title: "Запрос вывода средств на карту", amount: "- 15 000 ₽", date: "20.03.2026, 09:15", status: "обрабатывается" },
-                        { type: "withdraw", title: "Запрос вывода на USDT кошелек", amount: "- 50 000 ₽", date: "22.03.2026, 14:02", status: "создана" }
-                    ]
-                },
-                {
-                    user_profile: {
-                        firstName: "Макар",
-                        lastName: "Дюпин",
-                        login: "jump_client78",
-                        email: "нет",
-                        phone: "нет",
-                        requisites: "нет",
-                        balance: 50,
-                        active_plan: "Активных нет",
-                        // Добавленные балансы валют
+                }
+            },
+            bonuses: [
+                { id: 1, title: "Приветственный бонус", amount: "5 000 ₽", date: "12.03.2026" },
+                { id: 2, title: "Бонус за верификацию MAX", amount: "10 000 ₽", date: "15.03.2026" }
+            ],
+            balance_history: [
+                { type: "deposit", title: "Пополнение через СБП", amount: "+ 150 000 ₽", date: "14.03.2026, 11:20", status: "обработана" },
+                { type: "deposit", title: "Пополнение Банковской картой", amount: "+ 120 000 ₽", date: "18.03.2026, 16:45", status: "обработана" },
+                { type: "withdraw", title: "Запрос вывода средств на карту", amount: "- 15 000 ₽", date: "20.03.2026, 09:15", status: "обрабатывается" },
+                { type: "withdraw", title: "Запрос вывода на USDT кошелек", amount: "- 50 000 ₽", date: "22.03.2026, 14:02", status: "создана" }
+            ]
+        },
+        {
+            user_profile: {
+                firstName: "Макар",
+                lastName: "Дюпин",
+                login: "jump_client78",
+                email: "нет",
+                phone: "нет",
+                requisites: "нет",
+                balance: 50,
+                active_plan: "Активных нет",
+                // Индивидуальные валюты для Макара
+                crypto_balances: {
+                    btc: 0.0000,
+                    usdt: 0.00,
+                    doge: 0.00,
+                    euro: 0.00
+                }
+            },
+            bonuses: [
+                { id: 1, title: "Приветственный бонус", amount: "50 ₽", date: "12.03.2026" }
+            ],
+            balance_history: []
+        },
+        {
+            user_profile: {
+                firstName: "Михаил",
+                lastName: "Рутков",
+                login: "jump_client79",
+                email: "mihail.rytkov223@gmail.com",
+                phone: "7965278728",
+                requisites: "нет",
+                balance: 50,
+                active_plan: "Стандартный план: 1000₽ | Доходность 11.16% | 25.07.26 - 25.08.26",
+                // Индивидуальные валюты для Михаила
                 crypto_balances: {
                     btc: 0.0024,
                     usdt: 150.50,
                     doge: 420.69,
                     euro: 85.20
-}
-                    },
-                    bonuses: [
-                        { id: 1, title: "Приветственный бонус", amount: "50 ₽", date: "12.03.2026" }
-                    ],
-                    balance_history: []
-                },
-                {
-         user_profile: {
-                        firstName: "Михаил",
-                        lastName: "Рутков",
-                        login: "jump_client79",
-                        email: "mihail.rytkov223@gmail.com",
-                        phone: "7965278728",
-                        requisites: "нет",
-                        balance: 50 ,
-                        active_plan: "Стандартный план: 1000₽ | Доходность 11.16% | 25.07.26 - 25.08.26",
-             // Добавленные балансы валют 
-                crypto_balances: {
-                    btc: 0.0024,
-                    usdt: 150.50,
-                    doge: 420.69,
-                    euro: 85.20
-}
-                    },
-                    bonuses: [
-                        { id: 1, title: "Приветственный бонус", amount: "50 ₽", date: "12.03.2026" }
-                    ],
-                    balance_history: [ 
-                        { type: "deposit", title: "Пополнение через СБП", amount: "+ 1000 ₽", date: "25.07.2026, 11:20", status: "обработана" }
-                        
-                    ]
-                        
+                }
+            },
+            bonuses: [
+                { id: 1, title: "Приветственный бонус", amount: "50 ₽", date: "12.03.2026" }
+            ],
+            balance_history: [ 
+                { type: "deposit", title: "Пополнение через СБП", amount: "+ 1000 ₽", date: "25.07.2026, 11:20", status: "обработана" }
+            ]
         }
-                ]
-        };
-       function renderUserData(userIndex = 0) {
+    ]
+};
+
+// ЧИСТАЯ ФУНКЦИЯ ОТОБРАЖЕНИЯ ДАННЫХ ПОЛЬЗОВАТЕЛЯ НА СТРАНИЦЕ
+function renderUserData(userIndex = 0) {
     const user = state.users[userIndex];
     if (!user) return;
 
     const profile = user.user_profile;
     const crypto = profile.crypto_balances;
 
-    // ... код расчета центрального баланса ...
+    // Выводим оригинальный баланс из базы данных (без изменений и курсов)
+    document.getElementById("user-display-balance").textContent = profile.balance.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ₽";
+    document.getElementById("user-display-plan").textContent = profile.active_plan;
 
-    // Проверяем, нашел ли скрипт элементы на странице, и вставляем данные
+    // Подставляем точные значения валют в маленькие карточки
     const btcEl = document.getElementById("sub-btc-val");
     const usdtEl = document.getElementById("sub-usdt-val");
     const dogeEl = document.getElementById("sub-doge-val");
@@ -2529,12 +2517,14 @@
     if (euroEl) euroEl.textContent = `${crypto.euro} €`;
 }
 
-// Запуск строго ПОСЛЕ того, как весь HTML загрузился
+// Запуск при полной загрузке дерева HTML-тегов
 document.addEventListener("DOMContentLoaded", () => {
-    renderUserData(0); // 0 - Алексей, 1 - Макар, 2 - Михаил
+    // Показываем по умолчанию Алексея (индекс 0)
+    renderUserData(0); 
 });
+          
 
-        // ГЛОБАЛЬНАЯ ПЕРЕМЕННАЯ: Хранит данные текущего авторизованного пользователя
+      // ГЛОБАЛЬНАЯ ПЕРЕМЕННАЯ: Хранит данные текущего авторизованного пользователя
         let currentUser = PLATFORM_DATABASE.users[0];
 
         // Хранилище для динамически измененных процентов
@@ -2580,6 +2570,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (document.getElementById('pct-business')) document.getElementById('pct-business').innerText = LIVE_TARIFFS.business + '%';
             if (document.getElementById('pct-vip')) document.getElementById('pct-vip').innerText = LIVE_TARIFFS.vip + '%';
         }
+        
         // Вывод данных личного кабинета и баланса текущего пользователя
         function renderProfileData() {
             const user = currentUser.user_profile;
@@ -2595,6 +2586,21 @@ document.addEventListener("DOMContentLoaded", () => {
             if (document.getElementById('prof-email')) document.getElementById('prof-email').innerText = user.email;
             if (document.getElementById('prof-phone')) document.getElementById('prof-phone').innerText = user.phone;
             if (document.getElementById('prof-requisites')) document.getElementById('prof-requisites').innerText = user.requisites;
+
+            // ==========================================================================
+            // ОБНОВЛЕНИЕ КАРТОЧЕК ВАЛЮТ (ДОБАВЛЕНО ДЛЯ ИНТЕГРАЦИИ)
+            // ==========================================================================
+            const crypto = user.crypto_balances;
+            const btcEl = document.getElementById("sub-btc-val");
+            const usdtEl = document.getElementById("sub-usdt-val");
+            const dogeEl = document.getElementById("sub-doge-val");
+            const euroEl = document.getElementById("sub-euro-val");
+
+            // Если у пользователя прописаны валюты, выводим их. Если нет — выводим 0
+            if (btcEl)  btcEl.textContent  = crypto ? `${crypto.btc} BTC`  : '0.0000 BTC';
+            if (usdtEl) usdtEl.textContent = crypto ? `${crypto.usdt} $`   : '0.00 $';
+            if (dogeEl) dogeEl.textContent = crypto ? `${crypto.doge} DOGE` : '0.00 DOGE';
+            if (euroEl) euroEl.textContent = crypto ? `${crypto.euro} €`    : '0.00 €';
         }
 
         // Рендеринг персональных бонусов
