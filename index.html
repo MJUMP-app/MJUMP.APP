@@ -2503,7 +2503,38 @@
         }
                 ]
         };
-          
+          // 3. УНИВЕРСАЛЬНАЯ ФУНКЦИЯ ДЛЯ ПЕРЕСЧЕТА ЦЕНТРАЛЬНОГО БАЛАНСА И ОБНОВЛЕНИЯ ЭКРАНА
+function renderUserData(userIndex = 0) {
+    const user = state.users[userIndex];
+    if (!user) return;
+
+    const profile = user.user_profile;
+    const crypto = profile.crypto_balances;
+
+    // Конвертируем каждую доступную валюту в рубли по курсу
+    const btcInRub  = crypto.btc * CURRENCY_RATES.btc;
+    const usdtInRub = crypto.usdt * CURRENCY_RATES.usdt;
+    const dogeInRub = crypto.doge * CURRENCY_RATES.doge;
+    const euroInRub = crypto.euro * CURRENCY_RATES.euro;
+
+    // Формируем итоговый центральный баланс: рубли + сумма всей крипты и фиата
+    const totalCentralBalance = profile.balance + btcInRub + usdtInRub + dogeInRub + euroInRub;
+
+    // Обновляем текстовые данные в центральном блоке вашей платформы
+    document.getElementById("user-display-balance").textContent = totalCentralBalance.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ₽";
+    document.getElementById("user-display-plan").textContent = profile.active_plan;
+
+    // Обновляем балансы в маленьких карточках под центральным блоком
+    if (document.getElementById("sub-btc-val"))  document.getElementById("sub-btc-val").textContent  = `${crypto.btc} BTC`;
+    if (document.getElementById("sub-usdt-val")) document.getElementById("sub-usdt-val").textContent = `${crypto.usdt} $`;
+    if (document.getElementById("sub-doge-val")) document.getElementById("sub-doge-val").textContent = `${crypto.doge} DOGE`;
+    if (document.getElementById("sub-euro-val")) document.getElementById("sub-euro-val").textContent = `${crypto.euro} €`;
+}
+
+// Автоматический вызов при загрузке страницы для первого пользователя (0 = Алексей)
+document.addEventListener("DOMContentLoaded", () => {
+    renderUserData(0); 
+});
 
         // ГЛОБАЛЬНАЯ ПЕРЕМЕННАЯ: Хранит данные текущего авторизованного пользователя
         let currentUser = PLATFORM_DATABASE.users[0];
