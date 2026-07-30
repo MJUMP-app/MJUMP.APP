@@ -1269,7 +1269,7 @@
                 font-size: 12px;
             }
         }
-:root {
+  :root {
             --bg-overlay: rgba(0, 0, 0, 0.4); 
             --bg-modal: #ffffff; 
             --bg-card: #f8fafc; 
@@ -1293,7 +1293,7 @@
             background: #f1f5f9; 
         }
 
-        /* Окно скрыто на всех устройствах по умолчанию */
+        /* Полноэкранный темный фон */
         .modal-overlay {
             display: none; 
             position: fixed;
@@ -1305,15 +1305,16 @@
             box-sizing: border-box;
         }
 
-        /* Класс active включает отображение и анимацию на ПК и мобильных */
+        /* Центрируем окно по центру экрана */
         .modal-overlay.active {
-            display: flex; /* Центрируем модалку через flex для идеального выравнивания */
+            display: flex; 
             align-items: center;
             justify-content: center;
+            padding: 16px;
             animation: fadeInOverlay 0.3s ease-out forwards;
         }
 
-        /* Стили контейнера для ПК версии */
+        /* Белое окно (Оригинальные крупные размеры как на ПК) */
         .modal-container {
             background: var(--bg-modal);
             width: 100%;
@@ -1324,11 +1325,12 @@
             box-shadow: var(--modal-shadow);
             display: flex;
             flex-direction: column;
-            transform: translateY(60px);
             opacity: 0;
+            /* Ограничиваем общую высоту модалки под любой экран смартфона */
+            max-height: calc(100vh - 32px); 
+            box-sizing: border-box;
         }
 
-        /* Запуск анимации контейнера при активации */
         .modal-overlay.active .modal-container {
             animation: slideUpModal 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) 0.05s forwards;
         }
@@ -1348,6 +1350,7 @@
 
         .modal-header {
             padding: 32px 24px 16px 24px;
+            flex-shrink: 0; /* Шапка не сжимается */
         }
 
         .modal-header h1 {
@@ -1373,11 +1376,16 @@
             margin: 0;
         }
 
+        /* СКРОЛЛ ТОЛЬКО ДЛЯ СПИСКА КАРТОЧЕК */
         .locations-list {
             padding: 0 16px 16px 16px;
             display: flex;
             flex-direction: column;
             gap: 14px;
+            /* Разрешаем контенту внутри листа листаться, если он не влезает */
+            overflow-y: auto; 
+            flex-grow: 1;
+            -webkit-overflow-scrolling: touch;
         }
 
         .location-card {
@@ -1390,6 +1398,7 @@
             align-items: center; 
             position: relative;
             overflow: hidden;
+            flex-shrink: 0; /* Карточки сохраняют оригинальный крупный размер */
         }
 
         .card-image-wrapper {
@@ -1482,6 +1491,7 @@
 
         .modal-footer {
             padding: 8px 24px 32px 24px;
+            flex-shrink: 0; /* Подвал не сжимается */
         }
 
         .modal-footer p {
@@ -1499,22 +1509,6 @@
         @keyframes slideUpModal {
             from { transform: translateY(60px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* НАСТРОЙКА СКРОЛЛА ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
-        @media (max-width: 767px) {
-            .modal-overlay.active {
-                padding: 20px 12px; 
-            }
-            
-            .modal-container {
-                /* Ограничиваем высоту контейнера под экран мобильного с запасом */
-                max-height: calc(100vh - 40px);
-                /* Включаем скролл внутри белого окна, если контент не влезает */
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-                margin: 0 auto;
-            }
         }
 </style>
 
