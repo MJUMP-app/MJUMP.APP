@@ -1495,80 +1495,16 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        /* УЛЬТРА-КОМПАКТНЫЕ МОБИЛЬНЫЕ СТИЛИ (Чтобы окно влезало на 100%) */
+        /* АККУРАТНАЯ КОРРЕКЦИЯ ТОЛЬКО ДЛЯ МОБИЛЬНЫХ ОТСТУПОВ */
         @media (max-width: 767px) {
             .modal-overlay.active {
-                padding: 8px 6px 20px 6px; 
+                /* Уменьшаем только внешнюю подушку, чтобы окно встало выше */
+                padding: 10px 10px 40px 10px; 
             }
             
             .modal-container {
-                margin: 4px auto 0 auto; /* Максимально поднимаем к самому верху */
-                border-radius: 16px;
-            }
-            
-            .close-button {
-                top: 12px;
-                right: 12px;
-            }
-
-            .modal-header {
-                padding: 20px 16px 8px 16px; /* Зажимаем отступы шапки */
-            }
-            
-            .modal-header h1 {
-                font-size: 19px; 
-            }
-
-            .modal-header h2 {
-                font-size: 13px;
-                margin-bottom: 6px;
-            }
-
-            .modal-header p {
-                font-size: 12.5px;
-                line-height: 1.35;
-            }
-
-            .locations-list {
-                padding: 0 12px 12px 12px;
-                gap: 8px; /* Уменьшаем расстояние между городами */
-            }
-
-            .location-card {
-                padding: 10px; /* Делаем карточки тоньше */
-                gap: 10px;
-                border-radius: 12px;
-            }
-
-            .card-image-wrapper {
-                width: 80px; /* Ужимаем картинки с 110px до 80px */
-                height: 80px;
-                border-radius: 8px;
-            }
-
-            .card-title {
-                font-size: 13px;
-                margin-bottom: 2px;
-            }
-
-            .card-desc {
-                font-size: 11px;
-                margin: 0 0 6px 0;
-                line-height: 1.3;
-            }
-
-            .card-btn {
-                padding: 8px; /* Делаем кнопки ниже */
-                border-radius: 6px;
-                font-size: 12px;
-            }
-
-            .modal-footer {
-                padding: 4px 16px 20px 16px;
-            }
-
-            .modal-footer p {
-                font-size: 10.5px;
+                /* Прижимаем контейнер ближе к верхнему краю экрана, сохраняя оригинальный вид */
+                margin: 10px auto 0 auto; 
             }
         }
 </style>
