@@ -1269,7 +1269,7 @@
                 font-size: 12px;
             }
         }
-  :root {
+:root {
             --bg-overlay: rgba(0, 0, 0, 0.4); 
             --bg-modal: #ffffff; 
             --bg-card: #f8fafc; 
@@ -1286,6 +1286,13 @@
             --modal-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
         }
 
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f1f5f9; 
+        }
+
         /* Окно скрыто на всех устройствах по умолчанию */
         .modal-overlay {
             display: none; 
@@ -1296,13 +1303,13 @@
             height: 100%;
             z-index: 9999;
             box-sizing: border-box;
-            overflow-y: auto; 
-            -webkit-overflow-scrolling: touch; 
         }
 
         /* Класс active включает отображение и анимацию на ПК и мобильных */
         .modal-overlay.active {
-            display: block;
+            display: flex; /* Центрируем модалку через flex для идеального выравнивания */
+            align-items: center;
+            justify-content: center;
             animation: fadeInOverlay 0.3s ease-out forwards;
         }
 
@@ -1311,7 +1318,6 @@
             background: var(--bg-modal);
             width: 100%;
             max-width: 410px;
-            margin: 40px auto; 
             border-radius: 24px;
             position: relative;
             border: 1px solid #e2e8f0;
@@ -1495,16 +1501,19 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        /* АККУРАТНАЯ КОРРЕКЦИЯ ТОЛЬКО ДЛЯ МОБИЛЬНЫХ ОТСТУПОВ */
+        /* НАСТРОЙКА СКРОЛЛА ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
         @media (max-width: 767px) {
             .modal-overlay.active {
-                /* Уменьшаем только внешнюю подушку, чтобы окно встало выше */
-                padding: 10px 10px 40px 10px; 
+                padding: 20px 12px; 
             }
             
             .modal-container {
-                /* Прижимаем контейнер ближе к верхнему краю экрана, сохраняя оригинальный вид */
-                margin: 10px auto 0 auto; 
+                /* Ограничиваем высоту контейнера под экран мобильного с запасом */
+                max-height: calc(100vh - 40px);
+                /* Включаем скролл внутри белого окна, если контент не влезает */
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                margin: 0 auto;
             }
         }
 </style>
