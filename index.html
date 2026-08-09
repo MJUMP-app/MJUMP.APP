@@ -3667,6 +3667,53 @@ function contactSupport() {
                 element.scrollIntoView({ behavior: 'smooth' });
             }
         }
+
+// ==========================================================================
+// НЕЗАВИСИМЫЙ СУПЕР-СКРИПТ ДЛЯ ИСПРАВЛЕНИЯ ДАТ
+// ==========================================================================
+(function() {
+    // Функция, которая принудительно ставит даты на основе того, чей логин сейчас горит в профиле
+    function forceFixDocumentDates() {
+        const loginEl = document.getElementById('prof-login');
+        if (!loginEl) return;
+
+        const currentLogin = loginEl.innerText.trim();
+        if (!currentLogin) return;
+
+        // Ищем пользователя в PLATFORM_DATABASE по логину с экрана
+        const user = PLATFORM_DATABASE.users.find(u => u.user_profile.login === currentLogin);
+        if (!user || !user.user_profile.documents) return;
+
+        const docs = user.user_profile.documents;
+
+        // Принудительно прописываем ссылки и даты прямо в HTML, игнорируя другие скрипты
+        const docCoop = document.getElementById('doc-cooperation');
+        const dateCoop = document.getElementById('date-cooperation');
+        if (docCoop) docCoop.href = docs.cooperation.link || "#";
+        if (dateCoop) dateCoop.textContent = docs.cooperation.date || "Не оформлен";
+
+        const docOpen = document.getElementById('doc-open-plan');
+        const dateOpen = document.getElementById('date-open-plan');
+        if (docOpen) docOpen.href = docs.open_plan.link || "#";
+        if (dateOpen) dateOpen.textContent = docs.open_plan.date || "Нет планов";
+
+        const docClose = document.getElementById('doc-close-plan');
+        const dateClose = document.getElementById('date-close-plan');
+        if (docClose) docClose.href = docs.close_plan.link || "#";
+        if (dateClose) dateClose.textContent = docs.close_plan.date || "Нет планов";
+    }
+
+    // Запускаем проверку каждые полсекунды, чтобы моментально перехватывать смену пользователя
+    setInterval(forceFixDocumentDates, 500);
+
+    // Дополнительный запуск при загрузке страницы
+    document.addEventListener('DOMContentLoaded', forceFixDocumentDates);
+})();
+
+
+
+
+           
    </script>
 </body>
 </html>
