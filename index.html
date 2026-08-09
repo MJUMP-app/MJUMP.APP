@@ -2546,46 +2546,46 @@
 <div id="tab-documents" class="documents-container dashboard-tab">
     <h2 class="documents-title">История документов</h2>
         
-        <div class="documents-list">
-            
-            <!-- Пример документа 1 -->
-            <div class="document-item">
-                <div class="document-info">
-                    <div class="document-icon">PDF</div>
-                    <div class="document-meta">
-                        <div class="document-name">Договор сотрудничества</div>
-                        <div class="document-date">обновляется</div>
-                    </div>
+    <div class="documents-list">
+        
+        <!-- Договор 1 -->
+        <div class="document-item">
+            <div class="document-info">
+                <div class="document-icon">PDF</div>
+                <div class="document-meta">
+                    <div class="document-name">Договор сотрудничества</div>
+                    <div class="document-date" id="date-cooperation">обновляется</div>
                 </div>
-                <a href="#" class="document-btn">Открыть</a>
             </div>
-
-            <!-- Пример документа 2 -->
-            <div class="document-item">
-                <div class="document-info">
-                    <div class="document-icon">PDF</div>
-                    <div class="document-meta">
-                        <div class="document-name">Договор открытия плана</div>
-                        <div class="document-date">обновляется</div>
-                    </div>
-                </div>
-                <a href="#" class="document-btn">Открыть</a>
-            </div>
-
-            <!-- Пример документа 3 -->
-            <div class="document-item">
-                <div class="document-info">
-                    <div class="document-icon">PDF</div>
-                    <div class="document-meta">
-                        <div class="document-name">Договор закрытия плана</div>
-                        <div class="document-date">обновляется</div>
-                    </div>
-                </div>
-                <a href="#" class="document-btn">Открыть</a>
-            </div>
-
+            <a href="#" id="doc-cooperation" target="_blank" class="document-btn">Открыть</a>
         </div>
+
+        <!-- Договор 2 -->
+        <div class="document-item">
+            <div class="document-info">
+                <div class="document-icon">PDF</div>
+                <div class="document-meta">
+                    <div class="document-name">Договор открытия плана</div>
+                    <div class="document-date" id="date-open-plan">обновляется</div>
+                </div>
+            </div>
+            <a href="#" id="doc-open-plan" target="_blank" class="document-btn">Открыть</a>
+        </div>
+
+        <!-- Договор 3 -->
+        <div class="document-item">
+            <div class="document-info">
+                <div class="document-icon">PDF</div>
+                <div class="document-meta">
+                    <div class="document-name">Договор закрытия плана</div>
+                    <div class="document-date" id="date-close-plan">обновляется</div>
+                </div>
+            </div>
+            <a href="#" id="doc-close-plan" target="_blank" class="document-btn">Открыть</a>
+        </div>
+
     </div>
+</div>
             
          <!-- ВНУТРЕННЯЯ ВКЛАДКА: ПОПОЛНЕНИЕ СЧЕТА -->
 <div id="tab-deposit" class="dashboard-tab">
@@ -2879,6 +2879,22 @@
                 requisites: "СБП / Тинькофф (Карта *4321)",
                 balance: 275000,
                 active_plan: "Мастер",
+
+                 // ИНДИВИДУАЛЬНЫЕ ДОКУМЕНТЫ ДЛЯ АЛЕКСЕЯ
+                documents: {
+                    cooperation: { 
+                        link: "https://example.com", 
+                        date: "12.03.2026" 
+                    },
+                    open_plan: { 
+                        link: "https://example.com", 
+                        date: "15.03.2026" 
+                    },
+                    close_plan: { 
+                        link: "#", 
+                        date: "Не оформлен" 
+                    }
+                },
                 // Индивидуальные валюты для Алексея
                 crypto_balances: {
                     btc: 0.0024,
@@ -2908,6 +2924,21 @@
                 requisites: "+79127078333 (СБП-SBER)",
                 balance: 2.36,
                 active_plan: "VIP план: 50₽ | Доходность 32% | 01.08.26 - 1.09.26",
+ documents: {
+                    cooperation: { 
+                        link: "https://example.com", 
+                        date: "01.08.2026" 
+                    },
+                    open_plan: { 
+                        link: "https://example.com", 
+                        date: "05.08.2026" 
+                    },
+                    close_plan: { 
+                        link: "https://example.com", 
+                        date: "В ожидании" 
+                    }
+                },
+                
                 // Индивидуальные валюты для Макара
                 crypto_balances: {
                     btc: 0.0000,
@@ -3020,15 +3051,124 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener('DOMContentLoaded', () => {
             showModal();
         });
-      // ГЛОБАЛЬНАЯ ПЕРЕМЕННАЯ: Хранит данные текущего авторизованного пользователя
-        let currentUser = PLATFORM_DATABASE.users[0];
+     // ГЛОБАЛЬНАЯ ПЕРЕМЕННАЯ: Хранит данные текущего авторизованного пользователя
+let currentUser = PLATFORM_DATABASE.users[0];
 
-        // Хранилище для динамически измененных процентов
-        let LIVE_TARIFFS = { ...PLATFORM_DATABASE.tariffs_percentage };
+// Хранилище для динамически измененных процентов
+let LIVE_TARIFFS = { ...PLATFORM_DATABASE.tariffs_percentage };
 
-        function contactSupport() {
-            window.open('https://t.me', '_blank');
+// ЧИСТАЯ ФУНКЦИЯ ОТОБРАЖЕНИЯ ДАННЫХ ПОЛЬЗОВАТЕЛЯ НА СТРАНИЦЕ
+function renderUserData(userIndex = 0) {
+    // Безопасно берем данные из state
+    const user = (typeof state !== 'undefined' && state.users) ? state.users[userIndex] : PLATFORM_DATABASE.users[userIndex];
+    if (!user) return;
+
+    // Записываем текущего пользователя в глобальную переменную
+    currentUser = user;
+
+    const profile = user.user_profile;
+    const crypto = profile.crypto_balances;
+
+    // Выводим оригинальный баланс из базы данных (без изменений и курсов)
+    if (document.getElementById("user-display-balance")) {
+        document.getElementById("user-display-balance").textContent = profile.balance.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ₽";
+    }
+    if (document.getElementById("user-display-plan")) {
+        document.getElementById("user-display-plan").textContent = profile.active_plan;
+    }
+
+    // Подставляем точные значения валют в маленькие карточки
+    const btcEl = document.getElementById("sub-btc-val");
+    const usdtEl = document.getElementById("sub-usdt-val");
+    const dogeEl = document.getElementById("sub-doge-val");
+    const euroEl = document.getElementById("sub-euro-val");
+
+    if (btcEl)  btcEl.textContent  = `${crypto.btc} BTC`;
+    if (usdtEl) usdtEl.textContent = `${crypto.usdt} $`;
+    if (dogeEl) dogeEl.textContent = `${crypto.doge} DOGE`;
+    if (euroEl) euroEl.textContent = `${crypto.euro} €`;
+
+    // ==========================================================================
+    // ИСПРАВЛЕНО: УМНЫЙ ПОИСК ДОКУМЕНТОВ ДЛЯ КАЖДОГО ПОЛЬЗОВАТЕЛЯ
+    // ==========================================================================
+    
+    // Ищем профиль этого же пользователя в нашей ручной PLATFORM_DATABASE по логину
+    const manualUser = PLATFORM_DATABASE.users.find(u => u.user_profile.login === profile.login);
+    // Если в state документов нет, берем их из PLATFORM_DATABASE
+    const userDocs = profile.documents || manualUser?.user_profile?.documents;
+
+    const docCoop = document.getElementById('doc-cooperation');
+    const dateCoop = document.getElementById('date-cooperation');
+    if (docCoop) docCoop.href = userDocs?.cooperation?.link || "#";
+    if (dateCoop) dateCoop.textContent = userDocs?.cooperation?.date || "Не оформлен";
+
+    const docOpen = document.getElementById('doc-open-plan');
+    const dateOpen = document.getElementById('date-open-plan');
+    if (docOpen) docOpen.href = userDocs?.open_plan?.link || "#";
+    if (dateOpen) dateOpen.textContent = userDocs?.open_plan?.date || "Нет планов";
+
+    const docClose = document.getElementById('doc-close-plan');
+    const dateClose = document.getElementById('date-close-plan');
+    if (docClose) docClose.href = userDocs?.close_plan?.link || "#";
+    if (dateClose) dateClose.textContent = userDocs?.close_plan?.date || "Нет планов";
+}
+
+// Заменяем старую конфликтующую функцию на вызов правильной отрисовки
+function renderProfileData() {
+    if (currentUser && currentUser.user_profile) {
+        const index = PLATFORM_DATABASE.users.findIndex(u => u.user_profile.login === currentUser.user_profile.login);
+        if (index !== -1) {
+            renderUserData(index);
         }
+    }
+}
+
+// Инициализация данных при загрузке страницы
+window.addEventListener('DOMContentLoaded', () => {
+    // По умолчанию загружаем Макара (индекс 1) для теста
+    renderUserData(1); 
+    
+    runHourlyVolatility();
+    renderBonuses();
+    renderHistory('all');
+    if (typeof calculateMainProfit === 'function') calculateMainProfit();
+    setInterval(runHourlyVolatility, 3600000);
+    showModal(); 
+});
+
+// Функция закрытия модального окна с городами
+function hideModal() {
+    const modal = document.getElementById('afrikaFinalModal');
+    if (modal) { 
+        modal.classList.remove('active'); 
+    }
+}
+
+// Функция открытия модального окна с городами
+function showModal() {
+    const modal = document.getElementById('afrikaFinalModal');
+    if (modal) { 
+        modal.classList.add('active'); 
+    }
+}
+
+// Функция перехода к разделу пополнения
+function openDepositSection() {
+    hideModal(); 
+    if (typeof switchDashboardTab === 'function') {
+        switchDashboardTab('deposit'); 
+    } else {
+        const depositTab = document.getElementById('tab-deposit');
+        if (depositTab) {
+            document.querySelectorAll('.dashboard-tab').forEach(tab => tab.classList.remove('active'));
+            depositTab.classList.add('active');
+        }
+    }
+}
+
+function contactSupport() {
+    window.open('https://t.me', '_blank');
+}
 
         // Инициализация данных при загрузке страницы
         window.addEventListener('DOMContentLoaded', () => {
