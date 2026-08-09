@@ -1510,6 +1510,113 @@
             from { transform: translateY(60px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+        /* Контейнер блока документов с округлыми краями */
+        .documents-container {
+            padding: 24px;
+            background-color: #ffffff;
+            max-width: 600px; /* Ограничил ширину для красивого отображения */
+            margin: 0 auto;   /* Центрирование на экране */
+            border-radius: 28px; /* Сильное скругление внешних краев фона */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05); /* Легкая тень */
+            border: 1px solid #e2e8f0;
+            box-sizing: border-box;
+        }
+
+        /* Заголовок в стиле "История операций" */
+        .documents-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 0;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        /* Сетка для списка документов */
+        .documents-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        /* Карточка отдельного документа */
+        .document-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f8fafc;
+            border-radius: 20px; /* Внутренние карточки чуть менее округлые для баланса */
+            padding: 16px 20px;
+            border: 1px solid #e2e8f0;
+            box-sizing: border-box;
+        }
+
+        /* Левая часть карточки (иконка + текст) */
+        .document-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        /* Иконка PDF в темной гамме (как верхняя плашка) */
+        .document-icon {
+            width: 44px;
+            height: 44px;
+            background-color: #0a1931;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        /* Блок с текстом */
+        .document-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        /* Название договора */
+        .document-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+
+        /* Дата заключения */
+        .document-date {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        /* Синяя кнопка "Открыть" (в цвет кнопок интерфейса) */
+        .document-btn {
+            background-color: #1a56db;
+            color: #ffffff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.15s ease, transform 0.1s ease;
+            white-space: nowrap;
+        }
+
+        /* Эффект при нажатии/наведении */
+        .document-btn:hover {
+            background-color: #1546b5;
+        }
+        .document-btn:active {
+            transform: scale(0.96);
+        }
 </style>
 
     <!-- СТРАНИЦА 2: АВТОРИЗАЦИЯ -->
@@ -1643,6 +1750,7 @@
                 <div class="menu-list">
                     <a href="#" onclick="switchDashboardTab('tariffs')" class="menu-item active">Тарифные планы</a>
                     <a href="#" onclick="switchDashboardTab('profile')" class="menu-item">Личный кабинет</a>
+                     <a href="#" onclick="switchDashboardTab('document-title)')" class="menu-item">Документы</a>
                     <a href="#" onclick="switchDashboardTab('deposit')" class="menu-item">Пополнение счета</a>
                     <a href="#" onclick="switchDashboardTab('withdraw')" class="menu-item">Вывод средств</a>
                     <a href="#" onclick="switchDashboardTab('history')" class="menu-item">История баланса</a>
@@ -2433,6 +2541,51 @@
                 </div>
             </div>
 
+  <!-- ВНУТРЕННЯЯ ВКЛАДКА 2: Документы -->
+             <div class="documents-container">
+        <h2 class="documents-title">История документов</h2>
+        
+        <div class="documents-list">
+            
+            <!-- Пример документа 1 -->
+            <div class="document-item">
+                <div class="document-info">
+                    <div class="document-icon">PDF</div>
+                    <div class="document-meta">
+                        <div class="document-name">Договор сотрудничества</div>
+                        <div class="document-date">обновляется</div>
+                    </div>
+                </div>
+                <a href="#" class="document-btn">Открыть</a>
+            </div>
+
+            <!-- Пример документа 2 -->
+            <div class="document-item">
+                <div class="document-info">
+                    <div class="document-icon">PDF</div>
+                    <div class="document-meta">
+                        <div class="document-name">Договор открытия плана</div>
+                        <div class="document-date">обновляется</div>
+                    </div>
+                </div>
+                <a href="#" class="document-btn">Открыть</a>
+            </div>
+
+            <!-- Пример документа 3 -->
+            <div class="document-item">
+                <div class="document-info">
+                    <div class="document-icon">PDF</div>
+                    <div class="document-meta">
+                        <div class="document-name">Договор закрытия плана</div>
+                        <div class="document-date">обновляется</div>
+                    </div>
+                </div>
+                <a href="#" class="document-btn">Открыть</a>
+            </div>
+
+        </div>
+    </div>
+            
          <!-- ВНУТРЕННЯЯ ВКЛАДКА: ПОПОЛНЕНИЕ СЧЕТА -->
 <div id="tab-deposit" class="dashboard-tab">
     
