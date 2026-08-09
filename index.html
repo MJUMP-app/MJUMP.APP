@@ -1510,17 +1510,19 @@
             from { transform: translateY(60px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-       {
-        /* Контейнер блока документов с округлыми краями */
+       /* Контейнер блока документов с изолированными округлыми краями */
         .documents-container {
             padding: 24px;
             background-color: #ffffff;
-            max-width: 600px; /* Ограничил ширину для красивого отображения */
-            margin: 0 auto;   /* Центрирование на экране */
+            max-width: 600px; 
+            margin: 20px auto; /* Сделали небольшой отступ только для самого виджета */
             border-radius: 28px; /* Сильное скругление внешних краев фона */
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05); /* Легкая тень */
             border: 1px solid #e2e8f0;
             box-sizing: border-box;
+            /* Защита шрифта внутри виджета, чтобы не наследовались кривые стили */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Заголовок в стиле "История операций" */
@@ -1546,7 +1548,7 @@
             align-items: center;
             justify-content: space-between;
             background-color: #f8fafc;
-            border-radius: 20px; /* Внутренние карточки чуть менее округлые для баланса */
+            border-radius: 20px; 
             padding: 16px 20px;
             border: 1px solid #e2e8f0;
             box-sizing: border-box;
@@ -1596,7 +1598,7 @@
             color: #64748b;
         }
 
-        /* Синяя кнопка "Открыть" (в цвет кнопок интерфейса) */
+        /* Синяя кнопка "Открыть" */
         .document-btn {
             background-color: #1a56db;
             color: #ffffff;
