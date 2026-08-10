@@ -2492,22 +2492,27 @@
             pointer-events: none;
         }
 
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
-            background: #0052ff;
-            color: #ffffff;
-            border: none;
-            border-radius: 16px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-        
-        .btn-submit:hover { background: #0043d9; }
-        .success-screen { display: none; }
+       .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: #00cc66; /* ВОЗВРАЩЕН: Ярко-зеленый цвет */
+    color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 204, 102, 0.35); /* Зеленая тень для объема */
+    transition: background 0.2s ease, transform 0.1s ease;
+}
 
+.btn-submit:hover { 
+    background: #00b359; /* Чуть темнее при наведении */
+}
+
+.btn-submit:active {
+    transform: scale(0.98); /* Небольшой эффект нажатия */
+}
         /* ДЕСКТОПНЫЙ ВИД (ПЛИТКА) ДЛЯ ЭКРАНОВ ОТ 768px */
         @media (min-width: 768px) {
             .deposit-form-container.mobile-width {
