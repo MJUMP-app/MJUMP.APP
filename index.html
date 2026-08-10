@@ -2306,23 +2306,27 @@
         border-color: #0052ff;
         background: #fcfdff;
     }
-    .btn-submit {
-        width: 100%;
-        padding: 18px;
-        background-color: #ff5500;
-        color: white;
-        border: none;
-        border-radius: 16px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s, transform 0.1s;
-        margin-top: 8px;
-        box-shadow: 0 4px 12px rgba(255, 85, 0, 0.15);
-    }
-    .btn-submit:hover {
-        background-color: #e04b00;
-    }
+ .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: #00cc66; /* ВОЗВРАЩЕН: Ярко-зеленый цвет */
+    color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 204, 102, 0.35); /* Зеленая тень для объема */
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-submit:hover { 
+    background: #00b359; /* Чуть темнее при наведении */
+}
+
+.btn-submit:active {
+    transform: scale(0.98); /* Небольшой эффект нажатия */
+}
     .success-screen {
         display: none;
     }
