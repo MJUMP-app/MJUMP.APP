@@ -3893,76 +3893,30 @@ function hideLoader() {
 
 
 // ==========================================
-// 2. ИСПРАВЛЕННАЯ ФУНКЦИЯ ВХОДА (БЕЗ ЛАГОВ)
-// ==========================================
-function handleLogin() {
-    const loginInput = document.getElementById('auth-username');
-    
-    // Быстрая проверка заполнения до запуска лоадера
-    if (!loginInput || !loginInput.value.trim()) {
-        alert('Пожалуйста, введите ваш персональный логин.');
-        return;
-    }
-
-    if (typeof PLATFORM_DATABASE === 'undefined') {
-        alert('Ошибка: База данных платформы не найдена.');
-        return;
-    }
-
-    const userIndex = PLATFORM_DATABASE.users.findIndex(u => u.user_profile.login === loginInput.value.trim());
-    if (userIndex === -1) {
-        alert('Пользователь с таким логином не найден.');
-        return;
-    }
-
-    // Запускаем лоадер JUMP строго после проверки логина
-    showLoader(() => {
-        setTimeout(() => {
-            
-            // Отрисовываем балансы зашедшего пользователя под прикрытием лоадера
-            if (typeof renderUserData === 'function') {
-                renderUserData(userIndex);
-            }
-            
-            // Скрываем форму входа и активируем рабочий кабинет
-            const authPage = document.getElementById('auth-page');
-            if (authPage) authPage.classList.remove('active');
-
-            const dashboardPage = document.getElementById('dashboard-page');
-            if (dashboardPage) dashboardPage.classList.add('active');
-
-            // Выключаем лоадер — всё подгрузилось плавно и без зависаний
-            hideLoader();
-            
-            // Выводим карту Африки через полсекунды после открытия кабинета
-            setTimeout(() => {
-                if (typeof showModal === 'function') showModal();
-            }, 500);
-
-        }, 1500); // 1.5 секунды анимации JUMP при входе
-    });
-}
-
-
-// ==========================================
-// 3. ВАШИ РОДНЫЕ ФУНКЦИИ С ИНТЕГРАЦИЕЙ ЛОАДЕРА
+// 2. ВАШИ РОДНЫЕ ФУНКЦИИ С ИНТЕГРАЦИЕЙ ЛОАДЕРА
 // ==========================================
 
 // УПРАВЛЕНИЕ МАРШРУТИЗАЦИЕЙ ( Single Page Application )
 function navigateTo(pageId) {
-    if (typeof closeModal === 'function') closeModal();
-    if (document.getElementById('hamburger-menu-wrapper')) {
-        document.getElementById('hamburger-menu-wrapper').classList.remove('open');
-    }
-    document.querySelectorAll('.doc-page').forEach(dp => dp.classList.remove('active'));
-    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-    
-    const targetPage = document.getElementById(pageId);
-    if (targetPage) targetPage.classList.add('active');
-    window.scrollTo(0, 0);
+    showLoader(() => {
+        setTimeout(() => {
+            if (typeof closeModal === 'function') closeModal();
+            if (document.getElementById('hamburger-menu-wrapper')) {
+                document.getElementById('hamburger-menu-wrapper').classList.remove('open');
+            }
+            document.querySelectorAll('.doc-page').forEach(dp => dp.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) targetPage.classList.add('active');
+            window.scrollTo(0, 0);
+
+            hideLoader(); // Гасим лоадер после смены страницы
+        }, 1000); // 1 секунда анимации JUMP
+    });
 }
 
-// Вкладки Личного кабинета (ЛОАДЕР РАБОТАЕТ ПРИ ПЕРЕХОДАХ)
+// Вкладки Личного кабинета
 function switchDashboardTab(tabKey) {
     showLoader(() => {
         setTimeout(() => {
@@ -3993,12 +3947,12 @@ function switchDashboardTab(tabKey) {
             }
             window.scrollTo(0, 0);
 
-            hideLoader(); 
-        }, 1000); // Время анимации между разделами — 1 секунда
+            hideLoader(); // Гасим лоадер после смены вкладки
+        }, 1000); // 1 секунда анимации JUMP
     });
 }
 
-// Открытие страниц документов (ЛОАДЕР РАБОТАЕТ)
+// Открытие страниц документов
 function openDocumentPage(docKey) {
     showLoader(() => {
         setTimeout(() => {
@@ -4008,44 +3962,16 @@ function openDocumentPage(docKey) {
             if (docPage) docPage.classList.add('active');
             window.scrollTo(0, 0);
 
-            hideLoader();
+            hideLoader(); // Гасим лоадер после открытия документа
         }, 1000);
     });
 }
 
-// Управление меню гамбургера
+// Управление меню гамбургера (оставили без изменений)
 function toggleMenu() {
     const menu = document.getElementById('hamburger-menu-wrapper');
     if (menu) menu.classList.toggle('open');
 }
-
-
-// ==========================================
-// 4. ИНИЦИАЛИЗАЦИЯ СТРАНИЦЫ
-// ==========================================
-window.addEventListener('DOMContentLoaded', () => {
-    // Гарантируем, что лоадер полностью скрыт при первом открытии сайта
-    const initialLoader = document.getElementById('loader-overlay');
-    if (initialLoader) {
-        initialLoader.style.opacity = '0';
-        initialLoader.style.display = 'none';
-    }
-
-    // Загружаем тестовые данные пользователя (Индекс 1)
-    if (typeof renderUserData === 'function') renderUserData(1); 
-    
-    // Запуск стандартных процессов
-    if (typeof runHourlyVolatility === 'function') runHourlyVolatility();
-    if (typeof renderBonuses === 'function') renderBonuses();
-    if (typeof renderHistory === 'function') renderHistory('all');
-    if (typeof calculateMainProfit === 'function') calculateMainProfit();
-    
-    setInterval(runHourlyVolatility, 3600000);
-    
-    // Открываем карту Африки
-    if (typeof showModal === 'function') showModal(); 
-});
-
 
 
            
