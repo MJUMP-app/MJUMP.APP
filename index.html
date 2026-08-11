@@ -1391,246 +1391,47 @@
             }
         }
   :root {
-            --bg-overlay: rgba(0, 0, 0, 0.4); 
-            --bg-modal: #ffffff; 
-            --bg-card: #f8fafc; 
-            --border-card: #e2e8f0; 
-            --text-main: #1e293b; 
-            --text-muted: #64748b; 
-            --text-legal: #94a3b8; 
-            --accent-orange: #ff5500; 
-            
-            --btn-bright-orange: #ff5500;
-            --btn-bright-green: #00cc66;
-            --btn-bright-blue: #0066ff;
-            
+            --bg-overlay: rgba(0, 0, 0, 0.4); --bg-modal: #ffffff; --bg-card: #f8fafc; --border-card: #e2e8f0; 
+            --text-main: #1e293b; --text-muted: #64748b; --text-legal: #94a3b8; --accent-orange: #ff5500; 
+            --btn-bright-orange: #45b180; --btn-bright-green: #315ee1; --btn-bright-blue: #9c27b0;   
             --modal-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
         }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #f1f5f9; 
-        }
-
-        /* Полноэкранный темный фон */
-        .modal-overlay {
-            display: none; 
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            box-sizing: border-box;
-        }
-
-        /* Центрируем окно по центру экрана */
-        .modal-overlay.active {
-            display: flex; 
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            animation: fadeInOverlay 0.3s ease-out forwards;
-        }
-
-        /* Белое окно (Оригинальные крупные размеры как на ПК) */
-        .modal-container {
-            background: var(--bg-modal);
-            width: 100%;
-            max-width: 410px;
-            border-radius: 24px;
-            position: relative;
-            border: 1px solid #e2e8f0;
-            box-shadow: var(--modal-shadow);
-            display: flex;
-            flex-direction: column;
-            opacity: 0;
-            /* Ограничиваем общую высоту модалки под любой экран смартфона */
-            max-height: calc(100vh - 32px); 
-            box-sizing: border-box;
-        }
-
-        .modal-overlay.active .modal-container {
-            animation: slideUpModal 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) 0.05s forwards;
-        }
-
-        .close-button {
-            position: absolute;
-            top: 18px;
-            right: 18px;
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 26px;
-            cursor: pointer;
-            line-height: 1;
-            z-index: 10;
-        }
-
-        .modal-header {
-            padding: 32px 24px 16px 24px;
-            flex-shrink: 0; /* Шапка не сжимается */
-        }
-
-        .modal-header h1 {
-            color: var(--text-main);
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0 0 6px 0;
-            letter-spacing: -0.5px;
-        }
-
-        .modal-header h2 {
-            color: var(--accent-orange);
-            font-size: 15px;
-            font-weight: 700;
-            margin: 0 0 12px 0;
-            text-transform: uppercase;
-        }
-
-        .modal-header p {
-            color: var(--text-muted);
-            font-size: 13.5px;
-            line-height: 1.45;
-            margin: 0;
-        }
-
-        /* СКРОЛЛ ТОЛЬКО ДЛЯ СПИСКА КАРТОЧЕК */
-        .locations-list {
-            padding: 0 16px 16px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            /* Разрешаем контенту внутри листа листаться, если он не влезает */
-            overflow-y: auto; 
-            flex-grow: 1;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .location-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-card);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            gap: 16px;
-            align-items: center; 
-            position: relative;
-            overflow: hidden;
-            flex-shrink: 0; /* Карточки сохраняют оригинальный крупный размер */
-        }
-
-        .card-image-wrapper {
-            width: 110px;
-            height: 110px;
-            border-radius: 12px;
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
-            background: #e2e8f0; 
-        }
-
-        .card-image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .card-image-wrapper::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(248, 250, 252, 0) 40%, rgba(248, 250, 252, 0.9) 95%, var(--bg-card) 100%);
-            pointer-events: none;
-        }
-
-        .card-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            z-index: 2; 
-        }
-
-        .card-title {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .card-title::before {
-            
-            font-size: 13px;
-            font-weight: 900;
-        }
-
-        .nairobi .card-title { color: #d97706; }
-        .kilimanjaro .card-title { color: #059669; }
-        .capetown .card-title { color: #1d4ed8; }
-
-        .card-desc {
-            color: var(--text-muted);
-            font-size: 12px;
-            line-height: 1.4;
-            margin: 0 0 12px 0;
-        }
-
-        .card-btn {
-            width: 100%;
-            padding: 12px; 
-            border-radius: 10px;
-            color: #ffffff; 
-            font-size: 13.5px;
-            font-weight: 700; 
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .nairobi .card-btn { background: var(--btn-bright-orange); box-shadow: 0 4px 12px rgba(255, 85, 0, 0.35); }
-        .kilimanjaro .card-btn { background: var(--btn-bright-green); box-shadow: 0 4px 12px rgba(0, 204, 102, 0.35); }
-        .capetown .card-btn { background: var(--btn-bright-blue); box-shadow: 0 4px 12px rgba(0, 102, 255, 0.35); }
-
-        .car-icon-svg {
-            width: 24px; 
-            height: 16px;
-            display: inline-block;
-            flex-shrink: 0;
-            transform: translateY(-0.5px); 
-        }
-
-        .modal-footer {
-            padding: 8px 24px 32px 24px;
-            flex-shrink: 0; /* Подвал не сжимается */
-        }
-
-        .modal-footer p {
-            color: var(--text-legal);
-            font-size: 11.5px;
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        @keyframes fadeInOverlay {
-            from { background: rgba(0, 0, 0, 0); backdrop-filter: blur(0px); }
-            to { background: var(--bg-overlay); backdrop-filter: blur(4px); }
-        }
-
-        @keyframes slideUpModal {
-            from { transform: translateY(60px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+        body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f1f5f9; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; box-sizing: border-box; }
+        .modal-overlay.active { display: flex; align-items: center; justify-content: center; padding: 8px; animation: fadeInOverlay 0.3s ease-out forwards; }
+        
+        /* РАМКА ОБЩЕГО БЛОКА ТЕПЕРЬ МАКСИМАЛЬНО ДОТЯНУТА ВВЕРХ И ВНИЗ */
+        .modal-container { background: var(--bg-modal); width: 100%; max-width: 410px; border-radius: 24px; position: relative; border: 1px solid #e2e8f0; box-shadow: var(--modal-shadow); display: flex; flex-direction: column; opacity: 0; max-height: calc(100vh - 16px); box-sizing: border-box; }
+        
+        .modal-overlay.active .modal-container { animation: slideUpModal 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) 0.05s forwards; }
+        .close-button { position: absolute; top: 18px; right: 18px; background: none; border: none; color: #94a3b8; font-size: 26px; cursor: pointer; line-height: 1; z-index: 10; }
+        .modal-header { padding: 28px 24px 12px 24px; flex-shrink: 0; }
+        .modal-header h1 { color: var(--text-main); font-size: 24px; font-weight: 700; margin: 0 0 6px 0; letter-spacing: -0.5px; }
+        .modal-header h2 { color: var(--accent-orange); font-size: 15px; font-weight: 700; margin: 0 0 12px 0; text-transform: uppercase; }
+        .modal-header p { color: var(--text-muted); font-size: 13.5px; line-height: 1.45; margin: 0; }
+        .locations-list { padding: 0 16px 12px 16px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; flex-grow: 1; -webkit-overflow-scrolling: touch; }
+        .location-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 16px; padding: 16px; display: flex; gap: 16px; align-items: center; position: relative; overflow: hidden; flex-shrink: 0; }
+        
+        /* ТЕНЬ СТРОГО В САМОМ НИЗУ ИЗОБРАЖЕНИЯ (ВСЕГО 10%) */
+        .card-image-wrapper { width: 110px; height: 110px; border-radius: 12px; flex-shrink: 0; position: relative; overflow: hidden; background: #ffffff; box-sizing: border-box; }
+        .card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
+        .card-image-wrapper::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 10%); pointer-events: none; }
+        
+        .card-content { flex-grow: 1; display: flex; flex-direction: column; z-index: 2; }
+        .card-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .nairobi .card-title { color: var(--btn-bright-orange); }
+        .kilimanjaro .card-title { color: var(--btn-bright-green); }
+        .capetown .card-title { color: var(--btn-bright-blue); }
+        .card-desc { color: var(--text-muted); font-size: 12px; line-height: 1.4; margin: 0 0 12px 0; }
+        .card-btn { width: 100%; padding: 12px; border-radius: 10px; color: #ffffff; font-size: 13.5px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .nairobi .card-btn { background: var(--btn-bright-orange); box-shadow: 0 4px 12px rgba(69, 177, 128, 0.35); }
+        .kilimanjaro .card-btn { background: var(--btn-bright-green); box-shadow: 0 4px 12px rgba(49, 94, 225, 0.35); }
+        .capetown .card-btn { background: var(--btn-bright-blue); box-shadow: 0 4px 12px rgba(156, 39, 176, 0.35); }
+        .chess-icon-svg { width: 18px; height: 18px; display: inline-block; flex-shrink: 0; fill: none; stroke: #ffffff; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+        .modal-footer { padding: 8px 24px 24px 24px; flex-shrink: 0; }
+        .modal-footer p { color: var(--text-legal); font-size: 11.5px; line-height: 1.5; margin: 0; }
+        @keyframes fadeInOverlay { from { background: rgba(0,0,0,0); backdrop-filter: blur(0px); } to { background: var(--bg-overlay); backdrop-filter: blur(4px); } }
+        @keyframes slideUpModal { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
      /* Контейнер блока документов — теперь он прозрачный и растягивается на 100% */
         .documents-container {
             padding: 16px 0; /* Убрали боковые отступы, чтобы блок плотно прилегал к краям */
@@ -1773,80 +1574,66 @@
 
     <!-- СТРАНИЦА 3: РАБОЧАЯ ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ -->
     <div id="dashboard-page" class="page">
-        <!-- Вставьте этот блок в любое место внутри тега <body> -->
-    <div class="modal-overlay" id="afrikaFinalModal">
-        <div class="modal-container">
-            <button class="close-button" onclick="hideModal()">&times;</button>
-            
-            <div class="modal-header">
-                <h1>Откройте новые локации!</h1>
-                <h2>Маршрут по Африке</h2>
-                <p>Отправляйтесь по маршруту через Найроби, Килиманджаро и Кейптаун. Каждая локация открывает уникальный стиль платформы и бонус на депозит.</p>
+         <div class="modal-container">
+        <button class="close-button" onclick="hideModal()">&times;</button>
+        <div class="modal-header">
+            <h1>Откройте новые уровни!</h1>
+            <h2>Шахматная лига</h2>
+            <p>Пополняйте баланс, открывайте новые фигуры и забирайте максимальные бонусы на свой депозит прямо сейчас.</p>
+        </div>
+
+        <div class="locations-list">
+            <!-- KNIGHT -->
+            <div class="location-card nairobi">
+                <div class="card-image-wrapper">
+                    <img src="https://avatars.mds.yandex.net/get-altay/16415892/2a0000019feff5eb40f35f70ba92343d303e/L" alt="Knight">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">KNIGHT</div>
+                    <p class="card-desc">60% бонус на депозит от $40</p>
+                    <button class="card-btn" onclick="openDepositSection()">
+                        <svg class="chess-icon-svg" viewBox="0 0 24 24"><path d="M19 22H5c0-1.5.5-3 1.5-4.5C8 15.5 9 13 9 10.5c0-1.5-.5-3.5-1-4.5C7.5 5 8 3.5 9.5 3c1.5-.5 3 .5 3.5 2 .5 1.5 2 1.5 3 1s1.5-2 3-1.5c1 .3 1 2 0 3s-2.5 1.5-2.5 3c0 2 1 4.5 2.5 6 1 1.5 1.5 3 1.5 4.5zM9 10h4"/></svg>
+                        Дебют
+                    </button>
+                </div>
             </div>
 
-            <div class="locations-list">
-                
-                <!-- NAIROBI -->
-                <div class="location-card nairobi">
-                    <div class="card-image-wrapper">
-                        <img src="https://avatars.mds.yandex.net/get-altay/20781708/2a0000019fb3345f66eb1478dae0d48a326e/M" alt="Nairobi">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">NAIROBI</div>
-                        <p class="card-desc">Получите бонус 100% при пополнении от $20. Сумма бонуса до $100.</p>
-                        <button class="card-btn" onclick="openDepositSection()">
-                            <svg class="car-icon-svg" viewBox="0 0 24 24" xmlns="http://w3.org">
-                                <path d="M19 11.5c.8 0 1.5-.7 1.5-1.5v-1c0-1-.8-1.8-1.8-1.8H11V5.5c0-.8-.7-1.5-1.5-1.5H5.8c-.8 0-1.5.7-1.5 1.5v4.3c-.5.2-.8.7-.8 1.2v2c0 .6.4 1 1 1h.6c0 1.4 1.1 2.5 2.5 2.5s2.5-1.1 2.5-2.5h4c0 1.4 1.1 2.5 2.5 2.5s2.5-1.1 2.5-2.5h1.1c.6 0 1-.4 1-1v-2c0-.5-.3-1-.8-1.2zm-15-1V5.5c0-.3.2-.5.5-.5h3.7c.3 0 .5.2.5.5v4.2H4zm3.6 5.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm6.4-5.3V8.7h4.2c.4 0 .8.3.8.8v1.2H14zm2.6 5.3c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5z" stroke="#ffffff" stroke-width="0.4" fill="#ffffff"/>
-                                <path d="M1.5 7.5c-.6 0-1 .4-1 1v3c0 .6.4 1 1 1s1-.4 1-1v-3c0-.6-.4-1-1-1z" stroke="#ffffff" stroke-width="0.4" fill="#ffffff"/>
-                            </svg>
-                            В Найроби
-                        </button>
-                    </div>
+            <!-- BISHOP -->
+            <div class="location-card kilimanjaro">
+                <div class="card-image-wrapper">
+                    <img src="https://avatars.mds.yandex.net/get-altay/21221165/2a0000019feffb20edc91c4bd89c1589b792/L" alt="Bishop">
                 </div>
-
-                <!-- KILIMANJARO -->
-                <div class="location-card kilimanjaro">
-                    <div class="card-image-wrapper">
-                        <img src="https://avatars.mds.yandex.net/get-altay/19785895/2a0000019fb33457b3271883738e93abb73c/S" alt="Kilimanjaro">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">KILIMANJARO</div>
-                        <p class="card-desc">Получите бонус 80% при пополнении от $60. Сумма бонуса до $10,000.</p>
-                        <button class="card-btn" onclick="openDepositSection()">
-                            <svg class="car-icon-svg" viewBox="0 0 24 24" xmlns="http://w3.org">
-                                <path d="M19 11.5c.8 0 1.5-.7 1.5-1.5v-1c0-1-.8-1.8-1.8-1.8H11V5.5c0-.8-.7-1.5-1.5-1.5H5.8c-.8 0-1.5.7-1.5 1.5v4.3c-.5.2-.8.7-.8 1.2v2c0 .6.4 1 1 1h.6c0 1.4 1.1 2.5 2.5 2.5s2.5-1.1 2.5-2.5h4c0 1.4 1.1 2.5 2.5 2.5s2.5-1.1 2.5-2.5h1.1c.6 0 1-.4 1-1v-2c0-.5-.3-1-.8-1.2zm-15-1V5.5c0-.3.2-.5.5-.5h3.7c.3 0 .5.2.5.5v4.2H4zm3.6 5.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm6.4-5.3V8.7h4.2c.4 0 .8.3.8.8v1.2H14zm2.6 5.3c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5z" stroke="#ffffff" stroke-width="0.4" fill="#ffffff"/>
-                                <path d="M1.5 7.5c-.6 0-1 .4-1 1v3c0 .6.4 1 1 1s1-.4 1-1v-3c0-.6-.4-1-1-1z" stroke="#ffffff" stroke-width="0.4" fill="#ffffff"/>
-                            </svg>
-                            На Килиманджаро
-                        </button>
-                    </div>
+                <div class="card-content">
+                    <div class="card-title">BISHOP</div>
+                    <p class="card-desc">80% бонус на депозит от $100</p>
+                    <button class="card-btn" onclick="openDepositSection()">
+                        <svg class="chess-icon-svg" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3c0 .5.1.9.3 1.3L7.5 12h9l-1.8-5.7c.2-.4.3-.8.3-1.3a3 3 0 0 0-3-3zm0 2v2M6 22h12M9 22v-3c0-1.7 1.3-3 3-3s3 1.3 3 3v3M12 11v3"/></svg>
+                        Захват
+                    </button>
                 </div>
-
-                <!-- CAPETOWN -->
-                <div class="location-card capetown">
-                    <div class="card-image-wrapper">
-                        <img src="https://avatars.mds.yandex.net/get-altay/20824784/2a0000019fb3345279b4754addc2b68123c6/S" alt="Capetown">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">CAPETOWN</div>
-                        <p class="card-desc">Получите бонус 100% при пополнении от $100. Сумма бонуса до $10,000.</p>
-                        <button class="card-btn" onclick="openDepositSection()">
-                            <svg class="car-icon-svg" viewBox="0 0 24 24" xmlns="http://w3.org">
-                                <path d="M19 11.5c.8 0 1.5-.7 1.5-1.5v-1c0-1-.8-1.8-1.8-1.8H11V5.5c0-.8-.7-1.5-1.5-1.5H5.8c-.8 0-1.5.7-1.5 1.5v4.3c-.5.2-.8.7-.8 1.2v2c0 .6.4 1 1 1h.6c0 1.4 1.1 2.5 2.5 2.5s2.5-1.1 2.5-2.5h4c0 1.4 1.1 2.5 2.5 2.5s2.5-1.1 2.5-2.5h1.1c.6 0 1-.4 1-1v-2c0-.5-.3-1-.8-1.2zm-15-1V5.5c0-.3.2-.5.5-.5h3.7c.3 0 .5.2.5.5v4.2H4zm3.6 5.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm6.4-5.3V8.7h4.2c.4 0 .8.3.8.8v1.2H14zm2.6 5.3c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5z" stroke="#ffffff" stroke-width="0.4" fill="#ffffff"/>
-                                <path d="M1.5 7.5c-.6 0-1 .4-1 1v3c0 .6.4 1 1 1s1-.4 1-1v-3c0-.6-.4-1-1-1z" stroke="#ffffff" stroke-width="0.4" fill="#ffffff"/>
-                            </svg>
-                            В Кейптаун
-                        </button>
-                    </div>
-                </div>
-
             </div>
 
-            <div class="modal-footer">
-                <p>В акции могут участвовать все зарегистрированные клиенты. Все промокоды действуют до 2026-08-09. Бонусные средства начисляются моментально и могут быть использованы в торговле для увеличения потенциальной прибыли.</p>
+            <!-- QUEEN -->
+            <div class="location-card capetown">
+                <div class="card-image-wrapper">
+                    <img src="https://avatars.mds.yandex.net/get-altay/19854598/2a0000019feff5f0addbb6af2e3cd6f022d4/L" alt="Queen">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">QUEEN</div>
+                    <p class="card-desc">100% бонус на депозит от $300</p>
+                    <button class="card-btn" onclick="openDepositSection()">
+                        <svg class="chess-icon-svg" viewBox="0 0 24 24"><path d="M2 4l3 12h14l3-12-5 5-5-7-5 7-5-5zm3 12v3c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-3M7 16h10"/></svg>
+                        Шах и мат
+                    </button>
+                </div>
             </div>
         </div>
+
+        <div class="modal-footer">
+            <p>В акции могут участвовать все зарегистрированные клиенты. Все промокоды действуют до 2026-08-09.</p>
+        </div>
     </div>
+</div>
 
 
         <!-- Шапка ЛК с постоянным Гамбургером -->
