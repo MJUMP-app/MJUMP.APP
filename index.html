@@ -353,169 +353,274 @@
             </div>
         </header>
   <style>
-        /* БАЗОВАЯ СЕТКА И ОГРАНИЧЕНИЕ ЭКРАНА */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-        .grid {
-            display: grid;
-            gap: 20px;
-        }
-        .grid-4 {
-            grid-template-columns: repeat(4, 1fr);
-        }
+              /* ==========================================================================
+   БАЗОВАЯ СЕТКА И ОГРАНИЧЕНИЕ ЭКРАНА (СТАРЫЕ СТИЛИ - ПОЛНОСТЬЮ СОХРАНЕНЫ)
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.grid {
+    display: grid;
+    gap: 20px;
+}
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
 
-        /* КНОПКИ БАННЕРА */
-        .btn {
-            display: inline-block;
-            padding: 14px 28px;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: 12px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            text-decoration: none;
-        }
-        .btn-main-blue {
-            background-color: #0052ff;
-            color: #ffffff;
-        }
-        .btn-main-blue:hover {
-            background-color: #0041cc;
-        }
-        .btn-outline-white {
-            background-color: transparent;
-            color: #ffffff;
-            border: 2px solid #ffffff;
-        }
-        .btn-outline-white:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+/* ==========================================================================
+   ГЛАВНЫЙ БАННЕР РАСТЯНУТЫЙ НА ВСЮ ШИРИНУ И ВЫСОТУ (НОВЫЙ СТИЛЬ ВОДЫ)
+   ========================================================================== */
+.hero-premium {
+    /* Премиальный светлый градиент на всю ширину */
+    background: linear-gradient(135deg, #ffffff 0%, #eef5ff 60%, #cfe3ff 100%);
+    color: #001C54;
+    padding: 90px 0 110px 0; /* Старые большие отступы для высоты */
+    width: 100%;
+    position: relative; 
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(26, 92, 255, 0.12);
+    box-sizing: border-box;
+}
 
-        /* СТИЛИ ДЛЯ ЯРКОГО ГЛАВНОГО БАННЕРА И ХАРАКТЕРИСТИК */
-        .hero-premium {
-            background: linear-gradient(135deg, #020c1b 0%, #002266 100%);
-            color: #ffffff;
-            padding: 90px 0 110px 0;
-            width: 100%;
-        }
-        .hero-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        .hero-line {
-            width: 24px;
-            height: 3px;
-            background-color:  #ff5500 ;
-            flex-shrink: 0;
-        }
-        .hero-status {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #a3c2ff;
-            font-weight: 700;
-        }
-        .hero-title {
-            font-size: 50px;
-            line-height: 1.2;
-            font-weight: 800;
-            margin-bottom: 24px;
-            letter-spacing: -0.5px;
-        }
-        .text-highlight {
-            color: #ff5500;
-        }
-        .hero-subtitle {
-            font-size: 18px;
-            color: #d1e2ff;
-            max-width: 720px;
-            margin-bottom: 40px;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-        }
+/* Эффект матового стекла поверх плавающих сейфов */
+.hero-premium::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(2px); 
+    z-index: 2;
+    pointer-events: none;
+}
 
-        /* ЯРКИЕ КАРТОЧКИ ХАРАКТЕРИСТИК ПРОЕКТА */
-        .stats-section {
-            margin-top: -40px;
-            padding-bottom: 30px; /* Уменьшили нижний отступ */
-            position: relative;
-            z-index: 10;
-        }
-        .stat-card {
-            background: #ffffff;
-            padding: 28px;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease;
-        }
-        .stat-card:hover {
-            transform: translateY(-3px);
-            border-color: #0052ff;
-        }
-        .stat-num {
-            font-size: 13px;
-            font-weight: 800;
-            color: #0052ff;
-            background: rgba(0, 82, 255, 0.1);
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 6px;
-            margin-bottom: 18px;
-        }
-        .stat-card h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #0f172a;
-            font-weight: 700;
-        }
-        .stat-card p {
-            font-size: 14px;
-            color: #475569;
-            line-height: 1.5;
-        }
+/* Слой с контентом вынесен на передний план */
+.content-layer { 
+    position: relative; 
+    z-index: 10; 
+}
 
-        @media (max-width: 1024px) {
-            .grid-4 { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .hero-premium { padding: 50px 0 70px 0; }
-            .hero-title { font-size: 32px; }
-            .hero-subtitle { font-size: 15px; }
-            .hero-buttons { flex-direction: column; gap: 12px; }
-            .hero-buttons .btn { width: 100%; }
-            .stats-section { margin-top: -20px; padding-bottom: 20px; }
-            .grid-4 { grid-template-columns: 1fr; }
-        }
+/* ==========================================================================
+   ЭЛЕМЕНТЫ ТЕКСТА И МЕТАДАННЫХ (ДЛЯ ВАШЕГО JAVASCRIPT)
+   ========================================================================== */
+.hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+.hero-line {
+    width: 18px; 
+    height: 3px; 
+    background: #FF5500; /* Яркий оранжевый акцент */
+    border-radius: 2px; 
+    box-shadow: 0 2px 6px rgba(255, 85, 0, 0.3);
+    flex-shrink: 0;
+}
+.hero-status {
+    color: #3b66ad; 
+    font-size: 11px; 
+    font-weight: 600; 
+    letter-spacing: 1.8px; 
+    text-transform: uppercase; 
+}
+.hero-title {
+    font-size: 50px; /* Старый крупный размер */
+    line-height: 1.2;
+    font-weight: 800;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+    color: #001C54; /* Контрастный глубокий цвет нового стиля */
+}
+.text-highlight {
+    color: #ff5500; /* Яркий оранжевый */
+}
+.hero-subtitle {
+    font-size: 18px; /* Старый размер */
+    color: #334155; /* Темный читаемый цвет нового стиля */
+    max-width: 720px;
+    margin-bottom: 40px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   КНОПКИ БАННЕРА (СТАРЫЕ КЛАССЫ С НОВЫМ ДИЗАЙНОМ)
+   ========================================================================== */
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+}
+.btn {
+    display: inline-block;
+    padding: 18px 32px; /* Чуть просторнее в новом стиле */
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+/* Старая синяя кнопка (В новом сочном исполнении) */
+.btn-main-blue {
+    background: #1A5CFF;
+    color: #ffffff; 
+    box-shadow: 0 8px 25px rgba(26, 92, 255, 0.3); 
+}
+.btn-main-blue:hover {
+    background: #0044FF;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(26, 92, 255, 0.4); 
+}
+
+/* Старая белая контурная кнопка (Адаптирована под светлую тему) */
+.btn-outline-white {
+    background: transparent; 
+    color: #001C54; 
+    border: 2px solid #1A5CFF; 
+}
+.btn-outline-white:hover {
+    background: rgba(26, 92, 255, 0.06); 
+    color: #001C54;
+}
+
+/* ==========================================================================
+   ЯРКИЕ КАРТОЧКИ ХАРАКТЕРИСТИК (СТАРЫЕ СТИЛИ - ПОЛНОСТЬЮ СОХРАНЕНЫ)
+   ========================================================================== */
+.stats-section {
+    margin-top: -40px;
+    padding-bottom: 30px; 
+    position: relative;
+    z-index: 10;
+}
+.stat-card {
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 16px;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+.stat-card:hover {
+    transform: translateY(-3px);
+    border-color: #0052ff;
+}
+.stat-num {
+    font-size: 13px;
+    font-weight: 800;
+    color: #0052ff;
+    background: rgba(0, 82, 255, 0.1);
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+}
+.stat-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #0f172a;
+    font-weight: 700;
+}
+.stat-card p {
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   ДЕКОРАТИВНЫЕ СЕЙФЫ И АНИМАЦИЯ ВОДЫ (ИЗ НОВОГО ДИЗАЙНА)
+   ========================================================================== */
+.safe { 
+    position: absolute; 
+    width: 120px; /* Немного увеличил, так как баннер теперь во весь экран */
+    height: 120px; 
+    pointer-events: none; 
+    z-index: 1; 
+    opacity: 0.20; 
+    color: #2ECC71; 
+}
+.s1 { top: 40px; right: 10%; animation: swim 8s ease-in-out infinite; }
+.s2 { bottom: 40px; left: 5%; animation: swim 11s ease-in-out infinite alternate; }
+.s3 { bottom: 15px; right: 25%; animation: swim 9s ease-in-out infinite; }
+
+@keyframes swim {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(-12px, 15px) rotate(6deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* ==========================================================================
+   АДАПТИВНОСТЬ (СТАРАЯ СЕТКА + ОБНОВЛЕННЫЕ КНОПКИ)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .hero-premium { padding: 50px 0 70px 0; }
+    .hero-title { font-size: 32px; }
+    .hero-subtitle { font-size: 15px; }
+    .hero-buttons { flex-direction: column; gap: 12px; }
+    .hero-buttons .btn { width: 100%; }
+    .stats-section { margin-top: -20px; padding-bottom: 20px; }
+    .grid-4 { grid-template-columns: 1fr; }
+    .safe { width: 80px; height: 80px; } /* Уменьшаем сейфы на мобилках */
+}
+
 </style>
-<!-- Профессиональный баннер платформы -->
-    <section class="hero-premium">
-        <div class="container">
-            <div class="hero-meta">
-                <span class="hero-line"></span>
-                <span class="hero-status">Официальный инвестиционный сектор</span>
-            </div>
-            <h1 class="hero-title">Будущее ваших активов <br><span class="text-highlight">начинается здесь</span></h1>
-            <p class="hero-subtitle">Высокотехнологичные решения для управления капиталом. Профессиональные инвестиционные планы, защищенные сквозным шифрованием и стандартами строгой финансовой отчетности.</p>
-            <div class="hero-buttons">
-                <button class="btn btn-main-blue" onclick="scrollAnchor('calc-anchor')">Рассчитать доходность</button>
-                <button class="btn btn-outline-white" onclick="scrollAnchor('docs-anchor')">Лицензии и документы</button>
-            </div>
+<!-- Векторный шаблон сейфа для светлой темы -->
+<svg style="display: none;">
+    <g id="safe-asset">
+        <rect x="10" y="10" width="80" height="80" rx="14" fill="currentColor"/>
+        <rect x="18" y="18" width="64" height="64" rx="8" fill="#27AE60"/>
+        <circle cx="50" cy="50" r="18" fill="#1E8449" stroke="#fff" stroke-width="2.5"/>
+        <circle cx="50" cy="50" r="10" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="3 2"/>
+        <line x1="50" y1="32" x2="50" y2="26" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="50" y1="68" x2="50" y2="74" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="32" y1="50" x2="26" y2="50" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="68" y1="50" x2="74" y2="50" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="3" fill="#fff"/>
+        <rect x="76" y="40" width="5" height="20" rx="2" fill="#fff"/>
+    </g>
+</svg>
+
+<!-- Профессиональный баннер платформы (Старый класс-тег на всю ширину для JS) -->
+<section class="hero-premium">
+    
+    <!-- Сейфы плавают по всему фону большого баннера -->
+    <svg class="safe s1" viewBox="0 0 100 100"><use href="#safe-asset"/></svg>
+    <svg class="safe s2" viewBox="0 0 100 100"><use href="#safe-asset"/></svg>
+    <svg class="safe s3" viewBox="0 0 100 100"><use href="#safe-asset"/></svg>
+
+    <!-- Контентная часть внутри стандартного контейнера -->
+    <div class="container content-layer">
+        
+        <!-- Старая структура мета-данных (Для JS) -->
+        <div class="hero-meta">
+            <span class="hero-line"></span>
+            <span class="hero-status">Официальный инвестиционный сектор</span>
         </div>
-    </section>
+        
+        <!-- Старый заголовок (Для JS) -->
+        <h1 class="hero-title">Будущее ваших активов <br><span class="text-highlight">начинается здесь</span></h1>
+        
+        <!-- Старый подзаголовок (Для JS) -->
+        <p class="hero-subtitle">Высокотехнологичные решения для управления капиталом. Профессиональные инвестиционные планы, защищенные сквозным шифрованием и стандартами строгой финансовой отчетности.</p>
+        
+        <!-- Старые кнопки и Onclick события (Для JS) -->
+        <div class="hero-buttons">
+            <button class="btn btn-main-blue" onclick="scrollAnchor('calc-anchor')">Рассчитать доходность</button>
+            <button class="btn btn-outline-white" onclick="scrollAnchor('docs-anchor')">Лицензии и документы</button>
+        </div>
+        
+    </div>
+</section>
 
     <!-- Характеристики проекта -->
     <section class="stats-section">
