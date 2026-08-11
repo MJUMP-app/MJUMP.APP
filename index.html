@@ -1391,6 +1391,240 @@
             }
         }
 
+:root {
+    --bg-overlay: rgba(0, 0, 0, 0.4); 
+    --bg-modal: #ffffff; 
+    --bg-card: #f8fafc; 
+    --border-card: #e2e8f0; 
+    --text-main: #1e293b; 
+    --text-muted: #64748b; 
+    --text-legal: #94a3b8; 
+    --accent-orange: #ff5500; 
+    
+    /* ЦВЕТА ИЗМЕНЕНЫ НА ШАХМАТНЫЕ */
+    --btn-bright-orange: #45b180; /* Изумрудный (Knight) */
+    --btn-bright-green: #315ee1;  /* Синий (Bishop) */
+    --btn-bright-blue: #9c27b0;   /* Фиолетовый (Queen) */
+    
+    --modal-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f1f5f9; 
+}
+
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    box-sizing: border-box;
+}
+
+.modal-overlay.active {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: fadeInOverlay 0.3s ease-out forwards;
+}
+
+.modal-container {
+    background: var(--bg-modal);
+    width: 100%;
+    max-width: 410px;
+    border-radius: 24px;
+    position: relative;
+    border: 1px solid #e2e8f0;
+    box-shadow: var(--modal-shadow);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    max-height: calc(100vh - 32px); 
+    box-sizing: border-box;
+}
+
+.modal-overlay.active .modal-container {
+    animation: slideUpModal 0.35s cubic-bezier(0.1, 0.76, 0.55, 0.94) 0.05s forwards;
+}
+
+.close-button {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 26px;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 10;
+}
+
+.modal-header {
+    padding: 32px 24px 16px 24px;
+    flex-shrink: 0;
+}
+
+.modal-header h1 {
+    color: var(--text-main);
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.5px;
+}
+
+.modal-header h2 {
+    color: var(--accent-orange);
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+}
+
+.modal-header p {
+    color: var(--text-muted);
+    font-size: 13.5px;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.locations-list {
+    padding: 0 16px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto; 
+    flex-grow: 1;
+    -webkit-overflow-scrolling: touch;
+}
+
+.location-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: center; 
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* КАРТИНКА ВЛЕЗАЕТ ПОЛНОСТЬЮ, ТЕНЬ СТРОГО ВНИЗУ */
+.card-image-wrapper {
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff; 
+}
+
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+}
+
+.card-image-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 15%);
+    pointer-events: none;
+}
+
+.card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    z-index: 2; 
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nairobi .card-title { color: var(--btn-bright-orange); }
+.kilimanjaro .card-title { color: var(--btn-bright-green); }
+.capetown .card-title { color: var(--btn-bright-blue); }
+
+.card-desc {
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 0 0 12px 0;
+}
+
+.card-btn {
+    width: 100%;
+    padding: 12px; 
+    border-radius: 10px;
+    color: #ffffff; 
+    font-size: 13.5px;
+    font-weight: 700; 
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.nairobi .card-btn { background: var(--btn-bright-orange); box-shadow: 0 4px 12px rgba(69, 177, 128, 0.35); }
+.kilimanjaro .card-btn { background: var(--btn-bright-green); box-shadow: 0 4px 12px rgba(49, 94, 225, 0.35); }
+.capetown .card-btn { background: var(--btn-bright-blue); box-shadow: 0 4px 12px rgba(156, 39, 176, 0.35); }
+
+.chess-icon-svg {
+    width: 18px; 
+    height: 18px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.modal-footer {
+    padding: 8px 24px 32px 24px;
+    flex-shrink: 0;
+}
+
+.modal-footer p {
+    color: var(--text-legal);
+    font-size: 11.5px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+@keyframes fadeInOverlay {
+    from { background: rgba(0, 0, 0, 0); backdrop-filter: blur(0px); }
+    to { background: var(--bg-overlay); backdrop-filter: blur(4px); }
+}
+
+@keyframes slideUpModal {
+    from { transform: translateY(60px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+       
      /* Контейнер блока документов — теперь он прозрачный и растягивается на 100% */
         .documents-container {
             padding: 16px 0; /* Убрали боковые отступы, чтобы блок плотно прилегал к краям */
@@ -1534,6 +1768,76 @@
     <!-- СТРАНИЦА 3: РАБОЧАЯ ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ -->
     <div id="dashboard-page" class="page">
         
+<div class="modal-overlay" id="afrikaFinalModal">
+    <div class="modal-container">
+        <button class="close-button" onclick="hideModal()">&times;</button>
+        
+        <div class="modal-header">
+            <h1>Откройте новые уровни!</h1>
+            <h2>Шахматная лига</h2>
+            <p>Пополняйте баланс, открывайте новые фигуры и забирайте максимальные бонусы на свой депозит прямо сейчас.</p>
+        </div>
+
+        <div class="locations-list">
+            
+            <!-- KNIGHT -->
+            <div class="location-card nairobi">
+                <div class="card-image-wrapper">
+                    <img src="https://yandex.net" alt="Knight">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">KNIGHT</div>
+                    <p class="card-desc">60% бонус на депозит от $40</p>
+                    <button class="card-btn" onclick="openDepositSection()">
+                        <svg class="chess-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 22H5c0-1.5.5-3 1.5-4.5C8 15.5 9 13 9 10.5c0-1.5-.5-3.5-1-4.5C7.5 5 8 3.5 9.5 3c1.5-.5 3 .5 3.5 2 .5 1.5 2 1.5 3 1s1.5-2 3-1.5c1 .3 1 2 0 3s-2.5 1.5-2.5 3c0 2 1 4.5 2.5 6 1 1.5 1.5 3 1.5 4.5zM9 10h4"/>
+                        </svg>
+                        Дебют
+                    </button>
+                </div>
+            </div>
+
+            <!-- BISHOP -->
+            <div class="location-card kilimanjaro">
+                <div class="card-image-wrapper">
+                    <img src="https://yandex.net" alt="Bishop">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">BISHOP</div>
+                    <p class="card-desc">80% бонус на депозит от $100</p>
+                    <button class="card-btn" onclick="openDepositSection()">
+                        <svg class="chess-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2a3 3 0 0 0-3 3c0 .5.1.9.3 1.3L7.5 12h9l-1.8-5.7c.2-.4.3-.8.3-1.3a3 3 0 0 0-3-3zm0 2v2M6 22h12M9 22v-3c0-1.7 1.3-3 3-3s3 1.3 3 3v3M12 11v3"/>
+                        </svg>
+                        Захват
+                    </button>
+                </div>
+            </div>
+
+            <!-- QUEEN -->
+            <div class="location-card capetown">
+                <div class="card-image-wrapper">
+                    <img src="https://yandex.net" alt="Queen">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">QUEEN</div>
+                    <p class="card-desc">100% бонус на депозит от $300</p>
+                    <button class="card-btn" onclick="openDepositSection()">
+                        <svg class="chess-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 4l3 12h14l3-12-5 5-5-7-5 7-5-5zm3 12v3c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-3M7 16h10"/>
+                        </svg>
+                        Шах и мат
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <p>В акции могут участвовать все зарегистрированные клиенты. Все промокоды действуют до 2026-08-09.</p>
+        </div>
+    </div>
+</div>
 
 
         <!-- Шапка ЛК с постоянным Гамбургером -->
