@@ -1364,34 +1364,66 @@
                 gap: 8px;
             }
         }
+    /* Настройки для карточек лицензий */
+.doc-vertical-card {
+    position: relative; /* База для отсчета координат картинки */
+    padding-right: 160px; /* Важно! Освобождаем место справа, чтобы текст не залезал под большую картинку */
+}
+
+/* Настройки для увеличенной картинки */
+.doc-large-icon {
+    position: absolute;
+    top: 30px;            /* Отступ сверху, напротив жирного заголовка */
+    right: 30px;          /* Отступ от правого края карточки */
+    width: 130px;         /* Увеличенный размер (чуть больше среднего) */
+    height: auto;         /* Пропорциональная высота */
+    object-fit: contain;
+}
+
+/* На всякий случай: адаптив для мобильных телефонов, чтобы картинка не ломала верстку */
+@media (max-width: 480px) {
+    .doc-vertical-card {
+        padding-right: 20px; 
+    }
+    .doc-large-icon {
+        position: static;
+        display: block;
+        margin: 15px auto 0 auto;
+        width: 100px;
+    }
+}
 </style>
 
 
-    <!-- Раздел официальных лицензий (2 вертикальных блока) -->
-    <section id="docs-anchor" class="docs-section">
-        <div class="container">
-            <h2 class="section-title">Правовой статус платформы</h2>
-            <div class="grid grid-2">
-                <div class="doc-vertical-card">
-                    <div>
-                        <span class="doc-badge">Рег. № 44-092</span>
-                        <h3 class="doc-title">Пользовательское соглашение</h3>
-                        <p class="doc-desc">Официальный правовой документ, разрешающий ведение инвестиционной и посреднической деятельности на финансовых рынках с гарантией защиты капитала.</p>
-                    </div>
-                    <a href="#" onclick="openDocumentPage('rules')" class="doc-link-btn">Открыть документ <span class="sym-arrow">→</span></a>
+     <!-- Раздел официальных лицензий (2 вертикальных блока) -->
+<section id="docs-anchor" class="docs-section">
+    <div class="container">
+        <h2 class="section-title">Правовой статус платформы</h2>
+        <div class="grid grid-2">
+            <div class="doc-vertical-card">
+                <div>
+                    <span class="doc-badge">Рег. № 44-092</span>
+                    
+                    <!-- ВОТ КАРТИНКА: она встанет справа напротив жирного заголовка -->
+                    <img src="https://avatars.mds.yandex.net/get-altay/21148955/2a0000019ff6b59c3b9f16062de2e01d2b95/M" alt="Лицензия" class="doc-large-icon">
+                    
+                    <h3 class="doc-title">Пользовательское соглашение</h3>
+                    <p class="doc-desc">Официальный правовой документ, разрешающий ведение инвестиционной и посреднической деятельности на финансовых рынках с гарантией защиты капитала.</p>
                 </div>
-                <div class="doc-vertical-card">
-                    <div>
-                        <span class="doc-badge">ИНН 7701402280</span>
-                        <h3 class="doc-title">Политика конфиденциальности</h3>
-                        <p class="doc-desc">Сертификат о постановке на учет юридического лица в налоговом органе. Подтверждает полную прозрачность и регулярный аудит всех операций.</p>
-                    </div>
-                    <a href="#" onclick="openDocumentPage('privacy')" class="doc-link-btn">Открыть свидетельство <span class="sym-arrow">→</span></a>
+                <a href="#" onclick="openDocumentPage('rules')" class="doc-link-btn">Открыть документ <span class="sym-arrow">→</span></a>
+            </div>
+            
+            <div class="doc-vertical-card">
+                <div>
+                    <span class="doc-badge">ИНН 7701402280</span>
+                    <h3 class="doc-title">Политика конфиденциальности</h3>
+                    <p class="doc-desc">Сертификат о постановке на учет юридического лица в налоговом органе. Подтверждает полную прозрачность и регулярный аудит всех операций.</p>
                 </div>
+                <a href="#" onclick="openDocumentPage('privacy')" class="doc-link-btn">Открыть свидетельство <span class="sym-arrow">→</span></a>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     
 <!-- Родная секция калькулятора с платформы -->
 <section id="calc-anchor" class="calc-section">
