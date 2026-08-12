@@ -650,290 +650,563 @@
         </div>
     </section>
 <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-            background-color: #e9ecf2;
-        }
-        
-        /* СЕКЦИЯ ПРОМО С МИНИМАЛЬНЫМ ВЕРХНИМ ОТСТУПОМ */
-        .promo-section {
-            width: 100%;
-            padding: 10px 20px 60px 20px;
-            display: flex;
-            justify-content: center;
-        }
+       /* Базовый сброс и центрирование страницы */
+.main-page-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Выравнивает все внутренние контейнеры строго по центру */
+    padding: 40px 20px;
+    box-sizing: border-box;
+    background-color: #f8fafc; /* Светлый приятный фон для всей страницы */
+}
 
-        /* Главный промо-блок */
-        .promo-block {
-            background: linear-gradient(180deg, #ffffff 50%, #dcdcdc 100%);
-            border-radius: 32px;
-            box-shadow: 0 30px 70px rgba(0, 82, 255, 0.05), 0 2px 12px rgba(0, 0, 0, 0.01);
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            padding: 40px 80px;
-            gap: 40px;
-            position: relative;
-            overflow: hidden;
-        }
+/* ==========================================================================
+   СТИЛИ ДЛЯ КОШЕЛЬКА (ПЕРВЫЙ БЛОК)
+   ========================================================================== */
+.cw-container {
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+    margin-bottom: 60px; /* Отступ снизу до следующего оранжевого блока */
+    box-sizing: border-box;
+}
 
-        .text-container {
-            flex: 1;
-            width: 50%;
-            z-index: 2;
-        }
-        
-        .promo-title {
-            color: #0052FF;
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1.15;
-            text-transform: uppercase;
-            letter-spacing: -1.5px;
-        }
-        
-        .highlight-orange {
-            background: linear-gradient(135deg, #FF5100 0%, #FF8800 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
-        
-        .highlight-orange-end {
-            background: linear-gradient(135deg, #FF4500 0%, #FF7700 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-        }
+.cw-title {
+    background: linear-gradient(135deg, #00d2ff 0%, #0066ff 50%, #0033aa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.3px;
+    display: inline-block;
+}
 
-        /* Контейнер картинки */
-        .image-container {
-            flex: 1;
-            width: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-            height: 100%;
-        }
+.cw-subtitle-1, .cw-subtitle-2 {
+    color: #475569;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.cw-subtitle-2 {
+    margin-bottom: 30px;
+    color: #64748b;
+}
 
-        /* Картинка с четким верхом и плавным исчезновением боков и низа */
-        .promo-image {
-            width: 100%;
-            height: auto;
-            max-width: 420px; 
-            object-fit: contain;
-            display: block;
-            
-            /* Сложная маска: верх на 100% видимый, бока мягко срезаны, низ полностью уходит в 0 ближе к концу */
-            -webkit-mask-image: 
-                linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 98%),
-                radial-gradient(ellipse 48% 60% at 50% 40%, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
-            mask-image: 
-                linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 98%),
-                radial-gradient(ellipse 48% 60% at 50% 40%, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
-            
-            /* Объединяем маски, чтобы они работали одновременно */
-            -webkit-mask-composite: source-in;
-            mask-composite: intersect;
-        }
+/* Исправленная сетка: теперь на ПК карточки кошелька встают по 3 или 4 в ряд красиво */
+.cw-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    width: 100%;
+}
 
-        /* Адаптивность */
-        @media (max-width: 1024px) {
-            .promo-title { font-size: 2.6rem; }
-            .promo-block { padding: 35px 40px; gap: 30px; }
-        }
+.cw-card {
+    border-radius: 24px;
+    height: 130px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    border: 1px solid #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: #ffffff;
+    box-sizing: border-box;
+}
 
-        @media (max-width: 768px) {
-            .promo-section { padding-top: 10px; }
-            .promo-block {
-                flex-direction: column;
-                padding: 40px 24px;
-                gap: 30px;
-                text-align: center;
-            }
-            .text-container { width: 100%; }
-            .promo-title { font-size: 2.2rem; letter-spacing: -0.5px; }
-            .image-container { width: 100%; }
-        }
+.cw-card-info {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.cw-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.cw-card-balance {
+    font-size: 18px;
+    font-weight: 700;
+}
+.cw-coin-logo {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: bold;
+    color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Цвета карточек кошелька */
+.cw-bitcoin { background: #fffaf2; }
+.cw-bitcoin .cw-card-title { color: #c07a32; }
+.cw-bitcoin .cw-card-balance { color: #1e293b; }
+.cw-bitcoin .cw-coin-logo { background: #f7931a; }
+
+.cw-usdt { background: #f4faf8; }
+.cw-usdt .cw-card-title { color: #257e5d; }
+.cw-usdt .cw-card-balance { color: #1e293b; }
+.cw-usdt .cw-coin-logo { background: #26a17b; }
+
+.cw-dogecoin { background: #fffbf0; }
+.cw-dogecoin .cw-card-title { color: #a48e2d; }
+.cw-dogecoin .cw-card-balance { color: #1e293b; }
+.cw-dogecoin .cw-coin-logo { background: #ba9f33; }
+
+.cw-euro { background: #f3f5fd; }
+.cw-euro .cw-card-title { color: #1f42a6; }
+.cw-euro .cw-card-balance { color: #1e293b; }
+.cw-euro .cw-coin-logo { background: #0044d6; }
+
+.cw-ruble { background: #0b1e46; }
+.cw-ruble .cw-card-title { color: #8ba2d4; }
+.cw-ruble .cw-card-balance { color: #ffffff; }
+.cw-ruble .cw-coin-logo { background: #1e40af; }
+
+
+/* ==========================================================================
+   СТИЛИ ДЛЯ ИНФО-БЛОКА С ЛОГОТИПАМИ (ВТОРОЙ БЛОК)
+   ========================================================================== */
+.ib-container {
+    width: 100%;
+    max-width: 1050px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.ib-title {
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px 0;
+    background: linear-gradient(135deg, #ff4500 0%, #ff7a00 50%, #ffa500 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+}
+
+.ib-subtitle {
+    font-size: 1rem;
+    color: #657181;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 40px;
+}
+
+/* Сетка инфо-блока: 4 карточки ровно в один ряд */
+.ib-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+}
+
+.ib-card {
+    position: relative;
+    aspect-ratio: 1.35 / 1;
+    background: #ffffff;
+    border-radius: 42px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 30px rgba(31, 45, 61, 0.04);
+    overflow: hidden; 
+    box-sizing: border-box;
+}
+
+.ib-logo-container {
+    width: 72%;
+    height: 72%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ib-logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+}
+
+/* ==========================================================================
+   АДАПТИВНОСТЬ ПОД ОДИНАКОВЫЕ ЭКРАНЫ ДЛЯ ОБОИХ БЛОКОВ
+   ========================================================================== */
+@media (max-width: 768px) {
+    .main-page-wrapper {
+        padding: 20px 10px;
+    }
+    
+    /* Кошелек на мобильных */
+    .cw-title { font-size: 24px; }
+    .cw-subtitle-1, .cw-subtitle-2 { font-size: 14px; }
+    .cw-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .cw-card {
+        height: 120px;
+        padding: 15px;
+    }
+    .cw-coin-logo { top: 15px; right: 15px; }
+
+    /* Инфо-блок на мобильных */
+    .ib-container { max-width: 460px; }
+    .ib-title { font-size: 1.9rem; }
+    .ib-subtitle { font-size: 0.88rem; margin-bottom: 30px; }
+    .ib-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .ib-card { border-radius: 32px; }
+}
+
+
     </style>
-<div class="promo-section">
-    <div class="promo-block">
-        <!-- Левая сторона -->
-        <div class="text-container">
-            <h1 class="promo-title">
-                Инвестиции с <span class="highlight-orange">удобным</span> интерфейсом — это <span class="highlight-orange-end">круто!</span>
-            </h1>
-        </div>
+        <!-- ОБЩИЙ ВНЕШНИЙ КОНТЕЙНЕР ДЛЯ ВСЕХ ВАШИХ БЛОКОВ -->
+<div class="main-page-wrapper">
+
+    <!-- БЛОК КОШЕЛЬКА (СИНИЙ ЗАГОЛОВОК) -->
+    <div class="cw-container">
+        <h2 class="cw-title">Множество валютных счетов</h2>
+        <div class="cw-subtitle-1">Зачисление мгновенно</div>
+        <div class="cw-subtitle-2">обработка запросов — от 15 минут</div>
         
-        <!-- Правая сторона -->
-        <div class="image-container">
-            <img class="promo-image" src="https://avatars.mds.yandex.net/get-altay/19292509/2a0000019fb73ae9481240494883a7182a1e/L" alt="JUMP Инвестиции">
+        <div class="cw-grid">
+            <!-- Bitcoin -->
+            <div class="cw-card cw-bitcoin">
+                <div class="cw-card-info">
+                    <div class="cw-card-title">Bitcoin</div>
+                    <div class="cw-card-balance">0 BTC</div>
+                </div>
+                <div class="cw-coin-logo">₿</div>
+            </div>
+
+            <!-- USDT -->
+            <div class="cw-card cw-usdt">
+                <div class="cw-card-info">
+                    <div class="cw-card-title">USDT</div>
+                    <div class="cw-card-balance">0 $</div>
+                </div>
+                <div class="cw-coin-logo">₮</div>
+            </div>
+
+            <!-- Dogecoin -->
+            <div class="cw-card cw-dogecoin">
+                <div class="cw-card-info">
+                    <div class="cw-card-title">Dogecoin</div>
+                    <div class="cw-card-balance">0 DOGE</div>
+                </div>
+                <div class="cw-coin-logo">Ð</div>
+            </div>
+
+            <!-- Евро -->
+            <div class="cw-card cw-euro">
+                <div class="cw-card-info">
+                    <div class="cw-card-title">Евро</div>
+                    <div class="cw-card-balance">0 €</div>
+                </div>
+                <div class="cw-coin-logo">€</div>
+            </div>
+
+            <!-- Рубль -->
+            <div class="cw-card cw-ruble">
+                <div class="cw-card-info">
+                    <div class="cw-card-title">Рубль</div>
+                    <div class="cw-card-balance">0 ₽</div>
+                </div>
+                <div class="cw-coin-logo">₽</div>
+            </div>
         </div>
     </div>
+
+
+    <!-- ИНФО-БЛОК СПОСОБОВ ОПЛАТЫ (ОРАНЖЕВЫЙ ЗАГОЛОВОК) -->
+    <div class="ib-container">
+        <h2 class="ib-title">Удобные способы<br>управления балансом</h2>
+        <p class="ib-subtitle">Зачисление мгновенно<br>обработка запросов — от 15 минут</p>
+
+        <div class="ib-grid">
+            <!-- 1. Карты -->
+            <div class="ib-card">
+                <div class="ib-logo-container">
+                    <img src="https://avatars.mds.yandex.net/get-altay/19785895/2a0000019ff49de491eae238ca10d3f0f9d5/S" alt="Карты">
+                </div>
+            </div>
+
+            <!-- 2. Банковские логотипы -->
+            <div class="ib-card">
+                <div class="ib-logo-container">
+                    <img src="https://avatars.mds.yandex.net/get-altay/20840442/2a0000019ff4a9962957f5fc1f8065d1886a/M" alt="Банки">
+                </div>
+            </div>
+
+            <!-- 3. Платежная система -->
+            <div class="ib-card">
+                <div class="ib-logo-container">
+                    <img src="https://avatars.mds.yandex.net/get-altay/20456665/2a0000019ff49e098b05195d386930a2d94e/S" alt="Сервис платежей">
+                </div>
+            </div>
+
+            <!-- 4. Криптовалюты -->
+            <div class="ib-card">
+                <div class="ib-logo-container">
+                    <img src="https://avatars.mds.yandex.net/get-altay/19749282/2a0000019ff4a2bcfa9d111a7d88fbc22dfb/M" alt="Крипта">
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <style>
         /* ======================================================== */
         /* ВАШИ СТАРЫЕ СТИЛИ ПРАВОВОГО БЛОКА И ДРУГИХ ЭЛЕМЕНТОВ (НЕ ТРОНУТЫ) */
         /* ======================================================== */
-        .section-title {
-            font-size: 28px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 24px;
-            letter-spacing: -0.5px;
-        }
-        .docs-section, .calc-section {
-            padding: 50px 0;
-            background-color: #ffffff;
-            border-bottom: 2px solid #e2e8f0;
-        }
-        .calc-section {
-            background-color: #f8fafc;
-        }
-        
-        /* Вертикальные blocks без синих подчеркиваний */
-        .doc-vertical-card {
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 280px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-        }
-        .doc-vertical-card:hover { border-color: #0052ff; }
-        .doc-badge {
-            background: rgba(0, 82, 255, 0.1);
-            color: #0052ff;
-            font-size: 12px;
-            font-weight: 800;
-            padding: 6px 14px;
-            border-radius: 6px;
-            align-self: flex-start;
-            text-transform: uppercase;
-        }
-        .doc-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #0f172a;
-            margin: 16px 0 8px 0;
-        }
-        .doc-desc {
-            font-size: 14px;
-            color: #475569;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-        .doc-link-btn {
-            color: #0052ff;
-            font-weight: 700;
-            font-size: 15px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .doc-link-btn:hover { color: #0044d4; }
+       .dc-section {
+    margin-top: 80px; /* Тот самый отступ от предыдущего блока кошелька */
+}
 
-        /* Старый калькулятор (оставлен для совместимости классов, если нужно) */
-        .calc-wrapper {
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
-        }
-        .form-group { margin-bottom: 24px; }
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 700;
-            color: #334155;
-            margin-bottom: 8px;
-        }
-        .input-control {
-            width: 100%;
-            height: 52px;
-            border: 2px solid #cbd5e1;
-            border-radius: 12px;
-            padding: 0 16px;
-            font-size: 16px;
-            color: #0f172a;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .input-control:focus { border-color: #0052ff; }
-        
-        .calc-result-box {
-            background: #f1f5f9;
-            border-radius: 14px;
-            padding: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .calc-result-label { font-size: 15px; color: #475569; font-weight: 600; }
-        .calc-result-value {
-            font-size: 26px;
-            font-weight: 900;
-            color: #00e676; 
-            text-shadow: 0 1px 2px rgba(0,230,118,0.1);
-        }
+.dc-section .section-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+}
 
-        /* Футер без синих полос под текстом */
-        .main-footer {
-            background-color: #0f172a;
-            color: #94a3b8;
-            padding: 50px 0;
-            font-size: 14px;
-        }
-        .footer-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 24px;
-        }
-        .footer-logo-block { display: flex; align-items: center; gap: 8px; }
-        .footer-logo-m {
-            background: #ffffff;
-            color: #0f172a;
-            font-weight: 800;
-            font-size: 16px;
-            width: 34px;
-            height: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-        }
-        .footer-logo-jump { color: #ffffff; font-weight: 800; font-size: 18px; }
-        .footer-links { display: flex; gap: 24px; }
-        .footer-link { color: #94a3b8; font-weight: 600; transition: color 0.2s; }
-        .footer-link:hover { color: #ffffff; }
+.dc-section .docs-section, 
+.dc-section .calc-section {
+    padding: 50px 0;
+    background-color: #ffffff;
+    border-bottom: 2px solid #e2e8f0;
+}
 
-        @media (max-width: 768px) {
-            .section-title { font-size: 22px; }
-            .doc-vertical-card { min-height: auto; padding: 20px; }
-            .calc-wrapper { padding: 20px; }
-            .calc-result-box { flex-direction: column; align-items: flex-start; gap: 8px; }
-            .footer-flex { flex-direction: column; align-items: flex-start; }
-            .footer-links { flex-direction: column; gap: 12px; }
-        }
+.dc-section .calc-section {
+    background-color: #f8fafc;
+}
 
+/* Вертикальные blocks без синих подчеркиваний */
+.dc-section .doc-vertical-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 280px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    box-sizing: border-box;
+}
+
+.dc-section .doc-vertical-card:hover { 
+    border-color: #0052ff; 
+}
+
+.dc-section .doc-badge {
+    background: rgba(0, 82, 255, 0.1);
+    color: #0052ff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 6px;
+    align-self: flex-start;
+    text-transform: uppercase;
+}
+
+.dc-section .doc-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 16px 0 8px 0;
+}
+
+.dc-section .doc-desc {
+    font-size: 14px;
+    color: #475569;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.dc-section .doc-link-btn {
+    color: #0052ff;
+    font-weight: 700;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+.dc-section .doc-link-btn:hover { 
+    color: #0044d4; 
+}
+
+/* Старый калькулятор */
+.dc-section .calc-wrapper {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+}
+
+.dc-section .form-group { 
+    margin-bottom: 24px; 
+}
+
+.dc-section .form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+.dc-section .input-control {
+    width: 100%;
+    height: 52px;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 0 16px;
+    font-size: 16px;
+    color: #0f172a;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.dc-section .input-control:focus { 
+    border-color: #0052ff; 
+}
+
+.dc-section .calc-result-box {
+    background: #f1f5f9;
+    border-radius: 14px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    box-sizing: border-box;
+}
+
+.dc-section .calc-result-label { 
+    font-size: 15px; 
+    color: #475569; 
+    font-weight: 600; 
+}
+
+.dc-section .calc-result-value {
+    font-size: 26px;
+    font-weight: 900;
+    color: #00e676; 
+    text-shadow: 0 1px 2px rgba(0,230,118,0.1);
+}
+
+/* Футер без синих полос под текстом */
+.dc-section .main-footer {
+    background-color: #0f172a;
+    color: #94a3b8;
+    padding: 50px 0;
+    font-size: 14px;
+}
+
+.dc-section .footer-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.dc-section .footer-logo-block { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+
+.dc-section .footer-logo-m {
+    background: #ffffff;
+    color: #0f172a;
+    font-weight: 800;
+    font-size: 16px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.dc-section .footer-logo-jump { 
+    color: #ffffff; 
+    font-weight: 800; 
+    font-size: 18px; 
+}
+
+.dc-section .footer-links { 
+    display: flex; 
+    gap: 24px; 
+}
+
+.dc-section .footer-link { 
+    color: #94a3b8; 
+    font-weight: 600; 
+    transition: color 0.2s; 
+    text-decoration: none;
+}
+
+.dc-section .footer-link:hover { 
+    color: #ffffff; 
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .dc-section {
+        margin-top: 40px; /* Уменьшаем отступ на мобильных */
+    }
+    .dc-section .section-title { 
+        font-size: 22px; 
+    }
+    .dc-section .doc-vertical-card { 
+        min-height: auto; 
+        padding: 20px; 
+    }
+    .dc-section .calc-wrapper { 
+        padding: 20px; 
+    }
+    .dc-section .calc-result-box { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 8px; 
+    }
+    .dc-section .footer-flex { 
+        flex-direction: column; 
+        align-items: flex-start; 
+    }
+    .dc-section .footer-links { 
+        flex-direction: column; 
+        gap: 12px; 
+    }
+}
         /* ======================================================== */
         /* ОБНОВЛЕННЫЕ ИНТЕГРИРОВАННЫЕ СТИЛИ ДЛЯ НОВОГО КАЛЬКУЛЯТОРА */
         /* ======================================================== */
