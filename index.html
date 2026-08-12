@@ -571,22 +571,32 @@
     .stats-section { margin-top: -20px; padding-bottom: 20px; }
     .grid-4 { grid-template-columns: 1fr; }
     .safe { width: 80px; height: 80px; } /* Уменьшаем сейфы на мобилках */
-     /* Делаем карточку главной точкой отсчета для картинки */
+/* Базовые настройки для карточек */
 .stat-card {
-    position: relative; 
+    position: relative !important; 
 }
 
-/* Настройки для самой картинки */
+/* Настройки картинок ДЛЯ МОБИЛЬНЫХ (экран смартфона) */
 .stat-icon {
-    position: absolute;
-    top: 35px;       /* Немного увеличили отступ сверху, чтобы средняя картинка встала ровно по центру жирного слова */
-    right: 25px;     /* Отступ справа от края карточки */
-    
-    /* ИЗМЕНИТЕ ЭТИ ЦИФРЫ ДЛЯ РЕГУЛИРОВКИ РАЗМЕРА: */
-    width: 80px;     /* Оптимальный средний размер (было 40px) */
-    height: auto;    /* Высота подстроится сама, чтобы картинка не сплющилась */
+    position: absolute !important;
+    top: 25px !important;       /* Ровно напротив верхней надписи */
+    right: 25px !important;     /* Прижата к правому углу */
+    width: 100px !important;    /* Крупный размер для телефона */
+    height: auto !important;
 }
+
+/* Настройки картинок ДЛЯ КОМПЬЮТЕРОВ И НОУТБУКОВ */
+@media (min-width: 769px) {
+    .stat-card {
+        padding-right: 90px !important; /* Освобождаем место на ПК, чтобы текст не влезал на картинку */
+    }
+    .stat-icon {
+        top: 20px !important;
+        right: 20px !important;
+        width: 60px !important; /* Аккуратный средний размер для ПК, чтобы всё влезло в ряд */
+    }
 }
+
 
 </style>
 <!-- Векторный шаблон сейфа для светлой темы -->
