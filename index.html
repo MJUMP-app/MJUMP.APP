@@ -654,49 +654,64 @@
     </div>
 </section>
 
-    <!-- Характеристики проекта -->
+  <!-- Характеристики проекта -->
 <section class="stats-section">
     <div class="container">
-        <div class="grid grid-4">
-            <div class="stat-card">
+        <!-- Добавили стиль для сетки карточек, чтобы они гарантированно встали в 4 колонки на ПК -->
+        <div class="grid grid-4" style="display: grid !important; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important; gap: 20px !important;">
+            
+            <!-- Карточка 01 -->
+            <div class="stat-card" style="position: relative !important; padding-right: 60px !important; box-sizing: border-box !important;">
                 <div class="stat-num">01</div>
-                <h3>
-                    Надежность
-                    <!-- Замените "ССЫЛКА_НА_КАРТИНКУ_1" на ваш адрес изображения -->
-                    <img src="https://avatars.mds.yandex.net/get-altay/18190072/2a0000019ff6ac3b25c0e95ecfe5605c0aa2/M" alt="иконка" class="stat-icon">
-                </h3>
+                
+                <!-- КАРТИНКА 1 (Щит) -->
+                <img src="ВАША_ССЫЛКА_НА_ЩИТ" alt="Надежность" 
+                     style="position: absolute !important; top: 15px !important; right: 15px !important; width: 45px !important; height: 45px !important; object-fit: contain !important;">
+                
+                <h3>Надежность</h3>
                 <p>Полное соответствие законодательству и строго целевое распределение средств.</p>
             </div>
-            
-            <div class="stat-card">
+
+            <!-- Карточка 02 -->
+            <div class="stat-card" style="position: relative !important; padding-right: 60px !important; box-sizing: border-box !important;">
                 <div class="stat-num">02</div>
-                <h3>
-                    Ликвидность
-                    <img src="https://avatars.mds.yandex.net/get-altay/20336841/2a0000019ff6ae498da147037434133f798f/M" alt="иконка" class="stat-icon">
-                </h3>
+                
+                <!-- КАРТИНКА 2 (Спидометр) -->
+                <img src="ВАША_ССЫЛКА_НА_СПИДОМЕТР" alt="Ликвидность" 
+                     style="position: absolute !important; top: 15px !important; right: 15px !important; width: 45px !important; height: 45px !important; object-fit: contain !important;">
+                
+                <h3>Ликвидность</h3>
                 <p>Вывод средств на реквизиты первоначального пополнения вашего счета.</p>
             </div>
-            
-            <div class="stat-card">
+
+            <!-- Карточка 03 -->
+            <div class="stat-card" style="position: relative !important; padding-right: 60px !important; box-sizing: border-box !important;">
                 <div class="stat-num">03</div>
-                <h3>
-                    Контроль
-                    <img src="https://avatars.mds.yandex.net/get-altay/18713884/2a0000019ff6af76c227370c7d91f8fb58b3/M" alt="иконка" class="stat-icon">
-                </h3>
+                
+                <!-- КАРТИНКА 3 (Бинокль) -->
+                <img src="ВАША_ССЫЛКА_НА_БИНОКЛЬ" alt="Контроль" 
+                     style="position: absolute !important; top: 15px !important; right: 15px !important; width: 45px !important; height: 45px !important; object-fit: contain !important;">
+                
+                <h3>Контроль</h3>
                 <p>Ежедневный онлайн мониторинг начислений вашего личного баланса.</p>
             </div>
-            
-            <div class="stat-card">
+
+            <!-- Карточка 04 -->
+            <div class="stat-card" style="position: relative !important; padding-right: 60px !important; box-sizing: border-box !important;">
                 <div class="stat-num">04</div>
-                <h3>
-                    Простота
-                    <img src="https://avatars.mds.yandex.net/get-altay/18166435/2a0000019ff6b0e300958f3db334a6d4724d/M" alt="иконка" class="stat-icon">
-                </h3>
+                
+                <!-- КАРТИНКА 4 -->
+                <img src="https://avatars.mds.yandex.net/get-altay/18166435/2a0000019ff6b0e300958f3db334a6d4724d/S" alt="Простота" 
+                     style="position: absolute !important; top: 15px !important; right: 15px !important; width: 45px !important; height: 45px !important; object-fit: contain !important;">
+                
+                <h3>Простота</h3>
                 <p>Открытие планов в несколько кликов без лишних документов и визитов.</p>
             </div>
+
         </div>
     </div>
 </section>
+
 <style>
  /* Базовый сброс и центрирование страницы */
 .main-page-wrapper {
