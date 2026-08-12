@@ -1462,8 +1462,16 @@
 <!-- Родная секция калькулятора с платформы -->
 <section id="calc-anchor" class="calc-section">
     <div class="container">
-        <!-- Родной заголовок секции -->
-        <h2 class="section-title">Калькулятор предварительного расчета</h2>
+        
+        <!-- КОНТЕЙНЕР ДЛЯ КАРТИНКИ И ЗАГОЛОВКА -->
+        <div style="position: relative; padding-top: 95px; margin-bottom: 20px;">
+            <!-- КАРТИНКА: Сверху, слева, среднего размера -->
+            <img src="https://avatars.mds.yandex.net/get-altay/20328247/2a0000019ff70c9e182ba983cf053185fda9/L" alt="Калькулятор иконка" 
+                 style="position: absolute; top: 0; left: 0; width: 80px; height: 80px; object-fit: contain;">
+            
+            <!-- Родной заголовок секции -->
+            <h2 class="section-title" style="margin: 0; text-align: left;">Калькулятор предварительного расчета</h2>
+        </div>
         
         <!-- Новый интерактивный калькулятор внутри -->
         <div class="uni-calc-wrapper">
@@ -1476,7 +1484,6 @@
                         <div class="label-row">
                             <span>Сумма планируемого вклада (₽)</span>
                         </div>
-                        <!-- Старый рабочий ID: main-calc-amount -->
                         <input type="number" id="main-calc-amount" class="input-field" value="100000" min="0">
                     </div>
 
@@ -1504,7 +1511,6 @@
                         </div>
                         <div class="slider-container">
                             <div class="slider-progress slider-orange-progress"></div>
-                            <!-- Старый рабочий ID: main-calc-period -->
                             <input type="range" id="main-calc-period" class="slider slider-orange" min="1" max="12" value="12">
                         </div>
                     </div>
@@ -1513,7 +1519,6 @@
                 <!-- Правая колонка / Блок результата -->
                 <div class="result-box">
                     <div class="result-label">Максимальный прогнозируемый доход:</div>
-                    <!-- Старый рабочий ID: main-calc-result -->
                     <div class="result-value" id="main-calc-result">0 ₽</div>
                 </div>
 
@@ -1522,7 +1527,6 @@
 
     </div>
 </section>
-
 
 
     <!-- Нижняя зона (Футер) -->
