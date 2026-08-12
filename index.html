@@ -571,29 +571,36 @@
     .stats-section { margin-top: -20px; padding-bottom: 20px; }
     .grid-4 { grid-template-columns: 1fr; }
     .safe { width: 80px; height: 80px; } /* Уменьшаем сейфы на мобилках */
-/* Базовые настройки для карточек */
+/* =======================================================
+   1. СТИЛИ ДЛЯ ПЕРВОГО РАЗДЕЛА (Надежность, Ликвидность...)
+   ======================================================= */
 .stat-card {
     position: relative !important; 
+    /* Добавляем внутренний отступ сверху и справа на ПК, чтобы текст не пересекался с картинкой */
+    padding-top: 30px !important;
+    padding-right: 70px !important; 
+    box-sizing: border-box !important;
 }
 
-/* Настройки картинок ДЛЯ МОБИЛЬНЫХ (экран смартфона) */
+/* Настройки картинок ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ */
 .stat-icon {
     position: absolute !important;
-    top: 25px !important;       /* Ровно напротив верхней надписи */
-    right: 25px !important;     /* Прижата к правому углу */
-    width: 100px !important;    /* Крупный размер для телефона */
+    top: 20px !important;       
+    right: 20px !important;     
+    width: 80px !important;    /* Размер для телефона */
     height: auto !important;
 }
 
-/* Настройки картинок ДЛЯ КОМПЬЮТЕРОВ И НОУТБУКОВ */
+/* Настройки картинок ДЛЯ КОМПЬЮТЕРОВ (ПК) */
 @media (min-width: 769px) {
-    .stat-card {
-        padding-right: 90px !important; /* Освобождаем место на ПК, чтобы текст не влезал на картинку */
-    }
     .stat-icon {
         top: 20px !important;
         right: 20px !important;
-        width: 60px !important; /* Аккуратный средний размер для ПК, чтобы всё влезло в ряд */
+        
+        /* КРИТИЧЕСКИЙ МОМЕНТ: уменьшаем картинку, чтобы она стала иконкой */
+        width: 45px !important;   /* Сделали маленькой, теперь всё влезет! */
+        height: 45px !important;  /* Фиксируем высоту */
+        object-fit: contain !important; /* Чтобы картинка не сжималась некрасиво */
     }
 }
 
