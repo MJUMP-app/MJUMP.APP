@@ -571,6 +571,21 @@
     .stats-section { margin-top: -20px; padding-bottom: 20px; }
     .grid-4 { grid-template-columns: 1fr; }
     .safe { width: 80px; height: 80px; } /* Уменьшаем сейфы на мобилках */
+     /* Делаем карточку главной точкой отсчета для картинки */
+.stat-card {
+    position: relative; 
+}
+
+/* Настройки для самой картинки */
+.stat-icon {
+    position: absolute;
+    top: 35px;       /* Немного увеличили отступ сверху, чтобы средняя картинка встала ровно по центру жирного слова */
+    right: 25px;     /* Отступ справа от края карточки */
+    
+    /* ИЗМЕНИТЕ ЭТИ ЦИФРЫ ДЛЯ РЕГУЛИРОВКИ РАЗМЕРА: */
+    width: 80px;     /* Оптимальный средний размер (было 40px) */
+    height: auto;    /* Высота подстроится сама, чтобы картинка не сплющилась */
+}
 }
 
 </style>
@@ -623,32 +638,48 @@
 </section>
 
     <!-- Характеристики проекта -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="grid grid-4">
-                <div class="stat-card">
-                    <div class="stat-num">01</div>
-                    <h3>Надежность</h3>
-                    <p>Полное соответствие законодательству и строго целевое распределение средств.</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">02</div>
-                    <h3>Ликвидность</h3>
-                    <p>Вывод средств на реквизиты первоначального пополнения вашего счета.</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">03</div>
-                    <h3>Контроль</h3>
-                    <p>Ежедневный онлайн мониторинг начислений вашего личного баланса.</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-num">04</div>
-                    <h3>Простота</h3>
-                    <p>Открытие планов в несколько кликов без лишних документов и визитов.</p>
-                </div>
+<section class="stats-section">
+    <div class="container">
+        <div class="grid grid-4">
+            <div class="stat-card">
+                <div class="stat-num">01</div>
+                <h3>
+                    Надежность
+                    <!-- Замените "ССЫЛКА_НА_КАРТИНКУ_1" на ваш адрес изображения -->
+                    <img src="https://avatars.mds.yandex.net/get-altay/18190072/2a0000019ff6ac3b25c0e95ecfe5605c0aa2/M" alt="иконка" class="stat-icon">
+                </h3>
+                <p>Полное соответствие законодательству и строго целевое распределение средств.</p>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-num">02</div>
+                <h3>
+                    Ликвидность
+                    <img src="https://avatars.mds.yandex.net/get-altay/20336841/2a0000019ff6ae498da147037434133f798f/M" alt="иконка" class="stat-icon">
+                </h3>
+                <p>Вывод средств на реквизиты первоначального пополнения вашего счета.</p>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-num">03</div>
+                <h3>
+                    Контроль
+                    <img src="https://avatars.mds.yandex.net/get-altay/18713884/2a0000019ff6af76c227370c7d91f8fb58b3/M" alt="иконка" class="stat-icon">
+                </h3>
+                <p>Ежедневный онлайн мониторинг начислений вашего личного баланса.</p>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-num">04</div>
+                <h3>
+                    Простота
+                    <img src="https://avatars.mds.yandex.net/get-altay/18166435/2a0000019ff6b0e300958f3db334a6d4724d/M" alt="иконка" class="stat-icon">
+                </h3>
+                <p>Открытие планов в несколько кликов без лишних документов и визитов.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 <style>
  /* Базовый сброс и центрирование страницы */
 .main-page-wrapper {
