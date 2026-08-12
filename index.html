@@ -979,235 +979,154 @@
         /* ======================================================== */
         /* ВАШИ СТАРЫЕ СТИЛИ ПРАВОВОГО БЛОКА И ДРУГИХ ЭЛЕМЕНТОВ (НЕ ТРОНУТЫ) */
         /* ======================================================== */
-       .dc-section {
-    margin-top: 80px; /* Тот самый отступ от предыдущего блока кошелька */
-}
+      .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+        .docs-section, .calc-section {
+            padding: 50px 0;
+            background-color: #ffffff;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .calc-section {
+            background-color: #f8fafc;
+        }
+        
+        /* Вертикальные блоки без синих подчеркиваний */
+        .doc-vertical-card {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+        .doc-vertical-card:hover { border-color: #0052ff; }
+        .doc-badge {
+            background: rgba(0, 82, 255, 0.1);
+            color: #0052ff;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 6px;
+            align-self: flex-start;
+            text-transform: uppercase;
+        }
+        .doc-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 16px 0 8px 0;
+        }
+        .doc-desc {
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .doc-link-btn {
+            color: #0052ff;
+            font-weight: 700;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .doc-link-btn:hover { color: #0044d4; }
 
-.dc-section .section-title {
-    font-size: 28px;
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 24px;
-    letter-spacing: -0.5px;
-}
+        /* Калькулятор главной */
+        .calc-wrapper {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+        }
+        .form-group { margin-bottom: 24px; }
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+        .input-control {
+            width: 100%;
+            height: 52px;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 0 16px;
+            font-size: 16px;
+            color: #0f172a;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-control:focus { border-color: #0052ff; }
+        
+        /* Сверх-яркий лаймовый результат */
+        .calc-result-box {
+            background: #f1f5f9;
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .calc-result-label { font-size: 15px; color: #475569; font-weight: 600; }
+        .calc-result-value {
+            font-size: 26px;
+            font-weight: 900;
+            color: #00e676; 
+            text-shadow: 0 1px 2px rgba(0,230,118,0.1);
+        }
 
-.dc-section .docs-section, 
-.dc-section .calc-section {
-    padding: 50px 0;
-    background-color: #ffffff;
-    border-bottom: 2px solid #e2e8f0;
-}
+        /* Футер без синих полос под текстом */
+        .main-footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            padding: 50px 0;
+            font-size: 14px;
+        }
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .footer-logo-block { display: flex; align-items: center; gap: 8px; }
+        .footer-logo-m {
+            background: #ffffff;
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 16px;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        .footer-logo-jump { color: #ffffff; font-weight: 800; font-size: 18px; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-link { color: #94a3b8; font-weight: 600; transition: color 0.2s; }
+        .footer-link:hover { color: #ffffff; }
 
-.dc-section .calc-section {
-    background-color: #f8fafc;
-}
-
-/* Вертикальные blocks без синих подчеркиваний */
-.dc-section .doc-vertical-card {
-    background: #ffffff;
-    border: 2px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 280px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-    box-sizing: border-box;
-}
-
-.dc-section .doc-vertical-card:hover { 
-    border-color: #0052ff; 
-}
-
-.dc-section .doc-badge {
-    background: rgba(0, 82, 255, 0.1);
-    color: #0052ff;
-    font-size: 12px;
-    font-weight: 800;
-    padding: 6px 14px;
-    border-radius: 6px;
-    align-self: flex-start;
-    text-transform: uppercase;
-}
-
-.dc-section .doc-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #0f172a;
-    margin: 16px 0 8px 0;
-}
-
-.dc-section .doc-desc {
-    font-size: 14px;
-    color: #475569;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-
-.dc-section .doc-link-btn {
-    color: #0052ff;
-    font-weight: 700;
-    font-size: 15px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-}
-
-.dc-section .doc-link-btn:hover { 
-    color: #0044d4; 
-}
-
-/* Старый калькулятор */
-.dc-section .calc-wrapper {
-    background: #ffffff;
-    border: 2px solid #e2e8f0;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
-    box-sizing: border-box;
-}
-
-.dc-section .form-group { 
-    margin-bottom: 24px; 
-}
-
-.dc-section .form-label {
-    display: block;
-    font-size: 14px;
-    font-weight: 700;
-    color: #334155;
-    margin-bottom: 8px;
-}
-
-.dc-section .input-control {
-    width: 100%;
-    height: 52px;
-    border: 2px solid #cbd5e1;
-    border-radius: 12px;
-    padding: 0 16px;
-    font-size: 16px;
-    color: #0f172a;
-    outline: none;
-    transition: border-color 0.2s;
-    box-sizing: border-box;
-}
-
-.dc-section .input-control:focus { 
-    border-color: #0052ff; 
-}
-
-.dc-section .calc-result-box {
-    background: #f1f5f9;
-    border-radius: 14px;
-    padding: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    box-sizing: border-box;
-}
-
-.dc-section .calc-result-label { 
-    font-size: 15px; 
-    color: #475569; 
-    font-weight: 600; 
-}
-
-.dc-section .calc-result-value {
-    font-size: 26px;
-    font-weight: 900;
-    color: #00e676; 
-    text-shadow: 0 1px 2px rgba(0,230,118,0.1);
-}
-
-/* Футер без синих полос под текстом */
-.dc-section .main-footer {
-    background-color: #0f172a;
-    color: #94a3b8;
-    padding: 50px 0;
-    font-size: 14px;
-}
-
-.dc-section .footer-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 24px;
-}
-
-.dc-section .footer-logo-block { 
-    display: flex; 
-    align-items: center; 
-    gap: 8px; 
-}
-
-.dc-section .footer-logo-m {
-    background: #ffffff;
-    color: #0f172a;
-    font-weight: 800;
-    font-size: 16px;
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-}
-
-.dc-section .footer-logo-jump { 
-    color: #ffffff; 
-    font-weight: 800; 
-    font-size: 18px; 
-}
-
-.dc-section .footer-links { 
-    display: flex; 
-    gap: 24px; 
-}
-
-.dc-section .footer-link { 
-    color: #94a3b8; 
-    font-weight: 600; 
-    transition: color 0.2s; 
-    text-decoration: none;
-}
-
-.dc-section .footer-link:hover { 
-    color: #ffffff; 
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-    .dc-section {
-        margin-top: 40px; /* Уменьшаем отступ на мобильных */
-    }
-    .dc-section .section-title { 
-        font-size: 22px; 
-    }
-    .dc-section .doc-vertical-card { 
-        min-height: auto; 
-        padding: 20px; 
-    }
-    .dc-section .calc-wrapper { 
-        padding: 20px; 
-    }
-    .dc-section .calc-result-box { 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 8px; 
-    }
-    .dc-section .footer-flex { 
-        flex-direction: column; 
-        align-items: flex-start; 
-    }
-    .dc-section .footer-links { 
-        flex-direction: column; 
-        gap: 12px; 
-    }
-}
+        @media (max-width: 768px) {
+            .section-title { font-size: 22px; }
+            .doc-vertical-card { min-height: auto; padding: 20px; }
+            .calc-wrapper { padding: 20px; }
+            .calc-result-box { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .footer-flex { flex-direction: column; align-items: flex-start; }
+            .footer-links { flex-direction: column; gap: 12px; }
+            }
         /* ======================================================== */
         /* ОБНОВЛЕННЫЕ ИНТЕГРИРОВАННЫЕ СТИЛИ ДЛЯ НОВОГО КАЛЬКУЛЯТОРА */
         /* ======================================================== */
