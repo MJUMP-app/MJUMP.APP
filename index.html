@@ -4608,38 +4608,40 @@ setTimeout(() => {
     }
 }, 500);
 
-// 6. ИСПРАВЛЕННАЯ функция безопасного переключения разделов ЛК
+// 6. ОБНОВЛЕННАЯ функция безопасного переключения разделов (с поддержкой анимации загрузки)
 function switchDashboardTab(tabName) {
-    // Прячем абсолютно все вкладки на странице (удаляем класс active)
-    document.querySelectorAll('.dashboard-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
-
-    // Показываем только ту вкладку, которую запросили из меню гамбургера
+    // 1. Находим целевую вкладку ЗАРАНЕЕ, до того как всё скроем
     const targetTab = document.getElementById('tab-' + tabName);
-    if (targetTab) {
-        targetTab.classList.add('active');
-    }
-
-    // Переключаем активную подсветку (синий фон) у пунктов в меню гамбургера
-    document.querySelectorAll('.menu-list .menu-item').forEach(item => {
-        item.classList.remove('active');
-    });
-
-    // Ищем нажатую ссылку по названию ее функции и подсвечиваем ее
-    const clickedItem = document.querySelector(`[onclick="switchDashboardTab('${tabName}')"]`);
-    if (clickedItem) {
-        clickedItem.classList.add('active');
-    }
-}
-function calc(i) {
-    const amtInput = document.getElementById('sa' + i);
-    const monInput = document.getElementById('sd' + i);
     
-    if (!amtInput || !monInput) return;
+    // 2. Делаем небольшую задержку в 10 миллисекунд.
+    // Это дает платформе время запустить анимацию загрузки перед переключением контента.
+    setTimeout(() => {
+        // 3. Прячем только те разделы контента, которые действительно нужно скрыть
+        document.querySelectorAll('div.dashboard-tab').forEach(tab => {
+            // Если это не та вкладка, которую мы открываем, убираем активность
+            if (tab !== targetTab) {
+                tab.classList.remove('active');
+            }
+        });
 
-    const amt = parseInt(amtInput.value);
-    const mon = parseInt(monInput.value);
+        // 4. Показываем нужную вкладку контента
+        if (targetTab) {
+            targetTab.classList.add('active');
+        }
+
+        // 5. Обновляем подсветку активного пункта в меню гамбургера
+        document.querySelectorAll('.menu-list .menu-item').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        // Находим кликнутый элемент меню и подсвечиваем его синим
+        const clickedItem = document.querySelector(`[onclick="switchDashboardTab('${tabName}')"]`);
+        if (clickedItem) {
+            clickedItem.classList.add('active');
+        }
+    }, 10);
+}
+
     
     // ЭТИ ДВЕ СТРОЧКИ КРАСЯТ ПОЛОСУ ПОЛЗУНКА В СИНИЙ ЦВЕТ
     amtInput.style.setProperty('--value', ((amt - amtInput.min) / (amtInput.max - amtInput.min) * 100) + '%');
