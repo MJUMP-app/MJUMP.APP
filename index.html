@@ -4514,7 +4514,8 @@ function toggleMenu() {
     if (menu) menu.classList.toggle('open');
 }
 
- // 1. Графические SVG-пути для иконок планов (используются в модальном окне)
+(function() {
+    // Весь наш код изолирован внутри этой функции и невидим для других скриптов сайта
     const paths = {
         sh: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 11l2 2 4-4"/>`,
         ge: `<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H3a2 2 0 010-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V3a2 2 0 014 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H21a2 2 0 010 4h-.1a1.6 1.6 0 00-1.5 1z"/>`,
@@ -4522,7 +4523,6 @@ function toggleMenu() {
         cr: `<path d="M2 4l3 8 7-6 7 6 3-8-4 16H6L2 4z"/><circle cx="12" cy="6" r="1" fill="currentColor"/><circle cx="2" cy="4" r="1" fill="currentColor"/><circle cx="22" cy="4" r="1" fill="currentColor"/>`
     };
 
-    // 2. Данные инвестиционных планов и их настройки
     const plans = [
         { n: 'Стандартный план', d: 'Сбалансированное решение для начинающих инвесторов.', min: 12, max: 17, svg: 'sh', fill: 'none', c: '#00c853' },
         { n: 'Мастер план', d: 'Повышенная ставка для стабильного пассивного дохода.', min: 18, max: 27, svg: 'ge', fill: 'none', c: '#0052ff' },
@@ -4530,130 +4530,58 @@ function toggleMenu() {
         { n: 'VIP план', d: 'Эксклюзивные условия доверительного управления.', min: 40, max: 45, svg: 'cr', fill: 'none', c: '#ffb300' }
     ];
 
-    // Генерируем случайную процентную ставку для каждого плана один раз при загрузке
-    plans.forEach((p, i) => {
-        const rate = (Math.random() * (p.max - p.min) + p.min).toFixed(2);
-        p.rate = rate;
-        
-        // Находим текстовый блок процента годовых в HTML и обновляем его цифру
-        const rateEl = document.getElementById('r' + i);
-        if (rateEl) {
-            rateEl.innerText = rate + '%';
-        }
-    });
-
-    // Запускаем первичный расчет всех калькуляторов после загрузки страницы
-    window.onload = () => {
-        plans.forEach((_, i) => calc(i));
-    };
-
-    // 3. Функция динамического расчета калькулятора прибыли и закрашивания полосы
-    function calc(i) {
+    // Привязываем функцию расчета напрямую к глобальному window, чтобы HTML её видел
+    window.calc = function(i) {
         const amtInput = document.getElementById('sa' + i);
         const monInput = document.getElementById('sd' + i);
-        
-        if (!amtInput || !monInput) return; // Защита от ошибок, если элементов нет на странице
+        if (!amtInput || !monInput) return;
 
         const amt = parseInt(amtInput.value);
         const mon = parseInt(monInput.value);
         
-        // Красим полосу ползунка в синий цвет динамически в зависимости от положения бегунка
+        // Красим полосу ползунка в синий цвет динамически
         amtInput.style.setProperty('--value', ((amt - amtInput.min) / (amtInput.max - amtInput.min) * 100) + '%');
         monInput.style.setProperty('--value', ((mon - monInput.min) / (monInput.max - monInput.min) * 100) + '%');
 
-        // Обновляем текст текущей выбранной суммы
         document.getElementById('a' + i).innerText = amt.toLocaleString('ru-RU') + ' ₽';
-        
-        // Правильное склонение слова "месяц" в зависимости от цифры
         document.getElementById('d' + i).innerText = mon + (mon === 1 ? ' месяц' : (mon >= 2 && mon <= 4 ? ' месяца' : ' месяцев'));
         
-        // Математический расчет чистой прибыли
         const prf = (amt * (parseFloat(plans[i].rate) / 100)) * (mon / 12);
-        
-        // Выводим прибыль, заменяя точку на красивую запятую
         document.getElementById('p' + i).innerText = prf.toFixed(2).replace('.', ',') + ' ₽';
-    }
-    
-    // 4. Логика управления модальным окном подтверждения в Telegram
-    function openM(i) { 
+    };
+
+    // Привязываем управление модалкой к окну
+    window.openM = function(i) { 
         const p = plans[i];
         document.getElementById('mt').innerText = p.n; 
         document.getElementById('m-icon-box').innerHTML = `<svg class="p-icon" viewBox="0 0 24 24" fill="${p.fill}" stroke="${p.c}">${paths[p.svg]}</svg>`;
         document.getElementById('md').classList.add('active'); 
-    }
+    };
     
-    function closeM() { 
+    window.closeM = function() { 
         document.getElementById('md').classList.remove('active'); 
+    };
+
+    // Безопасный запуск без вмешательства в onload сайта
+    function initTariffs() {
+        plans.forEach((p, i) => {
+            const rate = (Math.random() * (p.max - p.min) + p.min).toFixed(2);
+            p.rate = rate;
+            const rateEl = document.getElementById('r' + i);
+            if (rateEl) rateEl.innerText = rate + '%';
+        });
+
+        // Запуск первичного расчета
+        plans.forEach((_, i) => window.calc(i));
     }
 
-    // 5. Исправленная функция плавного открытия и закрытия меню гамбургера
-    function toggleMenu() {
-        const overlay = document.getElementById('hamburger-menu-wrapper');
-        if (!overlay) return;
-
-        if (overlay.style.display !== 'block') {
-            overlay.style.display = 'block';
-            setTimeout(() => overlay.classList.add('open'), 10);
-        } else {
-            overlay.classList.remove('open');
-            setTimeout(() => overlay.style.display = 'none', 300);
-        }
+    // Запускаем инициализацию, проверяя состояние документа
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTariffs);
+    } else {
+        initTariffs();
     }
-
-    // Добавляем событие клика на оверлей для закрытия меню по клику вне его тела
-    setTimeout(() => {
-        const menuWrapper = document.getElementById('hamburger-menu-wrapper');
-        if (menuWrapper) {
-            menuWrapper.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    toggleMenu();
-                }
-            });
-        }
-    }, 500);
-
-    // 6. УМНАЯ функция безопасного переключения разделов ЛК (сохраняет анимацию загрузки)
-    function switchDashboardTab(tabName) {
-        const targetTab = document.getElementById('tab-' + tabName);
-        
-        // Даем платформе короткую паузу (10мс), чтобы успел запуститься ваш лоадер загрузки
-        setTimeout(() => {
-            // Скрываем только контентные разделы тарифов и личного кабинета, не трогая прелоадер
-            document.querySelectorAll('div.dashboard-tab').forEach(tab => {
-                if (tab !== targetTab) {
-                    tab.classList.remove('active');
-                }
-            });
-
-            // Показываем нужную контентную вкладку
-            if (targetTab) {
-                targetTab.classList.add('active');
-            }
-
-            // Переключаем активную подсветку (синий фон) у пунктов в меню гамбургера
-            document.querySelectorAll('.menu-list .menu-item').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // Ищем нажатую ссылку по названию ее функции и подсвечиваем ее
-            const clickedItem = document.querySelector(`[onclick="switchDashboardTab('${tabName}')"]`);
-            if (clickedItem) {
-                clickedItem.classList.add('active');
-            }
-        }, 10);
-    }
-    
-    // ЭТИ ДВЕ СТРОЧКИ КРАСЯТ ПОЛОСУ ПОЛЗУНКА В СИНИЙ ЦВЕТ
-    amtInput.style.setProperty('--value', ((amt - amtInput.min) / (amtInput.max - amtInput.min) * 100) + '%');
-    monInput.style.setProperty('--value', ((mon - monInput.min) / (monInput.max - monInput.min) * 100) + '%');
-
-    // Всё что шло у вас дальше в функции calc оставляем без изменений:
-    document.getElementById('a' + i).innerText = amt.toLocaleString('ru-RU') + ' ₽';
-    document.getElementById('d' + i).innerText = mon + (mon === 1 ? ' месяц' : (mon >= 2 && mon <= 4 ? ' месяца' : ' месяцев'));
-    const prf = (amt * (parseFloat(plans[i].rate) / 100)) * (mon / 12);
-    document.getElementById('p' + i).innerText = prf.toFixed(2).replace('.', ',') + ' ₽';
-}
-
+})();
            
    </script>
 </body>
