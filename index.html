@@ -2482,6 +2482,149 @@ div#tab-tariffs:not(.active) {
         flex-shrink: 0 !important;
     }
 }
+        /* ==========================================================================
+   6. ИЗОЛИРОВАННЫЕ СТИЛИ ГАМБУРГЕРА И ВЫЕЗЖАЮЩЕГО МЕНЮ
+   ========================================================================== */
+
+/* Ваша кнопка-гамбургер в шапке */
+.hamburger-toggle-btn {
+    background: #0052ff !important;
+    border: none !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 5px !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2) !important;
+}
+
+/* Белые полоски внутри кнопки */
+.ham-line {
+    width: 22px !important;
+    height: 2px !important;
+    background-color: #ffffff !important;
+    border-radius: 2px !important;
+    transition: 0.2s !important;
+}
+
+/* Затемненный фон при открытии меню */
+.menu-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(4px) !important;
+    z-index: 99998 !important; /* На слой ниже основной модалки Telegram */
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease !important;
+}
+
+/* Когда меню открыто */
+.menu-overlay.open {
+    display: block !important;
+    opacity: 1 !important;
+}
+
+/* Белая выезжающая панель с пунктами */
+.menu-body {
+    position: absolute !important;
+    top: 0 !important;
+    right: -300px !important;
+    width: 300px !important;
+    height: 100% !important;
+    background: #ffffff !important;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.15) !important;
+    padding: 40px 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    transition: right 0.3s ease !important;
+}
+
+/* Плавный выезд панели справа налево */
+.menu-overlay.open .menu-body {
+    right: 0 !important;
+}
+
+/* Кнопка-крестик закрытия */
+.menu-close-btn {
+    position: absolute !important;
+    top: 20px !important;
+    right: 24px !important;
+    font-size: 28px !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    color: #475569 !important;
+}
+
+/* Список ссылок */
+.menu-list {
+    margin-top: 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    flex-grow: 1 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+/* Элемент меню */
+.menu-item {
+    display: block !important;
+    padding: 12px 16px !important;
+    color: #0f172a !important;
+    text-decoration: none !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    border-radius: 10px !important;
+    transition: background 0.2s !important;
+}
+
+.menu-item:hover { 
+    background: #f1f5f9 !important; 
+}
+
+/* Подсветка активного пункта */
+.menu-item.active {
+    background: rgba(0, 82, 255, 0.08) !important;
+    color: #0052ff !important;
+}
+
+/* Выделение техподдержки */
+.menu-support-highlight {
+    border-top: 2px solid #e2e8f0 !important;
+    margin-top: 12px !important;
+    color: #0052ff !important;
+    border-radius: 0 !important;
+}
+
+/* Кнопка выхода из системы */
+.menu-list .btn-logout {
+    display: block !important;
+    margin-top: 25px !important;
+    padding: 12px 16px !important;
+    color: #ff3b30 !important;
+    text-decoration: none !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    border-radius: 10px !important;
+    background: rgba(255, 59, 48, 0.06) !important;
+    text-align: center !important;
+    transition: background 0.2s !important;
+}
+
+.menu-list .btn-logout:hover {
+    background: rgba(255, 59, 48, 0.12) !important;
+}
+
 
     </style>
                 <!-- СЕРЫЙ ТЕКСТ С ИКОНКОЙ (ВЕРНУЛ СЮДА) -->
