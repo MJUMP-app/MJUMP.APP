@@ -2350,109 +2350,63 @@ body {
     display: block !important;
 }
 
-/* --- БАЗОВАЯ ИЗОЛЯЦИЯ И СБРОС --- */
-#tab-tariffs *, #tab-tariffs *:before, #tab-tariffs *:after,
-.main-header *, .menu-overlay *, #md * {
+/* --- БЕЗОПАСНЫЙ СБРОС СТИЛЕЙ ДЛЯ ВНУТРЕННИХ КЛАССОВ ТАРИФОВ --- */
+#tab-tariffs .list, #tab-tariffs .card, #tab-tariffs .box, #md .win {
     box-sizing: border-box !important;
 }
 
-/* --- ВЕРНУЛ КАК БЫЛО: СТИЛИ ШАПКИ И ЛОГОТИПА --- */
-.main-header {
-    width: 100% !important;
-    background: #ffffff !important;
-    border-bottom: 1px solid #e2e8f0 !important;
-    padding: 15px 20px !important;
+/* --- СТИЛИ ДЛЯ ОБНОВЛЕННОГО ПОЛЗУНКА (КАК НА ВАШЕЙ КАРТИНКЕ) --- */
+#tab-tariffs .sld { 
+    -webkit-appearance: none; 
+    appearance: none; 
+    width: 100% !important; 
+    height: 6px !important; 
+    background: #edf2f7 !important; 
+    border-radius: 10px !important; 
+    outline: none !important; 
+    margin: 12px 0 !important; 
 }
-.header-flex {
-    display: flex !important;
-    justify-content: space-between !important; /* Логотип слева, кнопка справа */
-    align-items: center !important;
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-    width: 100% !important;
+#tab-tariffs .sld::-webkit-slider-thumb { 
+    -webkit-appearance: none; 
+    appearance: none; 
+    width: 32px !important; 
+    height: 20px !important; 
+    border-radius: 6px !important; 
+    background: #ffffff !important; 
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important; 
+    cursor: pointer !important; 
+    border: none !important; 
 }
-.logo-wrapper {
-    display: flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    cursor: pointer !important;
+#tab-tariffs .sld::-moz-range-thumb { 
+    width: 32px !important; 
+    height: 20px !important; 
+    border-radius: 6px !important; 
+    background: #ffffff !important; 
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important; 
+    cursor: pointer !important; 
+    border: none !important; 
 }
-.logo-box-m {
-    background: #0052ff !important;
-    color: #ffffff !important;
-    font-weight: 900 !important;
-    font-size: 18px !important;
-    width: 32px !important;
-    height: 32px !important;
-    border-radius: 8px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+#tab-tariffs .sld { 
+    background: linear-gradient(to right, #0052ff 0%, #0052ff var(--value, 0%), #edf2f7 var(--value, 0%), #edf2f7 100%) !important; 
 }
-.logo-btn-jump {
-    color: #0f172a !important;
-    font-weight: 800 !important;
-    font-size: 18px !important;
-    letter-spacing: 0.5px !important;
-}
-.hamburger-toggle-btn {
-    background: #0052ff !important;
-    border: none !important;
-    width: 44px !important;
-    height: 44px !important;
-    border-radius: 12px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 5px !important;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2) !important;
-}
-.ham-line {
-    width: 22px !important;
-    height: 2px !important;
-    background-color: #ffffff !important;
-    border-radius: 2px !important;
-}
-
-/* --- СТИЛИ ОВЕРЛЕЯ МЕНЮ ГАМБУРГЕРА --- */
-.menu-overlay {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: rgba(15, 23, 42, 0.6) !important;
-    backdrop-filter: blur(4px) !important;
-    z-index: 99998 !important;
-    display: none;
-    opacity: 0;
-}
-.menu-overlay.open { display: block !important; opacity: 1 !important; }
-.menu-body {
-    position: absolute !important;
-    top: 0 !important;
-    right: -300px !important;
-    width: 300px !important;
-    height: 100% !important;
-    background: #ffffff !important;
-    box-shadow: -10px 0 40px rgba(0,0,0,0.15) !important;
-    padding: 40px 24px !important;
-    display: flex !important;
-    flex-direction: column !important;
-}
-.menu-overlay.open .menu-body { right: 0 !important; }
-.menu-close-btn { position: absolute !important; top: 20px !important; right: 24px !important; font-size: 28px !important; background: none !important; border: none !important; cursor: pointer !important; color: #475569 !important; }
-.menu-list { margin-top: 30px !important; display: flex !important; flex-direction: column !important; gap: 6px !important; flex-grow: 1 !important; padding: 0 !important; list-style: none !important; }
-.menu-item { display: block !important; padding: 12px 16px !important; color: #0f172a !important; text-decoration: none !important; font-weight: 700 !important; font-size: 15px !important; border-radius: 10px !important; }
-.menu-item:hover { background: #f1f5f9 !important; }
-.menu-item.active { background: rgba(0, 82, 255, 0.08) !important; color: #0052ff !important; }
-.menu-support-highlight { border-top: 2px solid #e2e8f0 !important; margin-top: 12px !important; color: #0052ff !important; border-radius: 0 !important; }
-.menu-list .btn-logout { display: block !important; margin-top: 25px !important; padding: 12px 16px !important; color: #ff3b30 !important; text-decoration: none !important; font-weight: 700 !important; font-size: 15px !important; border-radius: 10px !important; background: rgba(255, 59, 48, 0.06) !important; text-align: center !important; }
 
 /* --- СТИЛИ МОДАЛЬНОГО ОКНА TELEGRAM --- */
-#md { position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background: rgba(0,0,0,.4) !important; backdrop-filter: blur(10px) !important; display: flex !important; justify-content: center !important; align-items: center !important; opacity: 0; visibility: hidden; transition: .2s; z-index: 99999 !important; }
+#md { 
+    position: fixed !important; 
+    top: 0 !important; 
+    left: 0 !important; 
+    width: 100% !important; 
+    height: 100% !important; 
+    background: rgba(0,0,0,.4) !important; 
+    backdrop-filter: blur(10px) !important; 
+    display: flex !important; 
+    justify-content: center !important; 
+    align-items: center !important; 
+    opacity: 0; 
+    visibility: hidden; 
+    transition: .2s; 
+    z-index: 99999 !important; 
+}
 #md.active { opacity: 1 !important; visibility: visible !important; }
 #md .win { background: #fff !important; width: 90% !important; max-width: 360px !important; padding: 30px 20px !important; border-radius: 24px !important; text-align: center !important; border: 1px solid #e2e8f0 !important; }
 #md .m-head { display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; margin: 0 0 15px 0 !important; }
@@ -2460,13 +2414,7 @@ body {
 #md #m-icon-box { display: inline-flex !important; align-items: center !important; justify-content: center !important; }
 #md .tg { display: block !important; background: #0052ff !important; color: #fff !important; text-decoration: none !important; padding: 14px !important; border-radius: 16px !important; font-size: 13px !important; font-weight: 700 !important; margin-bottom: 15px !important; text-transform: uppercase !important; }
 #md .close { background: none !important; border: none !important; color: #2c3e50 !important; font-size: 14px !important; font-weight: 600 !important; cursor: pointer !important; }
-/* --- СТИЛИ ДЛЯ ОБНОВЛЕННОГО ПОЛЗУНКА --- */
-#tab-tariffs .sld { -webkit-appearance: none; appearance: none; width: 100% !important; height: 6px !important; background: #edf2f7 !important; border-radius: 10px !important; outline: none !important; margin: 12px 0 !important; }
-#tab-tariffs .sld::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 32px !important; height: 20px !important; border-radius: 6px !important; background: #ffffff !important; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important; cursor: pointer !important; border: none !important; }
-#tab-tariffs .sld::-moz-range-thumb { width: 32px !important; height: 20px !important; border-radius: 6px !important; background: #ffffff !important; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important; cursor: pointer !important; border: none !important; }
-#tab-tariffs .sld { background: linear-gradient(to right, #0052ff 0%, #0052ff var(--value, 0%), #edf2f7 var(--value, 0%), #edf2f7 100%) !important; }
-
-/* --- СТИЛИ ВКЛАДКИ ТАРИФОВ И КАРТОЧЕК --- */
+/* --- ИЗОЛИРОВАННАЯ ВКЛАДКА ТАРИФОВ --- */
 #tab-tariffs {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
     width: 100% !important;
@@ -2474,10 +2422,16 @@ body {
     margin: 0 auto !important;
     padding: 20px !important;
 }
+
+/* Безопасное скрытие вкладки: прячем ТОЛЬКО тарифы, если они неактивны, лоадер не пострадает */
+div#tab-tariffs:not(.active) {
+    display: none !important;
+}
+
 #tab-tariffs .title { color: #0d1b2a !important; font-size: 24px !important; font-weight: 800 !important; margin-bottom: 5px !important; }
 #tab-tariffs .info { color: #607d8b !important; font-size: 14px !important; font-weight: 600 !important; margin-bottom: 10px !important; display: flex !important; align-items: center !important; gap: 8px !important; line-height: 1.4 !important; }
 
-/* ИСПРАВЛЕНО: Защита знака «!» от превращения в овал */
+/* Знак «!» гарантированно защищен от превращения в овал на смартфонах */
 #tab-tariffs .info-icon { 
     width: 18px !important; 
     height: 18px !important; 
@@ -2489,7 +2443,7 @@ body {
     justify-content: center !important; 
     font-size: 12px !important; 
     font-weight: bold !important; 
-    flex-shrink: 0 !important; /* ЗАПРЕТ НА ИСКАЖЕНИЕ ФОРМЫ */
+    flex-shrink: 0 !important; 
 }
 
 #tab-tariffs .warn { border: 2px dashed #ff9100 !important; background: rgba(255,145,0,.06) !important; padding: 10px 15px !important; border-radius: 14px !important; margin-bottom: 20px !important; color: #ff6d00 !important; font-weight: 700 !important; font-size: 14px !important; }
@@ -2507,10 +2461,10 @@ body {
 #tab-tariffs .res { font-size: 13px !important; color: #2d3748 !important; font-weight: 600 !important; display: flex !important; justify-content: space-between !important; border-top: 1px dashed #edf2f7 !important; padding-top: 6px !important; }
 #tab-tariffs .btn { background: linear-gradient(135deg,#0052ff,#0043d0) !important; color: #fff !important; border: none !important; padding: 12px !important; border-radius: 14px !important; font-size: 14px !important; font-weight: 700 !important; cursor: pointer !important; width: 100% !important; }
 
-/* --- ИСПРАВЛЕНО: МОБИЛЬНАЯ ВЕРСИЯ НА МАКСИМАЛЬНУЮ ШИРИНУ --- */
+/* --- МОБИЛЬНАЯ АДАПТИВНОСТЬ НА МАКСИМАЛЬНУЮ ШИРИНУ --- */
 @media(max-width:768px){
     #tab-tariffs {
-        padding: 10px !important; /* Уменьшаем внешние отступы, чтобы дать картам больше места */
+        padding: 10px !important; 
         width: 100% !important;
     }
     #tab-tariffs .list { 
@@ -2518,10 +2472,9 @@ body {
         width: 100% !important;
     }
     #tab-tariffs .card {
-        width: 100% !important; /* Карточки встают на всю допустимую ширину дисплея */
-        min-height: auto !important; /* Убираем сжатие по высоте */
+        width: 100% !important; 
+        min-height: auto !important; 
     }
-    /* Иконка «!» на мобилках остается идеальным увеличенным кругом */
     #tab-tariffs .info-icon {
         width: 22px !important;
         height: 22px !important;
