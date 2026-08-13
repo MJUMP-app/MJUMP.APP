@@ -2336,7 +2336,7 @@ body {
 
                 <h2 class="section-title" style="margin-bottom: 15px;">Доступные инвестиционные планы</h2>
     <style>
-       /* ==========================================================================
+        /* ==========================================================================
    ГЛАВНОЕ ПРАВИЛО ПЕРЕКЛЮЧЕНИЯ ВКЛАДОК (СПАСАЕТ ОТ НАЛОЖЕНИЯ)
    ========================================================================== */
 
@@ -2350,59 +2350,13 @@ body {
     display: block !important;
 }
 
- /* --- СТИЛИ ДЛЯ ОБНОВЛЕННОГО ПОЛЗУНКА (КАК НА КАРТИНКЕ) --- */
-/* Убираем стандартный вид ползунка во всех браузерах */
-#tab-tariffs .sld {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100% !important;
-    height: 6px !important; /* Толщина линии */
-    background: #edf2f7 !important; /* Серый цвет неактивной линии */
-    border-radius: 10px !important;
-    outline: none !important;
-    margin: 12px 0 !important;
-}
-
-/* Стили бегунка (кругляшка) для Chrome, Safari, Edge, Opera */
-#tab-tariffs .sld::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 32px !important; /* Ширина бегунка */
-    height: 20px !important; /* Высота бегунка */
-    border-radius: 6px !important; /* Закругленные углы */
-    background: #ffffff !important; /* Белый цвет */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important; /* Мягкая тень вокруг */
-    cursor: pointer !important;
-    border: none !important;
-    transition: transform 0.1s !important;
-}
-
-/* Стили бегунка для Firefox */
-#tab-tariffs .sld::-moz-range-thumb {
-    width: 32px !important;
-    height: 20px !important;
-    border-radius: 6px !important;
-    background: #ffffff !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
-    cursor: pointer !important;
-    border: none !important;
-    transition: transform 0.1s !important;
-}
-
-/* Динамическое закрашивание синим цветом слева от бегунка */
-#tab-tariffs .sld {
-    /* Трюк для создания синей полосы слева от бегунка во время движения */
-    background: linear-gradient(to right, #0052ff 0%, #0052ff var(--value, 0%), #edf2f7 var(--value, 0%), #edf2f7 100%) !important;
-}
-
-
 /* --- БАЗОВАЯ ИЗОЛЯЦИЯ И СБРОС --- */
 #tab-tariffs *, #tab-tariffs *:before, #tab-tariffs *:after,
 .main-header *, .menu-overlay *, #md * {
     box-sizing: border-box !important;
 }
 
-/* --- СТИЛИ ШАПКИ И ГАМБУРГЕР-МЕНЮ --- */
+/* --- ВЕРНУЛ КАК БЫЛО: СТИЛИ ШАПКИ И ЛОГОТИПА --- */
 .main-header {
     width: 100% !important;
     background: #ffffff !important;
@@ -2411,10 +2365,35 @@ body {
 }
 .header-flex {
     display: flex !important;
-    justify-content: space-between !important;
+    justify-content: space-between !important; /* Логотип слева, кнопка справа */
     align-items: center !important;
     max-width: 1200px !important;
     margin: 0 auto !important;
+    width: 100% !important;
+}
+.logo-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    cursor: pointer !important;
+}
+.logo-box-m {
+    background: #0052ff !important;
+    color: #ffffff !important;
+    font-weight: 900 !important;
+    font-size: 18px !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.logo-btn-jump {
+    color: #0f172a !important;
+    font-weight: 800 !important;
+    font-size: 18px !important;
+    letter-spacing: 0.5px !important;
 }
 .hamburger-toggle-btn {
     background: #0052ff !important;
@@ -2437,7 +2416,7 @@ body {
     border-radius: 2px !important;
 }
 
-/* --- СТИЛИ ОВЕРЛЕЯ МЕНЮ --- */
+/* --- СТИЛИ ОВЕРЛЕЯ МЕНЮ ГАМБУРГЕРА --- */
 .menu-overlay {
     position: fixed !important;
     top: 0 !important;
@@ -2471,6 +2450,22 @@ body {
 .menu-item.active { background: rgba(0, 82, 255, 0.08) !important; color: #0052ff !important; }
 .menu-support-highlight { border-top: 2px solid #e2e8f0 !important; margin-top: 12px !important; color: #0052ff !important; border-radius: 0 !important; }
 .menu-list .btn-logout { display: block !important; margin-top: 25px !important; padding: 12px 16px !important; color: #ff3b30 !important; text-decoration: none !important; font-weight: 700 !important; font-size: 15px !important; border-radius: 10px !important; background: rgba(255, 59, 48, 0.06) !important; text-align: center !important; }
+
+/* --- СТИЛИ МОДАЛЬНОГО ОКНА TELEGRAM --- */
+#md { position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background: rgba(0,0,0,.4) !important; backdrop-filter: blur(10px) !important; display: flex !important; justify-content: center !important; align-items: center !important; opacity: 0; visibility: hidden; transition: .2s; z-index: 99999 !important; }
+#md.active { opacity: 1 !important; visibility: visible !important; }
+#md .win { background: #fff !important; width: 90% !important; max-width: 360px !important; padding: 30px 20px !important; border-radius: 24px !important; text-align: center !important; border: 1px solid #e2e8f0 !important; }
+#md .m-head { display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; margin: 0 0 15px 0 !important; }
+#md .m-title { color: #0d1b2a !important; font-size: 20px !important; font-weight: 800 !important; margin: 0 !important; }
+#md #m-icon-box { display: inline-flex !important; align-items: center !important; justify-content: center !important; }
+#md .tg { display: block !important; background: #0052ff !important; color: #fff !important; text-decoration: none !important; padding: 14px !important; border-radius: 16px !important; font-size: 13px !important; font-weight: 700 !important; margin-bottom: 15px !important; text-transform: uppercase !important; }
+#md .close { background: none !important; border: none !important; color: #2c3e50 !important; font-size: 14px !important; font-weight: 600 !important; cursor: pointer !important; }
+/* --- СТИЛИ ДЛЯ ОБНОВЛЕННОГО ПОЛЗУНКА --- */
+#tab-tariffs .sld { -webkit-appearance: none; appearance: none; width: 100% !important; height: 6px !important; background: #edf2f7 !important; border-radius: 10px !important; outline: none !important; margin: 12px 0 !important; }
+#tab-tariffs .sld::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 32px !important; height: 20px !important; border-radius: 6px !important; background: #ffffff !important; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important; cursor: pointer !important; border: none !important; }
+#tab-tariffs .sld::-moz-range-thumb { width: 32px !important; height: 20px !important; border-radius: 6px !important; background: #ffffff !important; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important; cursor: pointer !important; border: none !important; }
+#tab-tariffs .sld { background: linear-gradient(to right, #0052ff 0%, #0052ff var(--value, 0%), #edf2f7 var(--value, 0%), #edf2f7 100%) !important; }
+
 /* --- СТИЛИ ВКЛАДКИ ТАРИФОВ И КАРТОЧЕК --- */
 #tab-tariffs {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
@@ -2481,9 +2476,23 @@ body {
 }
 #tab-tariffs .title { color: #0d1b2a !important; font-size: 24px !important; font-weight: 800 !important; margin-bottom: 5px !important; }
 #tab-tariffs .info { color: #607d8b !important; font-size: 14px !important; font-weight: 600 !important; margin-bottom: 10px !important; display: flex !important; align-items: center !important; gap: 8px !important; line-height: 1.4 !important; }
-#tab-tariffs .info-icon { width: 18px !important; height: 18px !important; background: #607d8b !important; color: #fff !important; border-radius: 50% !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 12px !important; font-weight: bold !important; }
-#tab-tariffs .warn { border: 2px dashed #ff9100 !important; background: rgba(255,145,0,.06) !important; padding: 10px 15px !important; border-radius: 14px !important; margin-bottom: 20px !important; color: #ff6d00 !important; font-weight: 700 !important; font-size: 14px !important; }
 
+/* ИСПРАВЛЕНО: Защита знака «!» от превращения в овал */
+#tab-tariffs .info-icon { 
+    width: 18px !important; 
+    height: 18px !important; 
+    background: #607d8b !important; 
+    color: #fff !important; 
+    border-radius: 50% !important; 
+    display: inline-flex !important; 
+    align-items: center !important; 
+    justify-content: center !important; 
+    font-size: 12px !important; 
+    font-weight: bold !important; 
+    flex-shrink: 0 !important; /* ЗАПРЕТ НА ИСКАЖЕНИЕ ФОРМЫ */
+}
+
+#tab-tariffs .warn { border: 2px dashed #ff9100 !important; background: rgba(255,145,0,.06) !important; padding: 10px 15px !important; border-radius: 14px !important; margin-bottom: 20px !important; color: #ff6d00 !important; font-weight: 700 !important; font-size: 14px !important; }
 #tab-tariffs .list { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
 #tab-tariffs .card { background: #fff !important; border: 1px solid #e2e8f0 !important; border-radius: 20px !important; padding: 20px !important; box-shadow: 0 10px 30px rgba(0,86,179,.02) !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; min-height: 410px !important; }
 #tab-tariffs .head { display: flex !important; justify-content: space-between !important; align-items: center !important; }
@@ -2498,35 +2507,29 @@ body {
 #tab-tariffs .res { font-size: 13px !important; color: #2d3748 !important; font-weight: 600 !important; display: flex !important; justify-content: space-between !important; border-top: 1px dashed #edf2f7 !important; padding-top: 6px !important; }
 #tab-tariffs .btn { background: linear-gradient(135deg,#0052ff,#0043d0) !important; color: #fff !important; border: none !important; padding: 12px !important; border-radius: 14px !important; font-size: 14px !important; font-weight: 700 !important; cursor: pointer !important; width: 100% !important; }
 
-/* --- СТИЛИ МОДАЛЬНОГО ОКНА TELEGRAM --- */
-#md {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: rgba(0,0,0,.4) !important;
-    backdrop-filter: blur(10px) !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    opacity: 0;
-    visibility: hidden;
-    transition: .2s;
-    z-index: 99999 !important;
-}
-#md.active { opacity: 1 !important; visibility: visible !important; }
-#md .win { background: #fff !important; width: 90% !important; max-width: 360px !important; padding: 30px 20px !important; border-radius: 24px !important; text-align: center !important; border: 1px solid #e2e8f0 !important; }
-#md .m-head { display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; margin: 0 0 15px 0 !important; }
-#md .m-title { color: #0d1b2a !important; font-size: 20px !important; font-weight: 800 !important; margin: 0 !important; }
-#md #m-icon-box { display: inline-flex !important; align-items: center !important; justify-content: center !important; }
-#md .tg { display: block !important; background: #0052ff !important; color: #fff !important; text-decoration: none !important; padding: 14px !important; border-radius: 16px !important; font-size: 13px !important; font-weight: 700 !important; margin-bottom: 15px !important; text-transform: uppercase !important; }
-#md .close { background: none !important; border: none !important; color: #2c3e50 !important; font-size: 14px !important; font-weight: 600 !important; cursor: pointer !important; }
-
-/* Адаптивность для мобильных телефонов */
+/* --- ИСПРАВЛЕНО: МОБИЛЬНАЯ ВЕРСИЯ НА МАКСИМАЛЬНУЮ ШИРИНУ --- */
 @media(max-width:768px){
-    #tab-tariffs .list { grid-template-columns: 1fr !important; }
-        }
+    #tab-tariffs {
+        padding: 10px !important; /* Уменьшаем внешние отступы, чтобы дать картам больше места */
+        width: 100% !important;
+    }
+    #tab-tariffs .list { 
+        grid-template-columns: 1fr !important; 
+        width: 100% !important;
+    }
+    #tab-tariffs .card {
+        width: 100% !important; /* Карточки встают на всю допустимую ширину дисплея */
+        min-height: auto !important; /* Убираем сжатие по высоте */
+    }
+    /* Иконка «!» на мобилках остается идеальным увеличенным кругом */
+    #tab-tariffs .info-icon {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 14px !important;
+        flex-shrink: 0 !important;
+    }
+}
+
     </style>
                 <!-- СЕРЫЙ ТЕКСТ С ИКОНКОЙ (ВЕРНУЛ СЮДА) -->
     <div class="info">
