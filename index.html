@@ -2243,21 +2243,22 @@ body {
 </div>
 
 
-        <!-- Шапка ЛК с постоянным Гамбургером -->
-        <header class="main-header">
-            <div class="container header-flex">
-                <div class="logo-wrapper" onclick="switchDashboardTab('tariffs')">
-                    <div class="logo-box-m">M</div>
-                    <div class="logo-btn-jump">JUMP</div>
-                </div>
-                <!-- Гамбургер меню -->
-                <button class="hamburger-toggle-btn" onclick="toggleMenu()">
-                    <span class="ham-line"></span>
-                    <span class="ham-line"></span>
-                    <span class="ham-line"></span>
-                </button>
-            </div>
-        </header>
+      <!-- Шапка ЛК с постоянным Гамбургером -->
+<header class="main-header">
+    <div class="container header-flex">
+        <div class="logo-wrapper" onclick="switchDashboardTab('tariffs')">
+            <div class="logo-box-m">M</div>
+            <div class="logo-btn-jump">JUMP</div>
+        </div>
+        <!-- Исправленная кнопка Гамбургера -->
+        <button class="hamburger-toggle-btn" onclick="toggleMenu()" aria-label="Открыть меню">
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+            <span class="ham-line"></span>
+        </button>
+    </div>
+</header>
+
 
         <!-- Навигационное меню гамбургера -->
         <div id="hamburger-menu-wrapper" class="menu-overlay">
@@ -2335,283 +2336,327 @@ body {
 
                 <h2 class="section-title" style="margin-bottom: 15px;">Доступные инвестиционные планы</h2>
     <style>
-        /* СТИЛИ ГАМБУРГЕР-МЕНЮ И КАРТОЧЕК ТАРИФОВ */
-        .hamburger-toggle-btn {
-            background: #0052ff; /* Яркий электрический синий */
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2);
-        }
-        .ham-line {
-            width: 22px;
-            height: 2px;
-            background-color: #ffffff; /* Белые символы/линии */
-            border-radius: 2px;
-            transition: 0.2s;
-        }
+       /* ==========================================================================
+   ГЛАВНОЕ ПРАВИЛО ПЕРЕКЛЮЧЕНИЯ ВКЛАДОК (СПАСАЕТ ОТ НАЛОЖЕНИЯ)
+   ========================================================================== */
 
-        /* Оверлей гамбургера */
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 200;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .menu-overlay.open {
-            display: block;
-            opacity: 1;
-        }
-        .menu-body {
-            position: absolute;
-            top: 0;
-            right: -300px;
-            width: 300px;
-            height: 100%;
-            background: #ffffff;
-            box-shadow: -10px 0 40px rgba(0,0,0,0.15);
-            padding: 40px 24px;
-            display: flex;
-            flex-direction: column;
-            transition: right 0.3s ease;
-        }
-        .menu-overlay.open .menu-body {
-            right: 0;
-        }
-        .menu-close-btn {
-            position: absolute;
-            top: 20px;
-            right: 24px;
-            font-size: 28px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #475569;
-        }
-        .menu-list {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            flex-grow: 1;
-        }
-        .menu-item {
-            display: block;
-            padding: 12px 16px;
-            color: #0f172a;
-            text-decoration: none !important;
-            font-weight: 700;
-            font-size: 15px;
-            border-radius: 10px;
-            transition: background 0.2s;
-        }
-        .menu-item:hover { background: #f1f5f9; }
-        .menu-item.active {
-            background: rgba(0, 82, 255, 0.08);
-            color: #0052ff;
-        }
-        .menu-support-highlight {
-            border-top: 2px solid #e2e8f0;
-            margin-top: 12px;
-            color: #0052ff;
-            }
+/* 1. Прячем ВСЕ разделы личного кабинета по умолчанию */
+.dashboard-tab {
+    display: none !important;
+}
 
-        /* Премиум сетка тарифов */
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-top: 15px;
-        }
-        .plan-card {
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-            cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .plan-card:hover {
-            transform: translateY(-2px);
-            border-color: #0052ff;
-        }
-        .plan-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-        .plan-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #0f172a;
-        }
-        .plan-percent {
-            font-size: 24px;
-            font-weight: 900;
-            color: #00e676; /* Ультра-яркий зеленый */
-            text-shadow: 0 1px 2px rgba(0,230,118,0.1);
-            transition: color 0.3s ease;
-        }
-        
-        /* Микро-калькуляторы */
-        .mini-calc-box {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 20px;
-            border: 2px solid #e2e8f0;
-        }
-        .mini-calc-input-wrap {
-            position: relative;
-            margin-bottom: 10px;
-        }
-        .mini-calc-input {
-            width: 100%;
-            height: 40px;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 0 45px 0 12px;
-            font-size: 14px;
-            outline: none;
-            color: #0f172a;
-            font-weight: 600;
-        }
-        .mini-calc-input:focus { border-color: #0052ff; }
-        .mini-calc-currency {
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 14px;
-            color: #64748b;
-            font-weight: 700;
-        }
-        .mini-calc-profit {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            font-weight: 600;
-            color: #475569;
-        }
-        .mini-calc-num {
-            color: #00e676;
-            font-weight: 800;
-        }
+/* 2. Показываем ТОЛЬКО тот раздел, у которого есть класс active */
+.dashboard-tab.active {
+    display: block !important;
+}
 
-        .dashboard-tab { display: none; }
-        .dashboard-tab.active { display: block; }
+ /* --- СТИЛИ ДЛЯ ОБНОВЛЕННОГО ПОЛЗУНКА (КАК НА КАРТИНКЕ) --- */
+/* Убираем стандартный вид ползунка во всех браузерах */
+#tab-tariffs .sld {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100% !important;
+    height: 6px !important; /* Толщина линии */
+    background: #edf2f7 !important; /* Серый цвет неактивной линии */
+    border-radius: 10px !important;
+    outline: none !important;
+    margin: 12px 0 !important;
+}
 
-        @media (max-width: 768px) {
-            .plans-grid { grid-template-columns: 1fr; }
-            .plan-card { padding: 20px; }
+/* Стили бегунка (кругляшка) для Chrome, Safari, Edge, Opera */
+#tab-tariffs .sld::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 32px !important; /* Ширина бегунка */
+    height: 20px !important; /* Высота бегунка */
+    border-radius: 6px !important; /* Закругленные углы */
+    background: #ffffff !important; /* Белый цвет */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important; /* Мягкая тень вокруг */
+    cursor: pointer !important;
+    border: none !important;
+    transition: transform 0.1s !important;
+}
+
+/* Стили бегунка для Firefox */
+#tab-tariffs .sld::-moz-range-thumb {
+    width: 32px !important;
+    height: 20px !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+    cursor: pointer !important;
+    border: none !important;
+    transition: transform 0.1s !important;
+}
+
+/* Динамическое закрашивание синим цветом слева от бегунка */
+#tab-tariffs .sld {
+    /* Трюк для создания синей полосы слева от бегунка во время движения */
+    background: linear-gradient(to right, #0052ff 0%, #0052ff var(--value, 0%), #edf2f7 var(--value, 0%), #edf2f7 100%) !important;
+}
+
+
+/* --- БАЗОВАЯ ИЗОЛЯЦИЯ И СБРОС --- */
+#tab-tariffs *, #tab-tariffs *:before, #tab-tariffs *:after,
+.main-header *, .menu-overlay *, #md * {
+    box-sizing: border-box !important;
+}
+
+/* --- СТИЛИ ШАПКИ И ГАМБУРГЕР-МЕНЮ --- */
+.main-header {
+    width: 100% !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 15px 20px !important;
+}
+.header-flex {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+}
+.hamburger-toggle-btn {
+    background: #0052ff !important;
+    border: none !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 5px !important;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 82, 255, 0.2) !important;
+}
+.ham-line {
+    width: 22px !important;
+    height: 2px !important;
+    background-color: #ffffff !important;
+    border-radius: 2px !important;
+}
+
+/* --- СТИЛИ ОВЕРЛЕЯ МЕНЮ --- */
+.menu-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(4px) !important;
+    z-index: 99998 !important;
+    display: none;
+    opacity: 0;
+}
+.menu-overlay.open { display: block !important; opacity: 1 !important; }
+.menu-body {
+    position: absolute !important;
+    top: 0 !important;
+    right: -300px !important;
+    width: 300px !important;
+    height: 100% !important;
+    background: #ffffff !important;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.15) !important;
+    padding: 40px 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+.menu-overlay.open .menu-body { right: 0 !important; }
+.menu-close-btn { position: absolute !important; top: 20px !important; right: 24px !important; font-size: 28px !important; background: none !important; border: none !important; cursor: pointer !important; color: #475569 !important; }
+.menu-list { margin-top: 30px !important; display: flex !important; flex-direction: column !important; gap: 6px !important; flex-grow: 1 !important; padding: 0 !important; list-style: none !important; }
+.menu-item { display: block !important; padding: 12px 16px !important; color: #0f172a !important; text-decoration: none !important; font-weight: 700 !important; font-size: 15px !important; border-radius: 10px !important; }
+.menu-item:hover { background: #f1f5f9 !important; }
+.menu-item.active { background: rgba(0, 82, 255, 0.08) !important; color: #0052ff !important; }
+.menu-support-highlight { border-top: 2px solid #e2e8f0 !important; margin-top: 12px !important; color: #0052ff !important; border-radius: 0 !important; }
+.menu-list .btn-logout { display: block !important; margin-top: 25px !important; padding: 12px 16px !important; color: #ff3b30 !important; text-decoration: none !important; font-weight: 700 !important; font-size: 15px !important; border-radius: 10px !important; background: rgba(255, 59, 48, 0.06) !important; text-align: center !important; }
+/* --- СТИЛИ ВКЛАДКИ ТАРИФОВ И КАРТОЧЕК --- */
+#tab-tariffs {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 20px !important;
+}
+#tab-tariffs .title { color: #0d1b2a !important; font-size: 24px !important; font-weight: 800 !important; margin-bottom: 5px !important; }
+#tab-tariffs .info { color: #607d8b !important; font-size: 14px !important; font-weight: 600 !important; margin-bottom: 10px !important; display: flex !important; align-items: center !important; gap: 8px !important; line-height: 1.4 !important; }
+#tab-tariffs .info-icon { width: 18px !important; height: 18px !important; background: #607d8b !important; color: #fff !important; border-radius: 50% !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-size: 12px !important; font-weight: bold !important; }
+#tab-tariffs .warn { border: 2px dashed #ff9100 !important; background: rgba(255,145,0,.06) !important; padding: 10px 15px !important; border-radius: 14px !important; margin-bottom: 20px !important; color: #ff6d00 !important; font-weight: 700 !important; font-size: 14px !important; }
+
+#tab-tariffs .list { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
+#tab-tariffs .card { background: #fff !important; border: 1px solid #e2e8f0 !important; border-radius: 20px !important; padding: 20px !important; box-shadow: 0 10px 30px rgba(0,86,179,.02) !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; min-height: 410px !important; }
+#tab-tariffs .head { display: flex !important; justify-content: space-between !important; align-items: center !important; }
+#tab-tariffs .name-box { display: flex !important; align-items: center !important; gap: 8px !important; }
+#tab-tariffs .p-icon { width: 22px !important; height: 22px !important; flex-shrink: 0 !important; stroke-width: 2.5 !important; }
+#tab-tariffs .name { color: #0d1b2a !important; font-size: 17px !important; font-weight: 700 !important; margin: 0 !important; }
+#tab-tariffs .pct { color: #00c853 !important; font-size: 21px !important; font-weight: 800 !important; }
+#tab-tariffs .txt-year { color: #b0bec5 !important; font-size: 11px !important; text-align: right !important; display: block !important; margin-top: -2px !important; }
+#tab-tariffs .desc { color: #607d8b !important; font-size: 13px !important; line-height: 1.4 !important; margin: 10px 0 !important; min-height: 54px !important; }
+#tab-tariffs .box { background: #f8fafc !important; padding: 10px !important; border-radius: 12px !important; margin-bottom: 12px !important; border: 1px solid #edf2f7 !important; }
+#tab-tariffs .lbl { font-size: 12px !important; color: #718096 !important; font-weight: 600 !important; display: flex !important; justify-content: space-between !important; margin: 4px 0 !important; }
+#tab-tariffs .res { font-size: 13px !important; color: #2d3748 !important; font-weight: 600 !important; display: flex !important; justify-content: space-between !important; border-top: 1px dashed #edf2f7 !important; padding-top: 6px !important; }
+#tab-tariffs .btn { background: linear-gradient(135deg,#0052ff,#0043d0) !important; color: #fff !important; border: none !important; padding: 12px !important; border-radius: 14px !important; font-size: 14px !important; font-weight: 700 !important; cursor: pointer !important; width: 100% !important; }
+
+/* --- СТИЛИ МОДАЛЬНОГО ОКНА TELEGRAM --- */
+#md {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(0,0,0,.4) !important;
+    backdrop-filter: blur(10px) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s;
+    z-index: 99999 !important;
+}
+#md.active { opacity: 1 !important; visibility: visible !important; }
+#md .win { background: #fff !important; width: 90% !important; max-width: 360px !important; padding: 30px 20px !important; border-radius: 24px !important; text-align: center !important; border: 1px solid #e2e8f0 !important; }
+#md .m-head { display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; margin: 0 0 15px 0 !important; }
+#md .m-title { color: #0d1b2a !important; font-size: 20px !important; font-weight: 800 !important; margin: 0 !important; }
+#md #m-icon-box { display: inline-flex !important; align-items: center !important; justify-content: center !important; }
+#md .tg { display: block !important; background: #0052ff !important; color: #fff !important; text-decoration: none !important; padding: 14px !important; border-radius: 16px !important; font-size: 13px !important; font-weight: 700 !important; margin-bottom: 15px !important; text-transform: uppercase !important; }
+#md .close { background: none !important; border: none !important; color: #2c3e50 !important; font-size: 14px !important; font-weight: 600 !important; cursor: pointer !important; }
+
+/* Адаптивность для мобильных телефонов */
+@media(max-width:768px){
+    #tab-tariffs .list { grid-template-columns: 1fr !important; }
         }
     </style>
-                <div class="plans-grid">
-                    <!-- ПЛАН 1 -->
-                    <div class="plan-card" onclick="triggerPlanActivation('Стандартный')">
-                        <div>
-                            <div class="plan-header">
-                                <span class="plan-title">Стандартный план</span>
-                                <span id="pct-standard" class="plan-percent">12%</span>
-                            </div>
-                            <p style="font-size:14px; color:#475569; line-height:1.4;">Сбалансированное решение для начинающих инвесторов с фиксированной годовой процентной ставкой.</p>
-                        </div>
-                        <div class="mini-calc-box" onclick="event.stopPropagation();">
-                            <div class="mini-calc-input-wrap">
-                                <input type="number" id="calc-in-standard" class="mini-calc-input" value="50000" oninput="calculateMiniProfit('standard')">
-                                <span class="mini-calc-currency">₽</span>
-                            </div>
-                            <div class="mini-calc-profit">
-                                <span>Доход за 12 месяцев:</span>
-                                <span id="calc-out-standard" class="mini-calc-num">6 000 ₽</span>
-                            </div>
-                        </div>
+                <!-- СЕРЫЙ ТЕКСТ С ИКОНКОЙ (ВЕРНУЛ СЮДА) -->
+    <div class="info">
+        <span class="info-icon">!</span> 
+        Вы можете закрыть любой план и вывести средства в любой момент без потери процентов.
+    </div>
+  <div class="warn">Ставка меняется каждый час! Зафиксируйте доходность прямо сейчас.</div>
+    
+    <!-- Сетка с карточками тарифных планов -->
+    <div class="list">
+        
+        <!-- Карточка 1: Стандартный план -->
+        <div class="card">
+            <div>
+                <div class="head">
+                    <div class="name-box">
+                        <svg class="p-icon" viewBox="0 0 24 24" fill="none" stroke="#00c853">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 11l2 2 4-4"/>
+                        </svg>
+                        <h3 class="name">Стандартный план</h3>
                     </div>
-
-                    <!-- ПЛАН 2 -->
-                    <div class="plan-card" onclick="triggerPlanActivation('Мастер')">
-                        <div>
-                            <div class="plan-header">
-                                <span class="plan-title">Мастер план</span>
-                                <span id="pct-master" class="plan-percent">18%</span>
-                            </div>
-                            <p style="font-size:14px; color:#475569; line-height:1.4;">Повышенная процентная ставка для инвесторов, нацеленных на стабильный пассивный доход.</p>
-                        </div>
-                        <div class="mini-calc-box" onclick="event.stopPropagation();">
-                            <div class="mini-calc-input-wrap">
-                                <input type="number" id="calc-in-master" class="mini-calc-input" value="50000" oninput="calculateMiniProfit('master')">
-                                <span class="mini-calc-currency">₽</span>
-                            </div>
-                            <div class="mini-calc-profit">
-                                <span>Доход за 12 месяцев:</span>
-                                <span id="calc-out-master" class="mini-calc-num">9 000 ₽</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ПЛАН 3 -->
-                    <div class="plan-card" onclick="triggerPlanActivation('Бизнес')">
-                        <div>
-                            <div class="plan-header">
-                                <span class="plan-title">Бизнес план</span>
-                                <span id="pct-business" class="plan-percent">24%</span>
-                            </div>
-                            <p style="font-size:14px; color:#475569; line-height:1.4;">Премиальный финансовый инструмент с высоким уровнем доходности для крупных объемов капитала.</p>
-                        </div>
-                        <div class="mini-calc-box" onclick="event.stopPropagation();">
-                            <div class="mini-calc-input-wrap">
-                                <input type="number" id="calc-in-business" class="mini-calc-input" value="50000" oninput="calculateMiniProfit('business')">
-                                <span class="mini-calc-currency">₽</span>
-                            </div>
-                            <div class="mini-calc-profit">
-                                <span>Доход за 12 месяцев:</span>
-                                <span id="calc-out-business" class="mini-calc-num">12 000 ₽</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ПЛАН 4 -->
-                    <div class="plan-card" onclick="triggerPlanActivation('VIP')">
-                        <div>
-                            <div class="plan-header">
-                                <span class="plan-title">VIP план</span>
-                                <span id="pct-vip" class="plan-percent">35%</span>
-                            </div>
-                            <p style="font-size:14px; color:#475569; line-height:1.4;">Максимальные привилегии и эксклюзивные условия распределения прибыли на рынке.</p>
-                        </div>
-                        <div class="mini-calc-box" onclick="event.stopPropagation();">
-                            <div class="mini-calc-input-wrap">
-                                <input type="number" id="calc-in-vip" class="mini-calc-input" value="50000" oninput="calculateMiniProfit('vip')">
-                                <span class="mini-calc-currency">₽</span>
-                            </div>
-                            <div class="mini-calc-profit">
-                                <span>Доход за 12 месяцев:</span>
-                                <span id="calc-out-vip" class="mini-calc-num">17 500 ₽</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div><span class="pct" id="r0">0.00%</span><span class="txt-year">годовых</span></div>
                 </div>
-            </div> <!-- КОНЕЦ ТАРИФОВ -->
+                <p class="desc">Сбалансированное решение для начинающих инвесторов.</p>
+                <div class="box">
+                    <div class="lbl">Сумма: <span id="a0" style="color:#2d3748;font-weight:700">100 ₽</span></div>
+                    <input type="range" class="sld" id="sa0" min="100" max="10000" step="50" value="100" oninput="calc(0)">
+                    <div class="lbl">Срок: <span id="d0" style="color:#2d3748;font-weight:700">1 мес.</span></div>
+                    <input type="range" class="sld" id="sd0" min="1" max="12" step="1" value="1" oninput="calc(0)">
+                    <div class="res">Прибыль: <span id="p0" style="color:#00c853;font-weight:700">0,00 ₽</span></div>
+                </div>
+            </div>
+            <button class="btn" onclick="openM(0)">Открыть план</button>
+        </div>
+
+        <!-- Карточка 2: Master план -->
+        <div class="card">
+            <div>
+                <div class="head">
+                    <div class="name-box">
+                        <svg class="p-icon" viewBox="0 0 24 24" fill="none" stroke="#0052ff">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H3a2 2 0 010-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V3a2 2 0 014 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H21a2 2 0 010 4h-.1a1.6 1.6 0 00-1.5 1z"/>
+                        </svg>
+                        <h3 class="name">Мастер план</h3>
+                    </div>
+                    <div><span class="pct" id="r1">0.00%</span><span class="txt-year">годовых</span></div>
+                </div>
+                <p class="desc">Повышенная ставка для стабильного пассивного дохода.</p>
+                <div class="box">
+                    <div class="lbl">Сумма: <span id="a1" style="color:#2d3748;font-weight:700">100 ₽</span></div>
+                    <input type="range" class="sld" id="sa1" min="100" max="10000" step="50" value="100" oninput="calc(1)">
+                    <div class="lbl">Срок: <span id="d1" style="color:#2d3748;font-weight:700">1 мес.</span></div>
+                    <input type="range" class="sld" id="sd1" min="1" max="12" step="1" value="1" oninput="calc(1)">
+                    <div class="res">Прибыль: <span id="p1" style="color:#00c853;font-weight:700">0,00 ₽</span></div>
+                </div>
+            </div>
+            <button class="btn" onclick="openM(1)">Открыть план</button>
+        </div>
+
+        <!-- Карточка 3: Бизнес план -->
+        <div class="card">
+            <div>
+                <div class="head">
+                    <div class="name-box">
+                        <svg class="p-icon" viewBox="0 0 24 24" fill="none" stroke="#004d40">
+                            <rect x="2" y="7" width="20" height="14" rx="2"/>
+                            <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+                        </svg>
+                        <h3 class="name">Бизнес план</h3>
+                    </div>
+                    <div><span class="pct" id="r2">0.00%</span><span class="txt-year">годовых</span></div>
+                </div>
+                <p class="desc">Премиальный инструмент с высокой доходностью.</p>
+                <div class="box">
+                    <div class="lbl">Сумма: <span id="a2" style="color:#2d3748;font-weight:700">100 ₽</span></div>
+                    <input type="range" class="sld" id="sa2" min="100" max="10000" step="50" value="100" oninput="calc(2)">
+                    <div class="lbl">Срок: <span id="d2" style="color:#2d3748;font-weight:700">1 мес.</span></div>
+                    <input type="range" class="sld" id="sd2" min="1" max="12" step="1" value="1" oninput="calc(2)">
+                    <div class="res">Прибыль: <span id="p2" style="color:#00c853;font-weight:700">0,00 ₽</span></div>
+                </div>
+            </div>
+            <button class="btn" onclick="openM(2)">Открыть план</button>
+        </div>
+
+        <!-- Карточка 4: VIP план -->
+        <div class="card">
+            <div>
+                <div class="head">
+                    <div class="name-box">
+                        <svg class="p-icon" viewBox="0 0 24 24" fill="none" stroke="#ffb300">
+                            <path d="M2 4l3 8 7-6 7 6 3-8-4 16H6L2 4z"/>
+                            <circle cx="12" cy="6" r="1" fill="currentColor"/>
+                            <circle cx="2" cy="4" r="1" fill="currentColor"/>
+                            <circle cx="22" cy="4" r="1" fill="currentColor"/>
+                        </svg>
+                        <h3 class="name">VIP план</h3>
+                    </div>
+                    <div><span class="pct" id="r3">0.00%</span><span class="txt-year">годовых</span></div>
+                </div>
+                <p class="desc">Эксклюзивные условия доверительного управления.</p>
+                <div class="box">
+                    <div class="lbl">Сумма: <span id="a3" style="color:#2d3748;font-weight:700">100 ₽</span></div>
+                    <input type="range" class="sld" id="sa3" min="100" max="10000" step="50" value="100" oninput="calc(3)">
+                    <div class="lbl">Срок: <span id="d3" style="color:#2d3748;font-weight:700">1 мес.</span></div>
+                    <input type="range" class="sld" id="sd3" min="1" max="12" step="1" value="1" oninput="calc(3)">
+                    <div class="res">Прибыль: <span id="p3" style="color:#00c853;font-weight:700">0,00 ₽</span></div>
+                </div>
+            </div>
+            <button class="btn" onclick="openM(3)">Открыть план</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Модальное окно Telegram -->
+<div class="modal" id="md">
+    <div class="win">
+        <div class="m-head">
+            <div id="m-icon-box"></div>
+            <h4 id="mt" class="m-title"></h4>
+        </div>
+        <p style="color:#5c6b73; font-size:13px; line-height:1.5; margin:0 0 20px 0;">
+            Для подтверждения создания плана и фиксации процентной ставки перейдите в Telegram.
+        </p>
+        <a href="https://t.me" target="_blank" class="tg">Перейти в Telegram</a>
+        <button class="close" onclick="closeM()">Отмена</button>
+    </div>
+</div>
+
 <style>
     /* ==========================================================================
        1. ВАШИ ИСХОДНЫЕ СТИЛИ (ПРОФИЛЬ, ПОПОЛНЕНИЕ, ИСТОРИЯ) - БЕЗ ИЗМЕНЕНИЙ
@@ -4370,6 +4415,143 @@ function toggleMenu() {
     if (menu) menu.classList.toggle('open');
 }
 
+// 1. Графические SVG-пути для иконок планов (используются в модальном окне)
+const paths = {
+    sh: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 11l2 2 4-4"/>`,
+    ge: `<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H3a2 2 0 010-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V3a2 2 0 014 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H21a2 2 0 010 4h-.1a1.6 1.6 0 00-1.5 1z"/>`,
+    br: `<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>`,
+    cr: `<path d="M2 4l3 8 7-6 7 6 3-8-4 16H6L2 4z"/><circle cx="12" cy="6" r="1" fill="currentColor"/><circle cx="2" cy="4" r="1" fill="currentColor"/><circle cx="22" cy="4" r="1" fill="currentColor"/>`
+};
+
+// 2. Данные инвестиционных планов и их настройки
+const plans = [
+    { n: 'Стандартный план', d: 'Сбалансированное решение для начинающих инвесторов.', min: 12, max: 17, svg: 'sh', fill: 'none', c: '#00c853' },
+    { n: 'Мастер план', d: 'Повышенная ставка для стабильного пассивного дохода.', min: 18, max: 27, svg: 'ge', fill: 'none', c: '#0052ff' },
+    { n: 'Бизнес план', d: 'Премиальный инструмент с высокой доходностью.', min: 28, max: 39, svg: 'br', fill: 'none', c: '#004d40' },
+    { n: 'VIP план', d: 'Эксклюзивные условия доверительного управления.', min: 40, max: 45, svg: 'cr', fill: 'none', c: '#ffb300' }
+];
+
+// Генерируем случайную процентную ставку для каждого плана один раз при загрузке
+plans.forEach((p, i) => {
+    const rate = (Math.random() * (p.max - p.min) + p.min).toFixed(2);
+    p.rate = rate;
+    
+    // Находим текстовый блок процента годовых в HTML и обновляем его цифру
+    const rateEl = document.getElementById('r' + i);
+    if (rateEl) {
+        rateEl.innerText = rate + '%';
+    }
+});
+
+// Запускаем первичный расчет всех калькуляторов после загрузки страницы
+window.onload = () => {
+    plans.forEach((_, i) => calc(i));
+};
+
+// 3. Функция динамического расчета калькулятора прибыли
+function calc(i) {
+    const amtInput = document.getElementById('sa' + i);
+    const monInput = document.getElementById('sd' + i);
+    
+    if (!amtInput || !monInput) return; // Защита от ошибок, если элементов нет на странице
+
+    const amt = parseInt(amtInput.value);
+    const mon = parseInt(monInput.value);
+    
+    // Обновляем текст текущей выбранной суммы
+    document.getElementById('a' + i).innerText = amt.toLocaleString('ru-RU') + ' ₽';
+    
+    // Правильное склонение слова "месяц" в зависимости от цифры
+    document.getElementById('d' + i).innerText = mon + (mon === 1 ? ' месяц' : (mon >= 2 && mon <= 4 ? ' месяца' : ' месяцев'));
+    
+    // Математический расчет чистой прибыли
+    const prf = (amt * (parseFloat(plans[i].rate) / 100)) * (mon / 12);
+    
+    // Выводим прибыль, заменяя точку на красивую запятую
+    document.getElementById('p' + i).innerText = prf.toFixed(2).replace('.', ',') + ' ₽';
+}
+
+// 4. Логика управления модальным окном подтверждения в Telegram
+function openM(i) { 
+    const p = plans[i];
+    document.getElementById('mt').innerText = p.n; 
+    document.getElementById('m-icon-box').innerHTML = `<svg class="p-icon" viewBox="0 0 24 24" fill="${p.fill}" stroke="${p.c}">${paths[p.svg]}</svg>`;
+    document.getElementById('md').classList.add('active'); 
+}
+
+function closeM() { 
+    document.getElementById('md').classList.remove('active'); 
+}
+
+// 5. Исправленная функция плавного открытия и закрытия меню гамбургера
+function toggleMenu() {
+    const overlay = document.getElementById('hamburger-menu-wrapper');
+    if (!overlay) return;
+
+    if (overlay.style.display !== 'block') {
+        overlay.style.display = 'block';
+        setTimeout(() => overlay.classList.add('open'), 10);
+    } else {
+        overlay.classList.remove('open');
+        setTimeout(() => overlay.style.display = 'none', 300);
+    }
+}
+
+// Закрытие меню гамбургера при клике на затемненный фон (оверлей) вокруг него
+setTimeout(() => {
+    const menuWrapper = document.getElementById('hamburger-menu-wrapper');
+    if (menuWrapper) {
+        menuWrapper.addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleMenu();
+            }
+        });
+    }
+}, 500);
+
+// 6. ИСПРАВЛЕННАЯ функция безопасного переключения разделов ЛК
+function switchDashboardTab(tabName) {
+    // Прячем абсолютно все вкладки на странице (удаляем класс active)
+    document.querySelectorAll('.dashboard-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    // Показываем только ту вкладку, которую запросили из меню гамбургера
+    const targetTab = document.getElementById('tab-' + tabName);
+    if (targetTab) {
+        targetTab.classList.add('active');
+    }
+
+    // Переключаем активную подсветку (синий фон) у пунктов в меню гамбургера
+    document.querySelectorAll('.menu-list .menu-item').forEach(item => {
+        item.classList.remove('active');
+    });
+
+    // Ищем нажатую ссылку по названию ее функции и подсвечиваем ее
+    const clickedItem = document.querySelector(`[onclick="switchDashboardTab('${tabName}')"]`);
+    if (clickedItem) {
+        clickedItem.classList.add('active');
+    }
+}
+function calc(i) {
+    const amtInput = document.getElementById('sa' + i);
+    const monInput = document.getElementById('sd' + i);
+    
+    if (!amtInput || !monInput) return;
+
+    const amt = parseInt(amtInput.value);
+    const mon = parseInt(monInput.value);
+    
+    // ЭТИ ДВЕ СТРОЧКИ КРАСЯТ ПОЛОСУ ПОЛЗУНКА В СИНИЙ ЦВЕТ
+    amtInput.style.setProperty('--value', ((amt - amtInput.min) / (amtInput.max - amtInput.min) * 100) + '%');
+    monInput.style.setProperty('--value', ((mon - monInput.min) / (monInput.max - monInput.min) * 100) + '%');
+
+    // Всё что шло у вас дальше в функции calc оставляем без изменений:
+    document.getElementById('a' + i).innerText = amt.toLocaleString('ru-RU') + ' ₽';
+    document.getElementById('d' + i).innerText = mon + (mon === 1 ? ' месяц' : (mon >= 2 && mon <= 4 ? ' месяца' : ' месяцев'));
+    const prf = (amt * (parseFloat(plans[i].rate) / 100)) * (mon / 12);
+    document.getElementById('p' + i).innerText = prf.toFixed(2).replace('.', ',') + ' ₽';
+}
 
            
    </script>
