@@ -2336,11 +2336,7 @@ body {
 
                 <h2 class="section-title" style="margin-bottom: 15px;">Доступные инвестиционные планы</h2>
     <style>
-        /* ==========================================================================
-   ГЛАВНОЕ ПРАВИЛО ПЕРЕКЛЮЧЕНИЯ ВКЛАДОК (СПАСАЕТ ОТ НАЛОЖЕНИЯ)
-   ========================================================================== */
-
-/* 1. Прячем ВСЕ разделы личного кабинета по умолчанию */
+           /* 1. Прячем ВСЕ разделы личного кабинета по умолчанию */
 .dashboard-tab {
     display: none !important;
 }
@@ -2355,7 +2351,7 @@ body {
     box-sizing: border-box !important;
 }
 
-/* --- СТИЛИ ДЛЯ ОБНОВЛЕННОГО ПОЛЗУНКА (КАК НА ВАШЕЙ КАРТИНКЕ) --- */
+/* --- СТИЛИ ДЛЯ ОБНОВЛЕННОГО ПОЛЗУНКА --- */
 #tab-tariffs .sld { 
     -webkit-appearance: none; 
     appearance: none; 
@@ -2386,8 +2382,10 @@ body {
     cursor: pointer !important; 
     border: none !important; 
 }
+
+/* Окраска каждого конкретного ползунка через переменную из JS */
 #tab-tariffs .sld { 
-    background: linear-gradient(to right, #0052ff 0%, #0052ff var(--value, 0%), #edf2f7 var(--value, 0%), #edf2f7 100%) !important; 
+    background: linear-gradient(to right, var(--bg-color, #0052ff) 0%, var(--bg-color, #0052ff) var(--value, 0%), #edf2f7 var(--value, 0%), #edf2f7 100%) !important; 
 }
 
 /* --- СТИЛИ МОДАЛЬНОГО ОКНА TELEGRAM --- */
@@ -2414,16 +2412,15 @@ body {
 #md #m-icon-box { display: inline-flex !important; align-items: center !important; justify-content: center !important; }
 #md .tg { display: block !important; background: #0052ff !important; color: #fff !important; text-decoration: none !important; padding: 14px !important; border-radius: 16px !important; font-size: 13px !important; font-weight: 700 !important; margin-bottom: 15px !important; text-transform: uppercase !important; }
 #md .close { background: none !important; border: none !important; color: #2c3e50 !important; font-size: 14px !important; font-weight: 600 !important; cursor: pointer !important; }
-/* --- ИЗОЛИРОВАННАЯ ВКЛАДКА ТАРИФОВ --- */
+
+/* --- ИЗОЛИРОВАННАЯ ВКЛАДКА ТАРИФОВ (ВЫРАВНЕНА ПО СЕТКЕ КАБИНЕТА) --- */
 #tab-tariffs {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
     width: 100% !important;
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-    padding: 20px !important;
+    margin: 0 0 30px 0 !important; /* Отступы в точности как у карточек баланса и валют */
+    padding: 0 !important; /* Убрали внутренние паддинги, чтобы края встали стык в стык */
 }
 
-/* Безопасное скрытие вкладки: прячем ТОЛЬКО тарифы, если они неактивны, лоадер не пострадает */
 div#tab-tariffs:not(.active) {
     display: none !important;
 }
@@ -2431,7 +2428,6 @@ div#tab-tariffs:not(.active) {
 #tab-tariffs .title { color: #0d1b2a !important; font-size: 24px !important; font-weight: 800 !important; margin-bottom: 5px !important; }
 #tab-tariffs .info { color: #607d8b !important; font-size: 14px !important; font-weight: 600 !important; margin-bottom: 10px !important; display: flex !important; align-items: center !important; gap: 8px !important; line-height: 1.4 !important; }
 
-/* Знак «!» гарантированно защищен от превращения в овал на смартфонах */
 #tab-tariffs .info-icon { 
     width: 18px !important; 
     height: 18px !important; 
@@ -2447,8 +2443,28 @@ div#tab-tariffs:not(.active) {
 }
 
 #tab-tariffs .warn { border: 2px dashed #ff9100 !important; background: rgba(255,145,0,.06) !important; padding: 10px 15px !important; border-radius: 14px !important; margin-bottom: 20px !important; color: #ff6d00 !important; font-weight: 700 !important; font-size: 14px !important; }
-#tab-tariffs .list { display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
-#tab-tariffs .card { background: #fff !important; border: 1px solid #e2e8f0 !important; border-radius: 20px !important; padding: 20px !important; box-shadow: 0 10px 30px rgba(0,86,179,.02) !important; display: flex !important; flex-direction: column !important; justify-content: space-between !important; min-height: 410px !important; }
+
+/* Сетка на ПК: строго 2 колонки, подстраивается под общую ширину кабинета */
+#tab-tariffs .list { 
+    display: grid !important; 
+    grid-template-columns: repeat(2, 1fr) !important; 
+    width: 100% !important;
+    gap: 10px !important; /* Такой же гэп, как у сетки валютных карточек */
+}
+
+#tab-tariffs .card { 
+    background: #fff !important; 
+    border: 1px solid #e2e8f0 !important; 
+    border-radius: 16px !important; /* Радиус скругления как у карточки баланса и валют */
+    padding: 20px !important; 
+    box-shadow: 0 8px 24px rgba(0, 34, 102, 0.05) !important; 
+    display: flex !important; 
+    flex-direction: column !important; 
+    justify-content: space-between !important; 
+    min-height: 410px !important; 
+    width: 100% !important;
+}
+
 #tab-tariffs .head { display: flex !important; justify-content: space-between !important; align-items: center !important; }
 #tab-tariffs .name-box { display: flex !important; align-items: center !important; gap: 8px !important; }
 #tab-tariffs .p-icon { width: 22px !important; height: 22px !important; flex-shrink: 0 !important; stroke-width: 2.5 !important; }
@@ -2461,25 +2477,19 @@ div#tab-tariffs:not(.active) {
 #tab-tariffs .res { font-size: 13px !important; color: #2d3748 !important; font-weight: 600 !important; display: flex !important; justify-content: space-between !important; border-top: 1px dashed #edf2f7 !important; padding-top: 6px !important; }
 #tab-tariffs .btn { background: linear-gradient(135deg,#0052ff,#0043d0) !important; color: #fff !important; border: none !important; padding: 12px !important; border-radius: 14px !important; font-size: 14px !important; font-weight: 700 !important; cursor: pointer !important; width: 100% !important; }
 
-/* --- МОБИЛЬНАЯ АДАПТИВНОСТЬ НА МАКСИМАЛЬНУЮ ШИРИНУ --- */
+/* --- МОБИЛЬНАЯ АДАПТИВНОСТЬ ДЛЯ ТАРИФОВ (СТРОГО 1 КОЛОНКА) --- */
 @media(max-width:768px){
     #tab-tariffs {
-        padding: 10px !important; 
+        padding: 0 !important; 
         width: 100% !important;
     }
     #tab-tariffs .list { 
-        grid-template-columns: 1fr !important; 
-        width: 100% !important;
+        grid-template-columns: 1fr !important; /* Перестраивается в одну колонку на мобилках */
+        gap: 8px !important; /* Уменьшаем расстояние между карточками под мобильный стиль */
     }
     #tab-tariffs .card {
-        width: 100% !important; 
+        padding: 16px !important; 
         min-height: auto !important; 
-    }
-    #tab-tariffs .info-icon {
-        width: 22px !important;
-        height: 22px !important;
-        font-size: 14px !important;
-        flex-shrink: 0 !important;
     }
 }
         /* ==========================================================================
@@ -4515,7 +4525,6 @@ function toggleMenu() {
 }
 
 (function() {
-    // Весь наш код изолирован внутри этой функции и невидим для других скриптов сайта
     const paths = {
         sh: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM9 11l2 2 4-4"/>`,
         ge: `<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V21a2 2 0 01-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H3a2 2 0 010-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V3a2 2 0 014 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1H21a2 2 0 010 4h-.1a1.6 1.6 0 00-1.5 1z"/>`,
@@ -4530,16 +4539,18 @@ function toggleMenu() {
         { n: 'VIP план', d: 'Эксклюзивные условия доверительного управления.', min: 40, max: 45, svg: 'cr', fill: 'none', c: '#ffb300' }
     ];
 
-    // Привязываем функцию расчета напрямую к глобальному window, чтобы HTML её видел
     window.calc = function(i) {
-        const amtInput = document.getElementById('sa' + i);
-        const monInput = document.getElementById('sd' + i);
+        const amtInput = document.getElementById('sa' + i); // Первый движок (Сумма)
+        const monInput = document.getElementById('sd' + i); // Второй движок (Период)
         if (!amtInput || !monInput) return;
 
         const amt = parseInt(amtInput.value);
         const mon = parseInt(monInput.value);
         
-        // Красим полосу ползунка в синий цвет динамически
+        // Сумма — синий, период — чистый оранжевый
+        amtInput.style.setProperty('--bg-color', '#0052ff');
+        monInput.style.setProperty('--bg-color', '#ff6d00');
+
         amtInput.style.setProperty('--value', ((amt - amtInput.min) / (amtInput.max - amtInput.min) * 100) + '%');
         monInput.style.setProperty('--value', ((mon - monInput.min) / (monInput.max - monInput.min) * 100) + '%');
 
@@ -4550,7 +4561,6 @@ function toggleMenu() {
         document.getElementById('p' + i).innerText = prf.toFixed(2).replace('.', ',') + ' ₽';
     };
 
-    // Привязываем управление модалкой к окну
     window.openM = function(i) { 
         const p = plans[i];
         document.getElementById('mt').innerText = p.n; 
@@ -4562,7 +4572,6 @@ function toggleMenu() {
         document.getElementById('md').classList.remove('active'); 
     };
 
-    // Безопасный запуск без вмешательства в onload сайта
     function initTariffs() {
         plans.forEach((p, i) => {
             const rate = (Math.random() * (p.max - p.min) + p.min).toFixed(2);
@@ -4571,11 +4580,9 @@ function toggleMenu() {
             if (rateEl) rateEl.innerText = rate + '%';
         });
 
-        // Запуск первичного расчета
         plans.forEach((_, i) => window.calc(i));
     }
 
-    // Запускаем инициализацию, проверяя состояние документа
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initTariffs);
     } else {
