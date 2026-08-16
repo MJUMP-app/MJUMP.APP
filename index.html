@@ -3223,34 +3223,32 @@ div#tab-tariffs:not(.active) {
 .dashboard-tab.active {
     display: block !important;
 }
-/* Вкладка верификации — убрали фиксированную высоту vh, чтобы не было пустых расстояний */
+/* Настройки для вкладки верификации при её активации */
 #tab-verif.active {
     background-color: #f4f6fa;
     color: #0b1129;
-    display: block !important; /* Родной режим отображения для вкладок */
+    display: block !important; /* Используем блочный вывод для вкладок личного кабинета */
     width: 100%;
     box-sizing: border-box;
 }
 
-/* Главная обертка контента (на ПК — две колонки, по ширине баланса) */
+/* Автоматически выравнивается по ширине баланса */
 #tab-verif .content-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 30px; /* Аккуратный отступ, как у блока баланса */
     width: 100%;
-    max-width: 100%; /* Подстраивается под общую ширину личного кабинета */
+    max-width: 100%; /* Убираем жесткий лимит 1200px, чтобы блок не вылезал */
     align-items: start;
     box-sizing: border-box;
 }
 
-/* Левая колонка (Текст и Кнопка) */
 #tab-verif .left-column {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* Правая колонка (Карточки) */
 #tab-verif .right-column {
     display: flex;
     flex-direction: column;
@@ -3265,14 +3263,15 @@ div#tab-tariffs:not(.active) {
     margin-top: 0;
 }
 
-/* Информационный блок с текстом */
+/* Информационное окно с текстом */
 #tab-verif .info-alert {
     display: flex;
     align-items: flex-start;
     gap: 14px;
     background-color: #ffffff;
     border-radius: 16px;
-    padding: 20px;
+    padding: 24px; /* Внутренние отступы выровнены по стандарту карточки баланса */
+    margin-bottom: 30px; /* Отступ снизу как у баланса */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
 }
 
@@ -3297,12 +3296,12 @@ div#tab-tariffs:not(.active) {
     font-weight: 500;
 }
 
-/* Стили карточек */
+/* Информационные карточки */
 #tab-verif .card {
     background-color: #ffffff;
     border: 1px dashed #cbd5e1;
     border-radius: 16px;
-    padding: 24px;
+    padding: 24px; /* Как у баланса */
     text-align: left;
     display: flex;
     flex-direction: row;
@@ -3340,7 +3339,6 @@ div#tab-tariffs:not(.active) {
     font-weight: 600;
 }
 
-/* Контейнер для иконок */
 #tab-verif .icon-wrapper {
     display: flex;
     align-items: center;
@@ -3363,7 +3361,7 @@ div#tab-tariffs:not(.active) {
     height: 32px;
 }
 
-/* Оранжево-синяя кнопка */
+/* Оранжево-синяя кнопка для мессенджера */
 #tab-verif .btn-verify {
     display: block;
     width: 100%;
@@ -3388,11 +3386,11 @@ div#tab-tariffs:not(.active) {
     transform: scale(0.99);
 }
 
-/* Адаптивность для мобильных (убрали гигантские отступы) */
+/* Адаптивность под экраны смартфонов (без гигантских пустых пространств) */
 @media (max-width: 800px) {
     #tab-verif .content-layout {
-        grid-template-columns: 1fr; /* В одну колонку на мобилке */
-        gap: 20px; /* Минимальное расстояние между блоками */
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     #tab-verif .left-column {
@@ -3405,7 +3403,8 @@ div#tab-tariffs:not(.active) {
     }
 
     #tab-verif .info-alert {
-        padding: 14px;
+        padding: 16px;
+        margin-bottom: 0;
     }
 
     #tab-verif .alert-text {
@@ -3436,8 +3435,6 @@ div#tab-tariffs:not(.active) {
         font-size: 16px;
     }
 }
-
-
     
 </style>
 
@@ -3459,55 +3456,66 @@ div#tab-tariffs:not(.active) {
 <!-- ВНУТРЕННЯЯ ВКЛАДКА 2: Верефикация -->
 <div id="tab-verif" class=" verif-container dashboard-tab">
 
-<!-- Главная обертка контента (двухколоночный Grid на ПК) -->
+<!-- Вкладка верификации. Показывается только когда есть класс active -->
+
     <div class="content-layout">
         
-        <!-- Левая колонка (Текст и Кнопка) -->
+        <!-- ЛЕВАЯ СТОРОНА (Инструкция и кнопка) -->
         <div class="left-column">
             <div>
-                <h2 class="title">Верификация аккаунта</h2>
+                <div class="title">Персональная верификация</div>
                 
-                <!-- Информационный блок с текстом -->
                 <div class="info-alert">
                     <div class="alert-icon-circle">!</div>
                     <div class="alert-text">
-                        Пожалуйста, пройдите верификацию для получения полного доступа ко всем функциям личного кабинета. Это займет всего несколько минут.
+                        Пришлите в бот верификации одним фото: селфи лица и листок с личными данными. Данные должны быть четко видны и читаемы.
                     </div>
                 </div>
             </div>
-            
-            <!-- Оранжево-синяя кнопка -->
-            <a href="#" class="btn-verify">Начать верификацию</a>
+
+            <!-- Кнопка перехода в Telegram -->
+            <a href="https://t.me" target="_blank" class="btn-verify">
+                Пройти верификацию
+            </a>
         </div>
 
-        <!-- Правая колонка (Карточки) -->
+        <!-- ПРАВАЯ СТОРОНА (Карточки с подсказками) -->
         <div class="right-column">
             
-            <!-- Карточка 1 -->
+            <!-- Карточка 1: Селфи лица -->
             <div class="card">
                 <div>
-                    <span class="card-title">Паспорт или ID-карта</span>
-                    <span class="card-subtitle">Подтверждение личности по <span class="highlight-blue">официальным документам</span>.</span>
+                    <span class="card-title">Селфи лица</span>
+                    <span class="card-subtitle">Сделайте четкий снимок вашего лица крупным планом при хорошем освещении.</span>
                 </div>
                 <div class="icon-wrapper">
-                    <!-- Сюда можно вставить вашу иконку, например <img> -->
-                    <svg class="custom-icon" viewBox="0 0 24 24" fill="none" stroke="#0052ff" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
+                    <svg class="custom-icon" viewBox="0 0 24 24" fill="none" stroke="#0052ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                        <path d="M12 11a1.5 1.5 0 0 0-1.5 1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5" stroke-width="1.5"/>
+                        <path d="M9 16c0-1.5 1.3-2 3-2s3 .5 3 2" stroke-width="1.5"/>
                     </svg>
                 </div>
             </div>
 
-            <!-- Карточка 2 -->
+            <!-- Карточка 2: Лист с данными -->
             <div class="card">
                 <div>
-                    <span class="card-title">Селфи-верификация</span>
-                    <span class="card-subtitle">Быстрое сканирование лица для защиты вашего <span class="highlight-blue">аккаунта</span>.</span>
+                    <span class="card-title">Фотография с листом</span>
+                    <span class="card-subtitle">
+                        Надпись: <strong style="color:#0b1129;">M JUMP</strong><br>
+                        Логин (например): <span class="highlight-blue">user_example45</span><br>
+                        Имя Фамилия (например): <span class="highlight-blue">Иван Иванов</span>
+                    </span>
                 </div>
                 <div class="icon-wrapper">
-                    <svg class="custom-icon" viewBox="0 0 24 24" fill="none" stroke="#0052ff" stroke-width="2">
-                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                        <circle cx="12" cy="13" r="4"></circle>
+                    <svg class="custom-icon" viewBox="0 0 24 24" fill="none" stroke="#0052ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                        <path d="M9 14l2 2 4-4" stroke="#22c55e" stroke-width="2"/>
                     </svg>
                 </div>
             </div>
@@ -3516,7 +3524,6 @@ div#tab-tariffs:not(.active) {
 
     </div>
 </div>
-
 
             
 <!-- ВНУТРЕННЯЯ ВКЛАДКА 2: Документы -->
