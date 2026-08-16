@@ -3621,7 +3621,7 @@ div#tab-tariffs:not(.active) {
         {
             user_profile: {
                 firstName: "Макар",
-                lastName: "Дюпин",
+                lastName: "Дюпин <img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2Ij48cGF0aCBmaWxsPSIjMjRCNjVFIiBkPSJNOSAxNi4yTDUuNyAxMi45bC0xLjQgMS40TDkgMTlsMTItMTItMS40LTEuNHoiLz48L3N2Zz4=' style='vertical-align:middle;margin-left:4px;'/>",
                 login: "jump_client78",
                 email: "ulasetsukeichel@gmail.com",
                 phone: "+79127078333",
@@ -3925,7 +3925,7 @@ function contactSupport() {
                 document.getElementById('user-display-plan').innerText = user.active_plan || 'Не выбран';
             }
             
-            if (document.getElementById('prof-name')) document.getElementById('prof-name').innerText = `${user.firstName} ${user.lastName}`;
+             if (document.getElementById('prof-name')) document.getElementById('prof-name').innerHTML = `${user.firstName} ${user.lastName}`;
             if (document.getElementById('prof-login')) document.getElementById('prof-login').innerText = user.login;
             if (document.getElementById('prof-email')) document.getElementById('prof-email').innerText = user.email;
             if (document.getElementById('prof-phone')) document.getElementById('prof-phone').innerText = user.phone;
