@@ -1938,19 +1938,12 @@
     --text-legal: #94a3b8; 
     --accent-orange: #ff5500; 
     
-    /* ЦВЕТА ИЗМЕНЕНЫ НА ШАХМАТНЫЕ */
+    /* ШАХМАТНЫЕ ЦВЕТА КНОПОК И ЗАГОЛОВКОВ */
     --btn-bright-orange: #45b180; /* Изумрудный (Knight) */
     --btn-bright-green: #315ee1;  /* Синий (Bishop) */
     --btn-bright-blue: #9c27b0;   /* Фиолетовый (Queen) */
     
     --modal-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #f1f5f9; 
 }
 
 .modal-overlay {
@@ -2055,7 +2048,6 @@ body {
     flex-shrink: 0;
 }
 
-/* КАРТИНКА ВЛЕЗАЕТ ПОЛНОСТЬЮ, ТЕНЬ СТРОГО ВНИЗУ */
 .card-image-wrapper {
     width: 110px;
     height: 110px;
@@ -2070,7 +2062,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 15%;
+    object-position: center center;
     display: block;
 }
 
@@ -2101,8 +2093,7 @@ body {
     gap: 6px;
 }
 
-.nairobi .card-title { color: var(--btn-bright-orange); }
-.kilimanjaro .card-title { color: var(--btn-bright-green); }
+/* ФИОЛЕТОВЫЙ СТИЛЬ ДЛЯ КОРОЛЕВЫ */
 .capetown .card-title { color: var(--btn-bright-blue); }
 
 .card-desc {
@@ -2127,9 +2118,10 @@ body {
     gap: 10px;
 }
 
-.nairobi .card-btn { background: var(--btn-bright-orange); box-shadow: 0 4px 12px rgba(69, 177, 128, 0.35); }
-.kilimanjaro .card-btn { background: var(--btn-bright-green); box-shadow: 0 4px 12px rgba(49, 94, 225, 0.35); }
-.capetown .card-btn { background: var(--btn-bright-blue); box-shadow: 0 4px 12px rgba(156, 39, 176, 0.35); }
+.capetown .card-btn { 
+    background: var(--btn-bright-blue); 
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.35); 
+}
 
 .chess-icon-svg {
     width: 18px; 
@@ -2458,68 +2450,41 @@ body {
         </div>
     </div>
 
-    <!-- СТРАНИЦА 3: РАБОЧАЯ ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ -->
-    <div id="dashboard-page" class="page">
+   <!-- СТРАНИЦА 3: РАБОЧАЯ ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ -->
+<div id="dashboard-page" class="page">
         
 <div class="modal-overlay" id="afrikaFinalModal">
     <div class="modal-container">
         <button class="close-button" onclick="hideModal()">&times;</button>
         
         <div class="modal-header">
-            <h1>Пополни на все листочки!</h1>
-            <h2>Осенний гербарий</h2>
-            <p>Пополняйте баланс и забирайте максимальные бонусы на свой депозит прямо сейчас.</p>
+            <h1>Криперская акция! 🎃</h1>
+            <h2>В честь Хэллоуина 🔮</h2>
+            <p>👻 Пополняйте баланс на определенную сумму и получайте бонус!</p>
         </div>
 
         <div class="locations-list">
             
-            <!-- KNIGHT -->
-            <div class="location-card nairobi">
-                <div class="card-image-wrapper">
-                    <img src="https://yandex.ru/images/touch/search?search_client=unknown&p=3&source=tabbar&text=%D0%B4%D1%83%D0%B1%D0%BE%D0%B2%D1%8B%D0%B9+%D0%BB%D0%B8%D1%81%D1%82+%D0%BD%D0%B0+%D1%84%D0%BE%D0%BD%D0%B5+%D0%BE%D1%81%D0%B5%D0%BD%D0%BD%D0%B8%D1%86+&pos=4&rpt=simage&img_url=https%3A%2F%2Fmasterpiecer-images.s3.yandex.net%2F5fa6d96f600e11ee9597429f31467427%3Aupscaled&lr=50" alt="Knight">
+            <div class="location-card capetown" style="display: block; padding: 16px;">
+                
+                <div class="card-image-wrapper" style="width: 100%; height: 240px; margin: 0 0 16px 0; border-radius: 12px; overflow: hidden;">
+                    <img src="https://avatars.mds.yandex.net/get-altay/20614309/2a000001a16e33876f32c2374c1305a9c804/M" alt="Queen" style="width: 100%; height: 100%; object-fit: cover; object-position: center center;">
                 </div>
+                
                 <div class="card-content">
-                    <div class="card-title">КЛЁН</div>
-                    <p class="card-desc">60% бонус на депозит от $40</p>
-                    <button class="card-btn" onclick="openDepositSection()">
-                        <svg class="chess-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 22H5c0-1.5.5-3 1.5-4.5C8 15.5 9 13 9 10.5c0-1.5-.5-3.5-1-4.5C7.5 5 8 3.5 9.5 3c1.5-.5 3 .5 3.5 2 .5 1.5 2 1.5 3 1s1.5-2 3-1.5c1 .3 1 2 0 3s-2.5 1.5-2.5 3c0 2 1 4.5 2.5 6 1 1.5 1.5 3 1.5 4.5zM9 10h4"/>
-                        </svg>
-                        Пополнить клёном 
-                    </button>
-                </div>
-            </div>
-
-            <!-- BISHOP -->
-            <div class="location-card kilimanjaro">
-                <div class="card-image-wrapper">
-                    <img src="https://avatars.mds.yandex.net/get-altay/21221165/2a0000019feffb20edc91c4bd89c1589b792/L" alt="Bishop">
-                </div>
-                <div class="card-content">
-                    <div class="card-title">ДУБ</div>
-                    <p class="card-desc">80% бонус на депозит от $100</p>
-                    <button class="card-btn" onclick="openDepositSection()">
-                        <svg class="chess-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2a3 3 0 0 0-3 3c0 .5.1.9.3 1.3L7.5 12h9l-1.8-5.7c.2-.4.3-.8.3-1.3a3 3 0 0 0-3-3zm0 2v2M6 22h12M9 22v-3c0-1.7 1.3-3 3-3s3 1.3 3 3v3M12 11v3"/>
-                        </svg>
-                        Захват
-                    </button>
-                </div>
-            </div>
-
-            <!-- QUEEN -->
-            <div class="location-card capetown">
-                <div class="card-image-wrapper">
-                    <img src="https://avatars.mds.yandex.net/get-altay/19854598/2a0000019feff5f0addbb6af2e3cd6f022d4/L" alt="Queen">
-                </div>
-                <div class="card-content">
-                    <div class="card-title">РЯБИНА</div>
-                    <p class="card-desc">100% бонус на депозит от $300</p>
-                    <button class="card-btn" onclick="openDepositSection()">
-                        <svg class="chess-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M2 4l3 12h14l3-12-5 5-5-7-5 7-5-5zm3 12v3c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-3M7 16h10"/>
-                        </svg>
-                        Шах и мат
+                    <div class="card-title">БОНУСНАЯ ПРОГРАММА 💀</div>
+                    
+                    <p class="card-desc">
+                        💀 От 10$ до 50$ - <b>бонус 5$</b><br>
+                        💀 От 60$ до 100$ - <b>бонус 10$</b><br>
+                        💀 От 100$ до 1000$ - <b>бонус 50$</b><br><br>
+                        <b>⚠️ Чтобы вывести бонус, нужно совершить оборот инвестиций больше суммы бонуса!</b><br><br>
+                        <i>💬 При выводе бонусные средства списываются и выводится только прибыль с них 💰</i>
+                    </p>
+                    
+                    <!-- Кнопка: перелив из ядовито-зеленого в фиолетовый, буквы белые -->
+                    <button class="card-btn" onclick="openDepositSection()" style="background: linear-gradient(135deg, #39ff14 0%, #9c27b0 100%) !important; color: #ffffff !important; font-weight: 700 !important; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important; box-shadow: 0 4px 15px rgba(156, 39, 176, 0.4) !important;">
+                        Пополнить счет 🦇
                     </button>
                 </div>
             </div>
@@ -2527,7 +2492,7 @@ body {
         </div>
 
         <div class="modal-footer">
-            <p>В акции могут участвовать все зарегистрированные клиенты. Все промокоды действуют до 2026-08-20.</p>
+            <p>📅 Действует с 24.10.26 по 31.10.26 | #акция @m_jump mjump.p7z.ru 🕸️</p>
         </div>
     </div>
 </div>
