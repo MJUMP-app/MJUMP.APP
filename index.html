@@ -3449,34 +3449,39 @@ div#tab-tariffs:not(.active) {
    /* ==========================================================================
    ОБНОВЛЕННЫЕ СТИЛИ: ИДЕАЛЬНОЕ СОЧЕТАНИЕ КАРТОЧЕК И КНОПКИ (СИНЕ-ЗЕЛЕНЫЙ ГРАДИЕНТ)
    ========================================================================== */
+/* ==========================================================================
+   ЭСТЕТИЧНЫЙ ПРЕМИУМ-ДИЗАЙН ДЛЯ РАЗДЕЛА ПОПОЛНЕНИЯ (СТИЛЬ ВТБ / REVOLUT)
+   ========================================================================= */
 .deposit-form-container .mobile-width {
     max-width: 480px;
     margin: 0 auto;
 }
 
-/* Бейдж этапа */
+/* Эстетичный минималистичный бейдж этапа */
 .deposit-form-container .step-badge {
     display: inline-block;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     padding: 6px 14px;
-    background: #edf2ff; 
+    background: rgba(0, 82, 255, 0.08); 
     color: #0052ff; 
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    border-radius: 8px;
+    border-radius: 20px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .deposit-form-container .inputs-row {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
 .deposit-form-container .input-group {
     margin-bottom: 16px;
 }
 
+/* Элегантные поля ввода */
 .deposit-form-container .custom-input {
     width: 100%;
     box-sizing: border-box;
@@ -3485,14 +3490,14 @@ div#tab-tariffs:not(.active) {
     border: 2px solid #e2e8f0;
     border-radius: 16px;
     font-size: 16px;
-    color: #1a202c;
+    color: #0f172a;
     outline: none;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .deposit-form-container .custom-input:focus {
     border-color: #0052ff;
-    box-shadow: 0 4px 16px rgba(0, 82, 255, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 82, 255, 0.08);
 }
 
 .deposit-form-container .method-label {
@@ -3505,45 +3510,45 @@ div#tab-tariffs:not(.active) {
     display: none; 
 }
 
-/* 📱 МОБИЛЬНЫЙ ВИД: Вертикальная сетка */
+/* 📱 МОБИЛЬНАЯ СЕТКА */
 .deposit-form-container .methods-grid {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-/* ✨ ИЗМЕНЕНО: КАРТОЧКИ ТЕПЕРЬ ИДЕАЛЬНО СОЧЕТАЮТСЯ С КНОПКОЙ */
+/* ✨ ГЛУБОКИЙ ЭСТЕТИЧНЫЙ СИНЙ ФОН КАРТОЧЕК */
 .deposit-form-container .dep-method-card {
     display: flex;
     flex-direction: row;       
     align-items: center;       
     gap: 16px;                 
     padding: 18px 20px;        
-    /* Градиент в тон кнопки, но в более глубоких и мягких благородных оттенках */
-    background: linear-gradient(135deg, #003cc2 0%, #001f66 40%, #008040 100%); 
+    /* Дорогой, глубокий синий градиент в стиле премиум-экранов ВТБ */
+    background: linear-gradient(135deg, #0f1d36 0%, #050b14 100%); 
     border: 2px solid transparent; 
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0, 31, 102, 0.2); 
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(5, 11, 20, 0.15); 
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Белое контрастное окошко для картинок (скрывает белый фон логотипов) */
+/* Белое контрастное окошко под иконки (скрывает любые косяки фонов логотипов) */
 .deposit-form-container .card-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    min-width: 60px;           
-    height: 50px;
+    min-width: 58px;           
+    height: 48px;
     background: #ffffff; 
     border-radius: 12px;
     padding: 4px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .deposit-form-container .card-icon img {
     width: auto;
-    height: 26px;              
+    height: 24px;              
     object-fit: contain;
     background: #ffffff; 
 }
@@ -3554,29 +3559,30 @@ div#tab-tariffs:not(.active) {
     text-align: left;          
 }
 
-/* Чисто белый текст на сине-зеленом фоне */
+/* ВСЕ БУКВЫ И ЦИФРЫ СТРОГО БЕЛОГО ЦВЕТА */
 .deposit-form-container .card-title {
     font-size: 16px;
     font-weight: 700;
-    color: #ffffff; 
-    margin-bottom: 2px;
+    color: #ffffff; /* Чисто белый */
+    margin-bottom: 3px;
+    letter-spacing: 0.3px;
 }
 
-/* Приятный пастельный салатово-голубой подтекст */
+/* Подтекст тоже белый, но с изящным благородным приглушением за счет прозрачности */
 .deposit-form-container .card-text {
     font-size: 13px;
-    color: #a3e635; /* Красивый мягкий салатовый цвет для лимитов */
-    opacity: 0.85;
+    color: rgba(255, 255, 255, 0.6); /* Белый полупрозрачный */
+    letter-spacing: 0.2px;
 }
 
-/* АКТИВНЫЙ МЕТОД: Подсвечивается стильным ЧИСТО БЕЛЫМ контуром */
+/* АКТИВНЫЙ МЕТОД: Идеальный, ультра-четкий белый контур при клике */
 .deposit-form-container .method-radio:checked + .dep-method-card {
-    border-color: #ffffff; 
-    box-shadow: 0 8px 25px rgba(0, 204, 102, 0.3); /* Тень приобретает зеленый оттенок при выборе */
-    transform: translateY(-3px);
+    border-color: #ffffff; /* Чисто белая аккуратная рамка */
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15), 0 4px 10px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px); /* Легкий эффект "всплытия" */
 }
 
-/* Блокировка полей */
+/* Заморозка полей */
 .deposit-form-container .custom-input:disabled, 
 .deposit-form-container .method-radio:disabled + .dep-method-card {
     opacity: 0.3;
@@ -3585,11 +3591,12 @@ div#tab-tariffs:not(.active) {
 }
 
 /* ==========================================================================
-   КНОПКА: СИНЕ-ЗЕЛЕНЫЙ ПЕРЕЛИВ НА ШАГЕ 1 И ЗЕЛЕНЫЙ НА ШАГЕ 2
+   БЕЗУПРЕЧНАЯ КНОПКА: ИЗНАЧАЛЬНЫЙ СИНЕ-ЗЕЛЕНЫЙ ПЕРЕЛИВ И ЧИСТО ЗЕЛЕНЫЙ ВОЗВРАТ
    ========================================================================== */
 .btn-submit {
     width: 100%;
     padding: 16px;
+    /* Яркий сине-зеленый перелив на Шаге 1 */
     background: linear-gradient(135deg, #0052ff 0%, #00cc66 100%);
     color: #ffffff;
     border: none;
@@ -3606,10 +3613,10 @@ div#tab-tariffs:not(.active) {
     box-shadow: 0 6px 20px rgba(0, 82, 255, 0.45);
 }
 
-/* Режим подтверждения (Шаг 2) — возврат к чисто зеленому цвету */
+/* Режим подтверждения (Шаг 2) — возврат к благородному чисто зеленому */
 .btn-submit.green-mode {
     background: #00cc66; 
-    box-shadow: 0 4px 12 rgba(0, 204, 102, 0.35);
+    box-shadow: 0 4px 14px rgba(0, 204, 102, 0.35);
 }
 
 .btn-submit.green-mode:hover {
@@ -3621,34 +3628,34 @@ div#tab-tariffs:not(.active) {
     transform: scale(0.98); 
 }
 
-/* Экран успеха */
+/* Успешный экран */
 .success-screen {
     display: none; 
 }
 
 .success-box {
-    background: #f0fff4;
-    border: 2px solid #c6f6d5;
-    padding: 24px;
-    border-radius: 16px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    padding: 28px;
+    border-radius: 18px;
     text-align: center;
 }
 
 .success-title {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 700;
-    color: #22543d;
-    margin-bottom: 8px;
+    color: #0f172a;
+    margin-bottom: 10px;
 }
 
 .success-text {
     font-size: 14px;
-    color: #4a5568;
-    line-height: 1.5;
+    color: #475569;
+    line-height: 1.6;
 }
 
 /* ==========================================================================
-   🖥️ ДЕСКТОПНЫЙ ВИД (ПЛИТКА)
+   🖥️ ДЕСКТОПНЫЙ ВИД (ПЛИТКА ИЗ 4 КОЛОНОК) ДЛЯ ЭКРАНОВ ОТ 768px
    ========================================================================== */
 @media (min-width: 768px) {
     .deposit-form-container.mobile-width {
@@ -3665,7 +3672,7 @@ div#tab-tariffs:not(.active) {
         flex-direction: column;    
         justify-content: center;   
         text-align: center;        
-        padding: 24px 16px;        
+        padding: 26px 16px;        
         height: 100%;              
         box-sizing: border-box;
     }
@@ -3673,13 +3680,14 @@ div#tab-tariffs:not(.active) {
     .deposit-form-container .card-info {
         text-align: center;
         align-items: center;
-        margin-top: 14px;          
+        margin-top: 16px;          
     }
 
     .deposit-form-container .card-icon {
         margin: 0 auto;
     }
 }
+
 
     
  /* 1. Прячем ВСЕ разделы личного кабинета по умолчанию */
