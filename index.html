@@ -3446,18 +3446,21 @@ div#tab-tariffs:not(.active) {
     /* ==========================================================================
        НОВЫЕ СТИЛИ ИСКЛЮЧИТЕЛЬНО ДЛЯ РАЗДЕЛА ПОПОЛНЕНИЯ СЧЕТА
        ========================================================================== */
-   .deposit-form-container .mobile-width {
+   /* ==========================================================================
+   ОБНОВЛЕННЫЕ СТИЛИ: ИДЕАЛЬНОЕ СОЧЕТАНИЕ КАРТОЧЕК И КНОПКИ (СИНЕ-ЗЕЛЕНЫЙ ГРАДИЕНТ)
+   ========================================================================== */
+.deposit-form-container .mobile-width {
     max-width: 480px;
     margin: 0 auto;
 }
 
-/* Яркий оранжевый бейдж этапа */
+/* Бейдж этапа */
 .deposit-form-container .step-badge {
     display: inline-block;
     margin-bottom: 16px;
     padding: 6px 14px;
-    background: #ff6b00; /* Яркий оранжевый элемент */
-    color: #ffffff; 
+    background: #edf2ff; 
+    color: #0052ff; 
     font-size: 13px;
     font-weight: 700;
     border-radius: 8px;
@@ -3502,28 +3505,29 @@ div#tab-tariffs:not(.active) {
     display: none; 
 }
 
+/* 📱 МОБИЛЬНЫЙ ВИД: Вертикальная сетка */
 .deposit-form-container .methods-grid {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-/* ИЗМЕНЕНО: КАРТОЧКИ С КРАСИВЫМ СИНЕМ ГРАДИЕНТОМ В СТИЛЕ ВТБ */
+/* ✨ ИЗМЕНЕНО: КАРТОЧКИ ТЕПЕРЬ ИДЕАЛЬНО СОЧЕТАЮТСЯ С КНОПКОЙ */
 .deposit-form-container .dep-method-card {
     display: flex;
     flex-direction: row;       
     align-items: center;       
     gap: 16px;                 
     padding: 18px 20px;        
-    /* Нежный переход от умеренно-синего к благородному глубокому синему */
-    background: linear-gradient(135deg, #1e52a4 0%, #0a2240 100%); 
-    border: 2px solid transparent; /* Изначально рамка скрыта */
+    /* Градиент в тон кнопки, но в более глубоких и мягких благородных оттенках */
+    background: linear-gradient(135deg, #003cc2 0%, #001f66 40%, #008040 100%); 
+    border: 2px solid transparent; 
     border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(10, 34, 64, 0.15); 
-    transition: all 0.25s ease;
+    box-shadow: 0 6px 18px rgba(0, 31, 102, 0.2); 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ИСПРАВЛЕНО: Белое контрастное окошко, чтобы скрыть белые поля любых логотипов */
+/* Белое контрастное окошко для картинок (скрывает белый фон логотипов) */
 .deposit-form-container .card-icon {
     display: flex;
     align-items: center;
@@ -3531,7 +3535,7 @@ div#tab-tariffs:not(.active) {
     gap: 6px;
     min-width: 60px;           
     height: 50px;
-    background: #ffffff; /* Строго белый цвет внутри окошка */
+    background: #ffffff; 
     border-radius: 12px;
     padding: 4px;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
@@ -3550,7 +3554,7 @@ div#tab-tariffs:not(.active) {
     text-align: left;          
 }
 
-/* Белый текст заголовка на синем фоне */
+/* Чисто белый текст на сине-зеленом фоне */
 .deposit-form-container .card-title {
     font-size: 16px;
     font-weight: 700;
@@ -3558,35 +3562,34 @@ div#tab-tariffs:not(.active) {
     margin-bottom: 2px;
 }
 
-/* Светло-голубой контрастный подтекст */
+/* Приятный пастельный салатово-голубой подтекст */
 .deposit-form-container .card-text {
     font-size: 13px;
-    color: #94a3b8;
+    color: #a3e635; /* Красивый мягкий салатовый цвет для лимитов */
+    opacity: 0.85;
 }
 
-/* АКТИВНЫЙ МЕТОД: Теперь подсвечивается стильным чисто белым контуром */
+/* АКТИВНЫЙ МЕТОД: Подсвечивается стильным ЧИСТО БЕЛЫМ контуром */
 .deposit-form-container .method-radio:checked + .dep-method-card {
-    border-color: #ffffff; /* Изменено с оранжевого на чисто белый */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
+    border-color: #ffffff; 
+    box-shadow: 0 8px 25px rgba(0, 204, 102, 0.3); /* Тень приобретает зеленый оттенок при выборе */
+    transform: translateY(-3px);
 }
 
-
-/* Состояние заморозки при переходе к оплате */
+/* Блокировка полей */
 .deposit-form-container .custom-input:disabled, 
 .deposit-form-container .method-radio:disabled + .dep-method-card {
-    opacity: 0.4;
+    opacity: 0.3;
     cursor: not-allowed;
     pointer-events: none;
 }
 
 /* ==========================================================================
-   ВОЗВРАЩЕНО: КНОПКА С ИЗНАЧАЛЬНЫМ ПЕРЕЛИВОМ И ЗЕЛЕНЫМ ВОЗВРАТОМ
+   КНОПКА: СИНЕ-ЗЕЛЕНЫЙ ПЕРЕЛИВ НА ШАГЕ 1 И ЗЕЛЕНЫЙ НА ШАГЕ 2
    ========================================================================== */
 .btn-submit {
     width: 100%;
     padding: 16px;
-    /* Изначальный сине-зеленый перелив (Шаг 1) */
     background: linear-gradient(135deg, #0052ff 0%, #00cc66 100%);
     color: #ffffff;
     border: none;
@@ -3598,19 +3601,17 @@ div#tab-tariffs:not(.active) {
     transition: background 0.4s ease, transform 0.1s ease, box-shadow 0.4s ease;
 }
 
-/* Наведение на Шаге 1 */
 .btn-submit:hover { 
     background: linear-gradient(135deg, #0040cc 0%, #00b359 100%);
     box-shadow: 0 6px 20px rgba(0, 82, 255, 0.45);
 }
 
-/* РЕЖИМ ПОДТВЕРЖДЕНИЯ (Шаг 2): Возврат к чисто зеленому цвету */
+/* Режим подтверждения (Шаг 2) — возврат к чисто зеленому цвету */
 .btn-submit.green-mode {
     background: #00cc66; 
-    box-shadow: 0 4px 12px rgba(0, 204, 102, 0.35);
+    box-shadow: 0 4px 12 rgba(0, 204, 102, 0.35);
 }
 
-/* Наведение на Шаге 2 */
 .btn-submit.green-mode:hover {
     background: #00b359;
     box-shadow: 0 6px 16px rgba(0, 179, 89, 0.4);
@@ -3646,7 +3647,9 @@ div#tab-tariffs:not(.active) {
     line-height: 1.5;
 }
 
-/* ДЕСКТОПНЫЙ ВИД (ПЛИТКА) */
+/* ==========================================================================
+   🖥️ ДЕСКТОПНЫЙ ВИД (ПЛИТКА)
+   ========================================================================== */
 @media (min-width: 768px) {
     .deposit-form-container.mobile-width {
         max-width: 750px; 
