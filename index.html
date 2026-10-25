@@ -3446,180 +3446,239 @@ div#tab-tariffs:not(.active) {
     /* ==========================================================================
        НОВЫЕ СТИЛИ ИСКЛЮЧИТЕЛЬНО ДЛЯ РАЗДЕЛА ПОПОЛНЕНИЯ СЧЕТА
        ========================================================================== */
-    .deposit-form-container .mobile-width {
-            max-width: 480px;
-            margin: 0 auto;
-        }
+   .deposit-form-container .mobile-width {
+    max-width: 480px;
+    margin: 0 auto;
+}
 
-        .deposit-form-container .step-badge {
-            display: inline-block;
-            margin-bottom: 16px;
-            padding: 6px 14px;
-            background: #edf2ff;
-            color: #0052ff;
-            font-size: 13px;
-            font-weight: 700;
-            border-radius: 8px;
-        }
+/* Яркий оранжевый бейдж этапа */
+.deposit-form-container .step-badge {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 6px 14px;
+    background: #ff6b00; /* Яркий оранжевый элемент */
+    color: #ffffff; 
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-transform: uppercase;
+}
 
-        .deposit-form-container .inputs-row {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+.deposit-form-container .inputs-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
-        .deposit-form-container .input-group {
-            margin-bottom: 16px;
-        }
+.deposit-form-container .input-group {
+    margin-bottom: 16px;
+}
 
-        .deposit-form-container .custom-input {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 18px;
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 16px;
-            font-size: 16px;
-            color: #1a202c;
-            outline: none;
-            transition: all 0.2s ease;
-        }
+.deposit-form-container .custom-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 18px;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    font-size: 16px;
+    color: #1a202c;
+    outline: none;
+    transition: all 0.2s ease;
+}
 
-        .deposit-form-container .custom-input:focus {
-            border-color: #0052ff;
-            box-shadow: 0 4px 16px rgba(0, 82, 255, 0.08);
-        }
+.deposit-form-container .custom-input:focus {
+    border-color: #0052ff;
+    box-shadow: 0 4px 16px rgba(0, 82, 255, 0.08);
+}
 
-        .deposit-form-container .method-label {
-            display: block;
-            margin-bottom: 12px;
-            cursor: pointer;
-        }
+.deposit-form-container .method-label {
+    display: block;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
 
-        .deposit-form-container .method-radio {
-            display: none; /* Скрываем стандартный кружок */
-        }
+.deposit-form-container .method-radio {
+    display: none; 
+}
 
-        .deposit-form-container .methods-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+.deposit-form-container .methods-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
-        /* МОБИЛЬНЫЙ ВИД КАРТОЧЕК (По умолчанию) */
-        .deposit-form-container .dep-method-card {
-            display: flex;
-            flex-direction: row;       /* Логотип слева, текст справа */
-            align-items: center;       
-            gap: 16px;                 
-            padding: 16px 20px;        
-            background: #ffffff;
-            border: 2px solid #e2e8f0; 
-            border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-            transition: all 0.2s ease;
-        }
+/* ИЗМЕНЕНО: КАРТОЧКИ С КРАСИВЫМ СИНЕМ ГРАДИЕНТОМ В СТИЛЕ ВТБ */
+.deposit-form-container .dep-method-card {
+    display: flex;
+    flex-direction: row;       
+    align-items: center;       
+    gap: 16px;                 
+    padding: 18px 20px;        
+    /* Нежный переход от умеренно-синего к благородному глубокому синему */
+    background: linear-gradient(135deg, #1e52a4 0%, #0a2240 100%); 
+    border: 2px solid transparent; /* Изначально рамка скрыта */
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(10, 34, 64, 0.15); 
+    transition: all 0.25s ease;
+}
 
-        .deposit-form-container .card-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            min-width: 54px;           
-            height: 48px;
-        }
+/* ИСПРАВЛЕНО: Белое контрастное окошко, чтобы скрыть белые поля любых логотипов */
+.deposit-form-container .card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 60px;           
+    height: 50px;
+    background: #ffffff; /* Строго белый цвет внутри окошка */
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
 
-        .deposit-form-container .card-icon img {
-            width: auto;
-            height: 30px;              
-            object-fit: contain;
-        }
+.deposit-form-container .card-icon img {
+    width: auto;
+    height: 26px;              
+    object-fit: contain;
+    background: #ffffff; 
+}
 
-        .deposit-form-container .card-info {
-            display: flex;
-            flex-direction: column;
-            text-align: left;          
-        }
+.deposit-form-container .card-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;          
+}
 
-        .deposit-form-container .card-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #1a202c;
-            margin-bottom: 2px;
-        }
+/* Белый текст заголовка на синем фоне */
+.deposit-form-container .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff; 
+    margin-bottom: 2px;
+}
 
-        .deposit-form-container .card-text {
-            font-size: 13px;
-            color: #718096;
-        }
+/* Светло-голубой контрастный подтекст */
+.deposit-form-container .card-text {
+    font-size: 13px;
+    color: #94a3b8;
+}
 
-        /* ПОДСВЕТКА ВЫБРАННОГО МЕТОДА */
-        .deposit-form-container .method-radio:checked + .dep-method-card {
-            border-color: #0052ff;
-            background: #f8faff;
-            box-shadow: 0 4px 16px rgba(0, 82, 255, 0.08);
-        }
+/* АКТИВНЫЙ МЕТОД: Теперь подсвечивается стильным чисто белым контуром */
+.deposit-form-container .method-radio:checked + .dep-method-card {
+    border-color: #ffffff; /* Изменено с оранжевого на чисто белый */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
 
-        .deposit-form-container .custom-input:disabled, 
-        .deposit-form-container .method-radio:disabled + .dep-method-card {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
 
-       .btn-submit {
+/* Состояние заморозки при переходе к оплате */
+.deposit-form-container .custom-input:disabled, 
+.deposit-form-container .method-radio:disabled + .dep-method-card {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   ВОЗВРАЩЕНО: КНОПКА С ИЗНАЧАЛЬНЫМ ПЕРЕЛИВОМ И ЗЕЛЕНЫМ ВОЗВРАТОМ
+   ========================================================================== */
+.btn-submit {
     width: 100%;
     padding: 16px;
-    background: #00cc66; /* ВОЗВРАЩЕН: Ярко-зеленый цвет */
+    /* Изначальный сине-зеленый перелив (Шаг 1) */
+    background: linear-gradient(135deg, #0052ff 0%, #00cc66 100%);
     color: #ffffff;
     border: none;
     border-radius: 16px;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 204, 102, 0.35); /* Зеленая тень для объема */
-    transition: background 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 15px rgba(0, 82, 255, 0.3); 
+    transition: background 0.4s ease, transform 0.1s ease, box-shadow 0.4s ease;
 }
 
+/* Наведение на Шаге 1 */
 .btn-submit:hover { 
-    background: #00b359; /* Чуть темнее при наведении */
+    background: linear-gradient(135deg, #0040cc 0%, #00b359 100%);
+    box-shadow: 0 6px 20px rgba(0, 82, 255, 0.45);
+}
+
+/* РЕЖИМ ПОДТВЕРЖДЕНИЯ (Шаг 2): Возврат к чисто зеленому цвету */
+.btn-submit.green-mode {
+    background: #00cc66; 
+    box-shadow: 0 4px 12px rgba(0, 204, 102, 0.35);
+}
+
+/* Наведение на Шаге 2 */
+.btn-submit.green-mode:hover {
+    background: #00b359;
+    box-shadow: 0 6px 16px rgba(0, 179, 89, 0.4);
 }
 
 .btn-submit:active {
-    transform: scale(0.98); /* Небольшой эффект нажатия */
+    transform: scale(0.98); 
 }
-        /* ДЕСКТОПНЫЙ ВИД (ПЛИТКА) ДЛЯ ЭКРАНОВ ОТ 768px */
-        @media (min-width: 768px) {
-            .deposit-form-container.mobile-width {
-                max-width: 750px; 
-            }
 
-            .deposit-form-container .methods-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr); /* 3 колонки в ряд */
-                gap: 16px; 
-            }
+/* Экран успеха */
+.success-screen {
+    display: none; 
+}
 
-            .deposit-form-container .dep-method-card {
-                flex-direction: column;    /* Логотип сверху, текст снизу */
-                justify-content: center;   
-                text-align: center;        
-                padding: 24px 16px;        
-                height: 100%;              
-                box-sizing: border-box;
-            }
+.success-box {
+    background: #f0fff4;
+    border: 2px solid #c6f6d5;
+    padding: 24px;
+    border-radius: 16px;
+    text-align: center;
+}
 
-            .deposit-form-container .card-info {
-                text-align: center;
-                align-items: center;
-                margin-top: 12px;          
-            }
+.success-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #22543d;
+    margin-bottom: 8px;
+}
 
-            .deposit-form-container .card-icon {
-                margin: 0 auto;
-            }
-        }
+.success-text {
+    font-size: 14px;
+    color: #4a5568;
+    line-height: 1.5;
+}
 
+/* ДЕСКТОПНЫЙ ВИД (ПЛИТКА) */
+@media (min-width: 768px) {
+    .deposit-form-container.mobile-width {
+        max-width: 750px; 
+    }
+
+    .deposit-form-container .methods-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); 
+        gap: 16px; 
+    }
+
+    .deposit-form-container .dep-method-card {
+        flex-direction: column;    
+        justify-content: center;   
+        text-align: center;        
+        padding: 24px 16px;        
+        height: 100%;              
+        box-sizing: border-box;
+    }
+
+    .deposit-form-container .card-info {
+        text-align: center;
+        align-items: center;
+        margin-top: 14px;          
+    }
+
+    .deposit-form-container .card-icon {
+        margin: 0 auto;
+    }
+}
+
+    
  /* 1. Прячем ВСЕ разделы личного кабинета по умолчанию */
 .dashboard-tab {
     display: none !important;
@@ -4001,13 +4060,13 @@ div#tab-tariffs:not(.active) {
                 <div class="input-group">
                     <div class="methods-grid">
                         
-                        <!-- БАНКОВСКАЯ КАРТА -->
+                        <!-- БАНКОВСКАЯ КАРТА (Своя ссылка) -->
                         <label class="method-label">
-                            <input type="radio" class="method-radio dep-radio" name="entry.555555" value="Банковская карта" required checked>
+                            <input type="radio" class="method-radio dep-radio" name="entry.555555" value="Банковская карта" data-url="https://ваш-сайт-карт.рф/pay" required checked>
                             <span class="dep-method-card">
                                 <div class="card-icon">
-                                    <img src="https://avatars.mds.yandex.net/i?id=a260b965bb47ffcb245f6ac10fd93a2608cbb0bb-4034093-images-thumbs&n=13" alt="Visa">
-                                    <img src="https://avatars.mds.yandex.net/i?id=783d793ae4611258f0df6c7b116c859c6e3a4851-5876973-images-thumbs&n=13" alt="Mastercard">
+                                    <img src="https://avatars.mds.yandex.net/i?id=bdf66dfa8159e2947d64c47d71ba3d8266c77bd0-4119069-images-thumbs&n=13" alt="Visa">
+                                    <img src="https://avatars.mds.yandex.net/i?id=4eb7a678d27107aa97e888073c664bc65df4f7c1-7755581-images-thumbs&n=13" alt="Mastercard">
                                 </div>
                                 <div class="card-info">
                                     <div class="card-title">Банковская карта</div>
@@ -4016,12 +4075,12 @@ div#tab-tariffs:not(.active) {
                             </span>
                         </label>
                         
-                        <!-- СБП -->
+                        <!-- СБП (Ссылка на Т-Банк) -->
                         <label class="method-label">
-                            <input type="radio" class="method-radio dep-radio" name="entry.555555" value="СБП">
+                            <input type="radio" class="method-radio dep-radio" name="entry.555555" value="СБП" data-url="https://tbank.ru">
                             <span class="dep-method-card">
                                 <div class="card-icon">
-                                    <img src="https://autrade.ru/upload/dev2fun.imagecompress/webp/medialibrary/10b/4wi0tdjlo8ip2hdn97nwbdyqfr2wxfvz/profit.webp" alt="СБП">
+                                    <img src="https://avatars.mds.yandex.net/i?id=6368f66619a8e585292d657d31a8f5c14a65c084-5858066-images-thumbs&n=13" alt="СБП">
                                 </div>
                                 <div class="card-info">
                                     <div class="card-title">СБП</div>
@@ -4030,12 +4089,12 @@ div#tab-tariffs:not(.active) {
                             </span>
                         </label>
                         
-                        <!-- USDT -->
+                        <!-- USDT (Ссылка на крипто-мерчант или адрес кошелька) -->
                         <label class="method-label">
-                            <input type="radio" class="method-radio dep-radio" name="entry.555555" value="USDT">
+                            <input type="radio" class="method-radio dep-radio" name="entry.555555" value="USDT" data-url="https://cryptomus.com">
                             <span class="dep-method-card">
                                 <div class="card-icon">
-                                    <img src="https://avatars.mds.yandex.net/i?id=983206e9fb27f6c626be91d61b1b5cd5ba42e2f6-11462839-images-thumbs&n=13" alt="USDT">
+                                    <img src="https://yandex.net" alt="USDT">
                                 </div>
                                 <div class="card-info">
                                     <div class="card-title">USDT (TRC-20)</div>
@@ -4044,12 +4103,12 @@ div#tab-tariffs:not(.active) {
                             </span>
                         </label>
 
-  <!-- Dogecoin -->
+                        <!-- DOGECOIN (Своя крипто-ссылка) -->
                         <label class="method-label">
-                            <input type="radio" class="method-radio dep-radio" name="entry.66666" value="USDT">
+                            <input type="radio" class="method-radio dep-radio" name="entry.555555" value="Dogecoin" data-url="https://cryptomus.com">
                             <span class="dep-method-card">
                                 <div class="card-icon">
-                                    <img src="https://avatars.mds.yandex.net/get-altay/19924873/2a000001a0d6c3bba2ed62b3db8057a2c093/M" alt="Dogecoin">
+                                    <img src="https://yandex.net" alt="Dogecoin">
                                 </div>
                                 <div class="card-info">
                                     <div class="card-title">Dogecoin</div>
@@ -4860,75 +4919,90 @@ function contactSupport() {
      
    
     // Настройка ширины контейнера пополнения (мобильный/ПК)
-    function adjustDepositContainerWidth() {
-        const container = document.getElementById('mainDepositContainer');
-        if (!container) return;
-        if (window.innerWidth >= 768) {
-            container.classList.remove('mobile-width');
-        } else {
-            container.classList.add('mobile-width');
+function adjustDepositContainerWidth() {
+    const container = document.getElementById('mainDepositContainer');
+    if (!container) return;
+    if (window.innerWidth >= 768) {
+        container.classList.remove('mobile-width');
+    } else {
+        container.classList.add('mobile-width');
+    }
+}
+
+window.addEventListener('resize', adjustDepositContainerWidth);
+document.addEventListener('DOMContentLoaded', adjustDepositContainerWidth);
+
+let isPaymentRedirected = false;
+
+const depositFormEl = document.getElementById('depositForm');
+if (depositFormEl) {
+    depositFormEl.addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        const form = this;
+        const button = document.getElementById('depSubmitBtn');
+        
+        // ШАГ 1: Динамическое открытие индивидуальной ссылки (Кнопка изначально с переливом)
+        if (!isPaymentRedirected) {
+            // Находим радио-кнопку, которую выбрал пользователь в данный момент
+            const selectedRadio = form.querySelector('.dep-radio:checked');
+            
+            // Достаем из этой кнопки её личную ссылку, прописанную в HTML через data-url
+            const currentMethodUrl = selectedRadio ? selectedRadio.getAttribute('data-url') : 'https://tbank.ru';
+
+            // Открываем её в новой вкладке
+            window.open(currentMethodUrl, '_blank');
+
+            // Замораживаем поля формы, чтобы данные не изменили во время оплаты
+            document.getElementById('depAmountInput').disabled = true;
+            document.getElementById('depLoginInput').disabled = true;
+            document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = true);
+
+            // Меняем текст кнопки и переключаем её в чисто зеленый цвет (.green-mode)
+            button.textContent = 'Я оплатил, подтвердить заявку';
+            button.classList.add('green-mode'); 
+            isPaymentRedirected = true;
+            return;
         }
-    }
-    
-    window.addEventListener('resize', adjustDepositContainerWidth);
-    document.addEventListener('DOMContentLoaded', adjustDepositContainerWidth);
 
-    let isPaymentRedirected = false;
-    
-    // ВСТАВЬТЕ ССЫЛКУ НА ВАШ САЙТ ОПЛАТЫ / ПЛАТЕЖНУЮ СТРАНИЦУ НИЖЕ:
-    const PAYMENT_URL = "https://tbank.ru/cf/5H5Bao5xS8Z"; 
+        // ШАГ 2: Клик после оплаты (Чисто зеленая кнопка) -> AJAX-отправка данных в Google Forms
+        // Собираем данные формы ДО разблокировки элементов, чтобы избежать сбоев
+        const formData = new FormData(form);
 
-    const depositFormEl = document.getElementById('depositForm');
-    if (depositFormEl) {
-        depositFormEl.addEventListener('submit', function(e) {
-            e.preventDefault(); 
-            const form = this;
-            const button = document.getElementById('depSubmitBtn');
-            const formData = new FormData(form);
+        button.textContent = 'Обработка...';
+        button.disabled = true;
+
+        document.getElementById('depAmountInput').disabled = false;
+        document.getElementById('depLoginInput').disabled = false;
+        document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = false);
+        
+        fetch(form.action, { method: 'POST', body: formData, mode: 'no-cors' })
+        .then(() => {
+            const container = document.getElementById('mainDepositContainer');
+            if (container) container.classList.add('mobile-width');
+            window.removeEventListener('resize', adjustDepositContainerWidth);
             
-            // ШАГ 1: Открытие страницы оплаты во вкладке браузера и заморозка полей
-            if (!isPaymentRedirected) {
-                window.open(PAYMENT_URL, '_blank');
-
-                document.getElementById('depAmountInput').disabled = true;
-                document.getElementById('depLoginInput').disabled = true;
-                document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = true);
-
-                button.textContent = 'Я оплатил, подтвердить заявку';
-                button.classList.add('confirm-mode');
-                isPaymentRedirected = true;
-                return;
-            }
-
-            // ШАГ 2: Пользователь вернулся, нажал подтверждение -> AJAX-отправка в Google Форму
-            button.textContent = 'Обработка...';
-            button.disabled = true;
-
-            document.getElementById('depAmountInput').disabled = false;
-            document.getElementById('depLoginInput').disabled = false;
-            document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = false);
+            // Скрываем форму и показываем экран успешной заявки
+            document.getElementById('deposit-step-form').style.display = 'none';
+            document.getElementById('deposit-step-success').style.display = 'block';
             
-            fetch(form.action, { method: 'POST', body: formData, mode: 'no-cors' })
-            .then(() => {
-                const container = document.getElementById('mainDepositContainer');
-                if (container) container.classList.add('mobile-width');
-                window.removeEventListener('resize', adjustDepositContainerWidth);
-                
-                // ИСПРАВЛЕНО: Теперь элементы скрываются и показываются корректно
-                document.getElementById('deposit-step-form').style.display = 'none';
-                document.getElementById('deposit-step-success').style.display = 'block';
-                form.reset();
-            })
-            .catch(error => {
-                console.error('Ошибка:', error);
-                button.textContent = 'Ошибка сети. Повторить?';
-                button.disabled = false;
-                document.getElementById('depAmountInput').disabled = true;
-                document.getElementById('depLoginInput').disabled = true;
-                document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = true);
-            });
+            // Сбрасываем кнопку обратно в дефолтный перелив для будущих операций
+            button.classList.remove('green-mode'); 
+            isPaymentRedirected = false;
+            form.reset();
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            button.textContent = 'Ошибка сети. Повторить?';
+            button.disabled = false;
+            
+            // Возвращаем блокировку полей, если отправка сорвалась
+            document.getElementById('depAmountInput').disabled = true;
+            document.getElementById('depLoginInput').disabled = true;
+            document.querySelectorAll('.dep-radio').forEach(radio => radio.disabled = true);
         });
-    }
+    });
+}
+
 
 
     // Настройка ширины контейнера формы вывода (мобильный/ПК)
