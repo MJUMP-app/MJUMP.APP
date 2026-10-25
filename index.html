@@ -3450,14 +3450,14 @@ div#tab-tariffs:not(.active) {
    ОБНОВЛЕННЫЕ СТИЛИ: ИДЕАЛЬНОЕ СОЧЕТАНИЕ КАРТОЧЕК И КНОПКИ (СИНЕ-ЗЕЛЕНЫЙ ГРАДИЕНТ)
    ========================================================================== */
 /* ==========================================================================
-   СВЕТЛЫЙ ЭСТЕТИЧНЫЙ СИНЙ ДИЗАЙН С ЭФФЕКТОМ ПЛЕНКИ И ОРАНЖЕВЫМИ БЕЙДЖАМИ
+   ФИНАЛЬНЫЕ СТИЛИ: МАТОВЫЕ ЧЕРНЫЕ МЕТОДЫ, УВЕЛИЧЕННЫЕ ИКОНКИ И БЕЛЫЙ КОНТУР
    ========================================================================= */
 .deposit-form-container .mobile-width {
     max-width: 480px;
     margin: 0 auto;
 }
 
-/* Яркий оранжевый блок для этапов */
+/* Оранжевый блок для этапов (сохранено) */
 .deposit-form-container .step-badge {
     display: inline-block;
     margin-bottom: 18px;
@@ -3516,78 +3516,40 @@ div#tab-tariffs:not(.active) {
     gap: 12px;
 }
 
-/* ✨ ИЗМЕНЕНО: КАРТОЧКИ СТАЛИ СВЕТЛЕЕ (Приятный космический синий градиент) */
+/* ✨ ИЗМЕНЕНО: КАРТОЧКИ ПЕРЕВЕДЕНЫ В СТИЛЬНЫЙ МАТОВЫЙ ЧЕРНЫЙ ЦВЕТ */
 .deposit-form-container .dep-method-card {
     display: flex;
     flex-direction: row;       
     align-items: center;       
     gap: 16px;                 
-    padding: 18px 20px;        
-    /* Более светлый, чистый и технологичный сине-голубой градиент */
-    background: linear-gradient(135deg, #1e62d0 0%, #0f46a8 100%); 
+    padding: 20px 22px; /* Чуть увеличили внутренние отступы */
+    background: #121214; /* Глубокий благородный черный цвет */
     border: 2px solid transparent; 
     border-radius: 18px;
-    box-shadow: 0 4px 16px rgba(15, 70, 168, 0.15); 
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25); 
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* 🧪 ЭФФЕКТ МАСЛЯНИСТОЙ ПЛЕНКИ (Пастельные, более нежные разводы поверх логотипов) */
+/* 🚀 ИЗМЕНЕНО: РАЗМЕР ОКОШКА С ЛОГОТИПОМ УВЕЛИЧЕН (Маслянистость полностью удалена) */
 .deposit-form-container .card-icon {
-    position: relative; 
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    min-width: 58px;           
-    height: 48px;
+    min-width: 72px; /* Увеличено с 58px */
+    height: 56px;    /* Увеличено с 48px */
     background: #ffffff; 
-    border-radius: 12px;
-    padding: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    overflow: hidden; 
+    border-radius: 14px;
+    padding: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* Облегченный слой бензинового перелива */
-.deposit-form-container .card-icon::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* Пленка стала прозрачнее, чтобы не темнить белый фон логотипа */
-    background: linear-gradient(135deg, 
-        rgba(160, 40, 255, 0.18) 0%, 
-        rgba(0, 160, 255, 0.15) 30%, 
-        rgba(0, 255, 160, 0.18) 60%, 
-        rgba(255, 210, 0, 0.12) 85%,
-        rgba(255, 0, 160, 0.15) 100
-    );
-    mix-blend-mode: multiply; /* Сменили на более мягкий режим наложения, чтобы разводы стали светлее */
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* Перламутровый глянец */
-.deposit-form-container .card-icon::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(30deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 60%);
-    pointer-events: none;
-    z-index: 3;
-}
-
+/* ИЗМЕНЕНО: РАЗМЕР САМОГО ИЗОБРАЖЕНИЯ ВНУТРИ ОКОШКА УВЕЛИЧЕН */
 .deposit-form-container .card-icon img {
     width: auto;
-    height: 24px;              
+    height: 32px; /* Увеличено с 24px */
     object-fit: contain;
     background: #ffffff; 
-    position: relative;
-    z-index: 1; 
 }
 
 .deposit-form-container .card-info {
@@ -3605,29 +3567,17 @@ div#tab-tariffs:not(.active) {
     letter-spacing: 0.3px;
 }
 
-/* Текст лимитов стал более читаемым на обновленном фоне */
 .deposit-form-container .card-text {
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.75); /* Белый высококонтрастный полупрозрачный подтекст */
+    color: rgba(255, 255, 255, 0.65); /* Белый полупрозрачный подтекст */
     letter-spacing: 0.2px;
 }
 
-/* АКТИВНЫЙ МЕТОД: Ультра-четкий белый контур при клике */
+/* АКТИВНЫЙ МЕТОД: Подсвечивается четким чисто белым контуром */
 .deposit-form-container .method-radio:checked + .dep-method-card {
     border-color: #ffffff; 
-    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2), 0 4px 15px rgba(15, 70, 168, 0.25);
-    transform: translateY(-3px); 
-}
-
-/* Легкое усиление эффекта пленки при выборе активного метода */
-.deposit-form-container .method-radio:checked + .dep-method-card .card-icon::before {
-    background: linear-gradient(135deg, 
-        rgba(160, 40, 255, 0.25) 0%, 
-        rgba(0, 160, 255, 0.2) 30%, 
-        rgba(0, 255, 160, 0.25) 60%, 
-        rgba(255, 210, 0, 0.18) 85%,
-        rgba(255, 0, 160, 0.2) 100
-    );
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15), 0 4px 15px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px); 
 }
 
 /* Заморозка полей */
@@ -3639,7 +3589,7 @@ div#tab-tariffs:not(.active) {
 }
 
 /* ==========================================================================
-   ВОЗВРАЩЕНО: КНОПКА С ИЗНАЧАЛЬНЫМ ПЕРЕЛИВОМ И ЗЕЛЕНЫМ ВОЗВРАТОМ
+   СОХРАНЕНО: КНОПКА С ИЗНАЧАЛЬНЫМ ПЕРЕЛИВОМ И ЗЕЛЕНЫМ ВОЗВРАТОМ
    ========================================================================== */
 .btn-submit {
     width: 100%;
@@ -3660,7 +3610,7 @@ div#tab-tariffs:not(.active) {
     box-shadow: 0 6px 20px rgba(0, 82, 255, 0.45);
 }
 
-/* Режим подтверждения (Шаг 2) — возврат к чисто цененому цвету */
+/* Режим подтверждения (Шаг 2) — возврат к чисто зеленому цвету */
 .btn-submit.green-mode {
     background: #00cc66; 
     box-shadow: 0 4px 14px rgba(0, 204, 102, 0.35);
@@ -3675,7 +3625,7 @@ div#tab-tariffs:not(.active) {
     transform: scale(0.98); 
 }
 
-/* Успешный экран (Бейдж тоже оранжевый) */
+/* Успешный экран */
 .success-screen {
     display: none; 
 }
