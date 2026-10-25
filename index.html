@@ -3450,25 +3450,25 @@ div#tab-tariffs:not(.active) {
    ОБНОВЛЕННЫЕ СТИЛИ: ИДЕАЛЬНОЕ СОЧЕТАНИЕ КАРТОЧЕК И КНОПКИ (СИНЕ-ЗЕЛЕНЫЙ ГРАДИЕНТ)
    ========================================================================== */
 /* ==========================================================================
-   ЭСТЕТИЧНЫЙ ПРЕМИУМ-ДИЗАЙН ДЛЯ РАЗДЕЛА ПОПОЛНЕНИЯ (СТИЛЬ ВТБ / REVOLUT)
+   СВЕТЛЫЙ ЭСТЕТИЧНЫЙ СИНЙ ДИЗАЙН С ЭФФЕКТОМ ПЛЕНКИ И ОРАНЖЕВЫМИ БЕЙДЖАМИ
    ========================================================================= */
 .deposit-form-container .mobile-width {
     max-width: 480px;
     margin: 0 auto;
 }
 
-/* Эстетичный минималистичный бейдж этапа */
+/* Яркий оранжевый блок для этапов */
 .deposit-form-container .step-badge {
     display: inline-block;
     margin-bottom: 18px;
     padding: 6px 14px;
-    background: rgba(0, 82, 255, 0.08); 
-    color: #0052ff; 
-    font-size: 12px;
+    background: #ff6b00; 
+    color: #ffffff; 
+    font-size: 13px;
     font-weight: 700;
-    border-radius: 20px;
+    border-radius: 8px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .deposit-form-container .inputs-row {
@@ -3481,7 +3481,6 @@ div#tab-tariffs:not(.active) {
     margin-bottom: 16px;
 }
 
-/* Элегантные поля ввода */
 .deposit-form-container .custom-input {
     width: 100%;
     box-sizing: border-box;
@@ -3517,23 +3516,24 @@ div#tab-tariffs:not(.active) {
     gap: 12px;
 }
 
-/* ✨ ГЛУБОКИЙ ЭСТЕТИЧНЫЙ СИНЙ ФОН КАРТОЧЕК */
+/* ✨ ИЗМЕНЕНО: КАРТОЧКИ СТАЛИ СВЕТЛЕЕ (Приятный космический синий градиент) */
 .deposit-form-container .dep-method-card {
     display: flex;
     flex-direction: row;       
     align-items: center;       
     gap: 16px;                 
     padding: 18px 20px;        
-    /* Дорогой, глубокий синий градиент в стиле премиум-экранов ВТБ */
-    background: linear-gradient(135deg, #0f1d36 0%, #050b14 100%); 
+    /* Более светлый, чистый и технологичный сине-голубой градиент */
+    background: linear-gradient(135deg, #1e62d0 0%, #0f46a8 100%); 
     border: 2px solid transparent; 
     border-radius: 18px;
-    box-shadow: 0 4px 20px rgba(5, 11, 20, 0.15); 
+    box-shadow: 0 4px 16px rgba(15, 70, 168, 0.15); 
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Белое контрастное окошко под иконки (скрывает любые косяки фонов логотипов) */
+/* 🧪 ЭФФЕКТ МАСЛЯНИСТОЙ ПЛЕНКИ (Пастельные, более нежные разводы поверх логотипов) */
 .deposit-form-container .card-icon {
+    position: relative; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3543,7 +3543,42 @@ div#tab-tariffs:not(.active) {
     background: #ffffff; 
     border-radius: 12px;
     padding: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    overflow: hidden; 
+}
+
+/* Облегченный слой бензинового перелива */
+.deposit-form-container .card-icon::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Пленка стала прозрачнее, чтобы не темнить белый фон логотипа */
+    background: linear-gradient(135deg, 
+        rgba(160, 40, 255, 0.18) 0%, 
+        rgba(0, 160, 255, 0.15) 30%, 
+        rgba(0, 255, 160, 0.18) 60%, 
+        rgba(255, 210, 0, 0.12) 85%,
+        rgba(255, 0, 160, 0.15) 100
+    );
+    mix-blend-mode: multiply; /* Сменили на более мягкий режим наложения, чтобы разводы стали светлее */
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Перламутровый глянец */
+.deposit-form-container .card-icon::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(30deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 60%);
+    pointer-events: none;
+    z-index: 3;
 }
 
 .deposit-form-container .card-icon img {
@@ -3551,6 +3586,8 @@ div#tab-tariffs:not(.active) {
     height: 24px;              
     object-fit: contain;
     background: #ffffff; 
+    position: relative;
+    z-index: 1; 
 }
 
 .deposit-form-container .card-info {
@@ -3559,7 +3596,7 @@ div#tab-tariffs:not(.active) {
     text-align: left;          
 }
 
-/* ВСЕ БУКВЫ И ЦИФРЫ СТРОГО БЕЛОГО ЦВЕТА */
+/* БУКВЫ И ЦИФРЫ СТРОГО БЕЛОГО ЦВЕТА */
 .deposit-form-container .card-title {
     font-size: 16px;
     font-weight: 700;
@@ -3568,35 +3605,45 @@ div#tab-tariffs:not(.active) {
     letter-spacing: 0.3px;
 }
 
-/* Подтекст тоже белый, но с изящным благородным приглушением за счет прозрачности */
+/* Текст лимитов стал более читаемым на обновленном фоне */
 .deposit-form-container .card-text {
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.6); /* Белый полупрозрачный */
+    color: rgba(255, 255, 255, 0.75); /* Белый высококонтрастный полупрозрачный подтекст */
     letter-spacing: 0.2px;
 }
 
-/* АКТИВНЫЙ МЕТОД: Идеальный, ультра-четкий белый контур при клике */
+/* АКТИВНЫЙ МЕТОД: Ультра-четкий белый контур при клике */
 .deposit-form-container .method-radio:checked + .dep-method-card {
-    border-color: #ffffff; /* Чисто белая аккуратная рамка */
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.15), 0 4px 10px rgba(0, 0, 0, 0.3);
-    transform: translateY(-3px); /* Легкий эффект "всплытия" */
+    border-color: #ffffff; 
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2), 0 4px 15px rgba(15, 70, 168, 0.25);
+    transform: translateY(-3px); 
+}
+
+/* Легкое усиление эффекта пленки при выборе активного метода */
+.deposit-form-container .method-radio:checked + .dep-method-card .card-icon::before {
+    background: linear-gradient(135deg, 
+        rgba(160, 40, 255, 0.25) 0%, 
+        rgba(0, 160, 255, 0.2) 30%, 
+        rgba(0, 255, 160, 0.25) 60%, 
+        rgba(255, 210, 0, 0.18) 85%,
+        rgba(255, 0, 160, 0.2) 100
+    );
 }
 
 /* Заморозка полей */
 .deposit-form-container .custom-input:disabled, 
 .deposit-form-container .method-radio:disabled + .dep-method-card {
-    opacity: 0.3;
+    opacity: 0.4;
     cursor: not-allowed;
     pointer-events: none;
 }
 
 /* ==========================================================================
-   БЕЗУПРЕЧНАЯ КНОПКА: ИЗНАЧАЛЬНЫЙ СИНЕ-ЗЕЛЕНЫЙ ПЕРЕЛИВ И ЧИСТО ЗЕЛЕНЫЙ ВОЗВРАТ
+   ВОЗВРАЩЕНО: КНОПКА С ИЗНАЧАЛЬНЫМ ПЕРЕЛИВОМ И ЗЕЛЕНЫМ ВОЗВРАТОМ
    ========================================================================== */
 .btn-submit {
     width: 100%;
     padding: 16px;
-    /* Яркий сине-зеленый перелив на Шаге 1 */
     background: linear-gradient(135deg, #0052ff 0%, #00cc66 100%);
     color: #ffffff;
     border: none;
@@ -3613,7 +3660,7 @@ div#tab-tariffs:not(.active) {
     box-shadow: 0 6px 20px rgba(0, 82, 255, 0.45);
 }
 
-/* Режим подтверждения (Шаг 2) — возврат к благородному чисто зеленому */
+/* Режим подтверждения (Шаг 2) — возврат к чисто цененому цвету */
 .btn-submit.green-mode {
     background: #00cc66; 
     box-shadow: 0 4px 14px rgba(0, 204, 102, 0.35);
@@ -3628,7 +3675,7 @@ div#tab-tariffs:not(.active) {
     transform: scale(0.98); 
 }
 
-/* Успешный экран */
+/* Успешный экран (Бейдж тоже оранжевый) */
 .success-screen {
     display: none; 
 }
@@ -3655,7 +3702,7 @@ div#tab-tariffs:not(.active) {
 }
 
 /* ==========================================================================
-   🖥️ ДЕСКТОПНЫЙ ВИД (ПЛИТКА ИЗ 4 КОЛОНОК) ДЛЯ ЭКРАНОВ ОТ 768px
+   🖥️ ДЕСКТОПНЫЙ ВИД (ПЛИТКА ИЗ 4 КОЛОНОК)
    ========================================================================== */
 @media (min-width: 768px) {
     .deposit-form-container.mobile-width {
@@ -3687,7 +3734,6 @@ div#tab-tariffs:not(.active) {
         margin: 0 auto;
     }
 }
-
 
     
  /* 1. Прячем ВСЕ разделы личного кабинета по умолчанию */
