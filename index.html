@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Фиксатор — Пермский край</title>
-<script src="https://telegram.org"></script>
-<style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>Фиксатор — Пермский край</title><script src="https://telegram.org"></script><style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif}
 body{background:radial-gradient(circle at 10% 10%,#00d2b840,transparent 40%),linear-gradient(#00d2b80c 1px,transparent 1px),linear-gradient(90deg,#00d2b80c 1px,transparent 1px),#06080A;background-size:100%,30px 30px,30px 30px;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:12px}
 .w{width:100%;max-width:450px}
@@ -28,89 +21,26 @@ input:focus,textarea:focus{border-color:#00D2B8}textarea{resize:vertical;min-hei
 .ok{display:none;text-align:center;padding:25px 10px}.ok h2{color:#00D2B8;margin-bottom:6px}.ok p{color:#9CA3AF;font-size:13px;margin-bottom:15px}
 .ic{width:15px;height:15px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2}
 @media(min-width:768px){.w{max-width:800px}.nl{width:220px;margin-bottom:14px}.app{display:grid;grid-template-columns:240px 1fr}.sd{flex-direction:column;align-items:flex-start;justify-content:space-between;border-bottom:0;border-right:1px solid #00d2b830;padding:20px}.av{width:76px;height:76px;margin-bottom:10px}h1{font-size:22px}.di{display:block;margin-top:12px;font-size:12px;color:#9CA3AF;line-height:1.4}.mn{padding:20px}}
-</style>
-</head>
-<body>
-<div class="w">
-  <svg class="nl" viewBox="0 0 280 124"><path d="M14 40L212 8l-5 24 61-7-7 35-58 9 52-5-7 39-212 17 5-32-33 5z" fill="#00D2B8"/><text x="52" y="34" fill="#06080A" font-weight="900" font-size="14" letter-spacing="4">ПАРТИЯ</text><text x="48" y="69" fill="#06080A" font-weight="900" font-size="37">НОВЫЕ</text><text x="46" y="103" fill="#06080A" font-weight="900" font-size="37">ЛЮДИ</text></svg>
-  <div class="app">
-    <div class="sd">
-      <div>
-        <div class="av"><img id="lg" src="https://avatars.mds.yandex.net/get-altay/21186466/2a000001a2161698c9f0bd0c5e18c7d95984/M" alt="Фиксатор"></div>
-        <div>
-          <h1>ФИКСАТОР</h1>
-          <div class="sb">● Пермский край • На связи</div>
-        </div>
-        <div class="di"><b style="color:#fff">Анонимная фиксация</b><br><br>Без телефона, почты и ФИО. Нужны адрес, фото/видео и суть обращения.</div>
-      </div>
-      <div class="di" style="color:#00D2B8">До 2 файлов • 24/7</div>
-    </div>
-    <div class="mn">
-      <form id="f" autocomplete="off">
-        <div class="tb">
-          <button type="button" class="t on" onclick="setT('Жалоба',this)">Жалоба</button>
-          <button type="button" class="t" onclick="setT('Предложение',this)">Предложение</button>
-        </div>
-        <input type="hidden" id="tp" value="Жалоба">
-        <div class="fg"><label>Ваш регион</label><input id="rg" value="Пермский край" required></div>
-        <div class="fg">
-          <label><span class="n">1</span>Адрес или координаты</label>
-          <input id="ad" placeholder="Пермь, ул. Ленина, 42, у остановки..." required>
-          <button type="button" class="geo" id="gb" onclick="getGeo()"><svg class="ic" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Мои координаты</span></button>
-        </div>
-        <div class="fg">
-          <label><span class="n">2</span><span id="l2">Фото или видео (1–2 файла)</span></label>
-          <div class="fl" id="fl" onclick="fi.click()"><svg class="ic" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span id="ft">Прикрепить фото/видео</span><input type="file" id="fi" hidden multiple accept="image/*,video/*"></div>
-        </div>
-        <div class="fg"><label><span class="n">3</span><span id="l3">Что случилось и как давно</span></label><textarea id="ds" placeholder="Лёд у подъезда, третий день, люди падают..." required></textarea></div>
-        <div class="fg"><label><span class="n">4</span><span id="l4">Сколько человек жалуется</span></label><input id="cn" placeholder="1, 4 или весь подъезд" required></div>
-        <div class="wn">Почту, телефон, ФИО и паспорт не спрашиваем</div>
-        <button class="btn" id="bt">Отправить обращение</button>
-      </form>
-      <div class="ok" id="ok">
-        <h2>Обращение принято!</h2>
-        <p>Данные переданы в Пермский штаб партии.</p>
-        <button class="btn" onclick="f.reset();rg.value='Пермский край';ft.textContent='Прикрепить фото/видео';ok.style.display='none';f.style.display='block'">Отправить ещё</button>
-      </div>
-    </div>
-  </div>
-</div>
+</style></head><body>
+<div class="w"><svg class="nl" viewBox="0 0 280 124"><path d="M14 40L212 8l-5 24 61-7-7 35-58 9 52-5-7 39-212 17 5-32-33 5z" fill="#00D2B8"/><text x="52" y="34" fill="#06080A" font-weight="900" font-size="14" letter-spacing="4">ПАРТИЯ</text><text x="48" y="69" fill="#06080A" font-weight="900" font-size="37">НОВЫЕ</text><text x="46" y="103" fill="#06080A" font-weight="900" font-size="37">ЛЮДИ</text></svg>
+<div class="app"><div class="sd"><div><div class="av"><img id="lg" src="https://avatars.mds.yandex.net/get-altay/21186466/2a000001a2161698c9f0bd0c5e18c7d95984/M" alt="Фиксатор"></div><div><h1>ФИКСАТОР</h1><div class="sb">● Пермский край • На связи</div></div><div class="di"><b style="color:#fff">Анонимная фиксация</b><br><br>Без телефона, почты и ФИО. Нужны адрес, фото/видео и суть обращения.</div></div><div class="di" style="color:#00D2B8">До 2 файлов • 24/7</div></div>
+<div class="mn"><form id="f" autocomplete="off">
+<div class="tb"><button type="button" class="t on" onclick="setT('Жалоба',this)">Жалоба</button><button type="button" class="t" onclick="setT('Предложение',this)">Предложение</button></div><input type="hidden" id="tp" value="Жалоба">
+<div class="fg"><label>Ваш регион</label><input id="rg" value="Пермский край" required></div>
+<div class="fg"><label><span class="n">1</span>Адрес или координаты</label><input id="ad" placeholder="Пермь, ул. Ленина, 42, у остановки..." required><button type="button" class="geo" id="gb" onclick="getGeo()"><svg class="ic" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Мои координаты</span></button></div>
+<div class="fg"><label><span class="n">2</span><span id="l2">Фото или видео (1–2 файла)</span></label><div class="fl" id="fl" onclick="fi.click()"><svg class="ic" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span id="ft">Прикрепить фото/видео</span><input type="file" id="fi" hidden multiple accept="image/*,video/*"></div></div>
+<div class="fg"><label><span class="n">3</span><span id="l3">Что случилось и как давно</span></label><textarea id="ds" placeholder="Лёд у подъезда, третий день, люди падают..." required></textarea></div>
+<div class="fg"><label><span class="n">4</span><span id="l4">Сколько человек жалуется</span></label><input id="cn" placeholder="1, 4 или весь подъезд" required></div>
+<div class="wn">Почту, телефон, ФИО и паспорт не спрашиваем</div>
+<button class="btn" id="bt">Отправить обращение</button>
+</form><div class="ok" id="ok"><h2>Обращение принято!</h2><p>Данные переданы в Пермский штаб партии.</p><button class="btn" onclick="f.reset();rg.value='Пермский край';ft.textContent='Прикрепить фото/видео';ok.style.display='none';f.style.display='block'">Отправить ещё</button></div></div></div></div>
 <script>
-const FID='1FAIpQLSeR0nFyO7ZeR0S1ao9ciD5zQSmuTla-DnH6DbjNS7JPxm89Dw';
-const E={
-  t:'entry.1169966633',
-  r:'entry.91896885',
-  a:'entry.1600340669',
-  d:'entry.2061563772',
-  c:'entry.2007062417',
-  f:'entry.327813635'
-};
+const BOT_TOKEN='9067183265:AAHPJCS_IG290dudIkRJxWHfelDr64fU_Bs',CHAT_ID='-5457288013';
 const tg=window.Telegram?.WebApp;if(tg){tg.ready();tg.expand()}
 const setT=(v,b)=>{tp.value=v;document.querySelectorAll('.t').forEach(x=>x.classList.remove('on'));b.classList.add('on');const p=v==='Предложение';l2.textContent=p?'Фото или схема (необязательно)':'Фото или видео (1–2 файла)';l3.textContent=p?'Суть предложения или идеи':'Что случилось и как давно';ds.placeholder=p?'Опишите, что нужно улучшить или построить...':'Лёд у подъезда, третий день, люди падают...';l4.textContent=p?'Сколько человек поддерживает':'Сколько человек жалуется'};
 const getGeo=()=>{const s=gb.querySelector('span');if(!navigator.geolocation)return alert('Нет GPS');s.textContent='...';navigator.geolocation.getCurrentPosition(p=>{ad.value=`${p.coords.latitude.toFixed(6)}, ${p.coords.longitude.toFixed(6)}`;s.textContent='Готово'},()=>{s.textContent='Мои координаты';alert('Нет доступа к GPS')})};
 const updF=()=>{if(fi.files.length>2){alert('Макс. 2 файла');fi.value='';return ft.textContent='Прикрепить фото/видео'}ft.textContent=fi.files.length?Array.from(fi.files).map(x=>x.name).join(' • '):'Прикрепить фото/видео'};
 fi.onchange=updF;fl.ondragover=e=>e.preventDefault();fl.ondrop=e=>{e.preventDefault();if(e.dataTransfer.files.length){fi.files=e.dataTransfer.files;updF()}};
-const up=async x=>{const d=new FormData();d.append('reqtype','fileupload');d.append('fileToUpload',x);return(await fetch('https://catbox.moe',{method:'POST',body:d})).text()};
-f.onsubmit=async e=>{
-  e.preventDefault();
-  const fs=Array.from(fi.files);
-  if(tp.value==='Жалоба'&&!fs.length)return alert('Прикрепите фото/видео');
-  if(FID.includes('ID_'))return alert('Заполните FID и E');
-  bt.disabled=1;bt.textContent='Загрузка...';
-  let ln=[];
-  try{if(fs.length)ln=await Promise.all(fs.map(up))}
-  catch{bt.disabled=0;bt.textContent='Отправить обращение';return alert('Ошибка загрузки')}
-  const b=new URLSearchParams([
-    [E.t,tp.value],
-    [E.r,rg.value],
-    [E.a,ad.value],
-    [E.d,ds.value],
-    [E.c,cn.value],
-    [E.f,ln.join('\n')||'Нет файлов']
-  ]);
-  await fetch(`https://google.com{FID}/formResponse`,{method:'POST',mode:'no-cors',body:b});
-  f.style.display='none';ok.style.display='block';bt.disabled=0;bt.textContent='Отправить обращение'
-};
-</script>
-</body>
-</html>
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+f.onsubmit=async e=>{e.preventDefault();const fs=Array.from(fi.files);if(tp.value==='Жалоба'&&!fs.length)return alert('Прикрепите фото/видео');bt.disabled=1;bt.textContent='Отправка...';const text=`🚨 <b>Новое обращение (${esc(tp.value)})</b>\n\n📍 <b>Регион:</b> ${esc(rg.value)}\n🗺 <b>Адрес:</b> ${esc(ad.value)}\n👥 <b>Человек:</b> ${esc(cn.value)}\n\n📝 <b>Суть:</b>\n${esc(ds.value)}`;try{const api=`https://telegram.org{BOT_TOKEN}`;if(!fs.length){const r=await fetch(`${api}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CHAT_ID,text,parse_mode:'HTML'})});if(!r.ok)throw new Error()}else{const fd=new FormData();fd.append('chat_id',CHAT_ID);const media=fs.map((file,i)=>{const key=`file${i}`;fd.append(key,file);return{type:file.type.startsWith('video/')?'video':'photo',media:`attach://${key}`,...(i===0?{caption:text,parse_mode:'HTML'}:{})}});fd.append('media',JSON.stringify(media));const r=await fetch(`${api}/sendMediaGroup`,{method:'POST',body:fd});if(!r.ok)throw new Error()}f.style.display='none';ok.style.display='block'}catch{alert('Ошибка отправки. Проверьте права бота в группе.')}finally{bt.disabled=0;bt.textContent='Отправить обращение'}};
+</script></body></html>
