@@ -35,7 +35,7 @@ input:focus,textarea:focus{border-color:#00D2B8}textarea{resize:vertical;min-hei
 <button class="btn" id="bt">Отправить обращение</button>
 </form><div class="ok" id="ok"><h2>Обращение принято!</h2><p>Данные переданы в Пермский штаб партии.</p><button class="btn" onclick="f.reset();rg.value='Пермский край';ft.textContent='Прикрепить фото/видео';ok.style.display='none';f.style.display='block'">Отправить ещё</button></div></div></div></div>
 <script>
-const SCRIPT_URL='https://google.com';
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbzJobflMYeqU2PseH1nlXpjLaPtzhUzNABXngzjP4VWI7HmaaC5i-yJQMF3Tt5q2X9C/exec';
 const tg=window.Telegram?.WebApp;if(tg){tg.ready();tg.expand()}
 const setT=(v,b)=>{tp.value=v;document.querySelectorAll('.t').forEach(x=>x.classList.remove('on'));b.classList.add('on');const p=v==='Предложение';l2.textContent=p?'Фото или схема (необязательно)':'Фото или видео (1–2 файла)';l3.textContent=p?'Суть предложения или идеи':'Что случилось и как давно';ds.placeholder=p?'Опишите, что нужно улучшить или построить...':'Лёд у подъезда, третий день, люди падают...';l4.textContent=p?'Сколько человек поддерживает':'Сколько человек жалуется'};
 const getGeo=()=>{const s=gb.querySelector('span');if(!navigator.geolocation)return alert('Нет GPS');s.textContent='...';navigator.geolocation.getCurrentPosition(p=>{ad.value=`${p.coords.latitude.toFixed(6)}, ${p.coords.longitude.toFixed(6)}`;s.textContent='Готово'},()=>{s.textContent='Мои координаты';alert('Нет доступа к GPS')})};
