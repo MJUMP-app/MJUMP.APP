@@ -42,5 +42,49 @@ const getGeo=()=>{const s=gb.querySelector('span');if(!navigator.geolocation)ret
 const updF=()=>{if(fi.files.length>2){alert('Макс. 2 файла');fi.value='';return ft.textContent='Прикрепить фото/видео'}ft.textContent=fi.files.length?Array.from(fi.files).map(x=>x.name).join(' • '):'Прикрепить фото/видео'};
 fi.onchange=updF;fl.ondragover=e=>e.preventDefault();fl.ondrop=e=>{e.preventDefault();if(e.dataTransfer.files.length){fi.files=e.dataTransfer.files;updF()}};
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-f.onsubmit=async e=>{e.preventDefault();const fs=Array.from(fi.files);if(tp.value==='Жалоба'&&!fs.length)return alert('Прикрепите фото/видео');bt.disabled=1;bt.textContent='Отправка...';const text=`🚨 <b>Новое обращение (${esc(tp.value)})</b>\n\n📍 <b>Регион:</b> ${esc(rg.value)}\n🗺 <b>Адрес:</b> ${esc(ad.value)}\n👥 <b>Человек:</b> ${esc(cn.value)}\n\n📝 <b>Суть:</b>\n${esc(ds.value)}`;try{const api=`https://telegram.org{BOT_TOKEN}`;if(!fs.length){const r=await fetch(`${api}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CHAT_ID,text,parse_mode:'HTML'})});if(!r.ok)throw new Error()}else{const fd=new FormData();fd.append('chat_id',CHAT_ID);const media=fs.map((file,i)=>{const key=`file${i}`;fd.append(key,file);return{type:file.type.startsWith('video/')?'video':'photo',media:`attach://${key}`,...(i===0?{caption:text,parse_mode:'HTML'}:{})}});fd.append('media',JSON.stringify(media));const r=await fetch(`${api}/sendMediaGroup`,{method:'POST',body:fd});if(!r.ok)throw new Error()}f.style.display='none';ok.style.display='block'}catch{alert('Ошибка отправки. Проверьте права бота в группе.')}finally{bt.disabled=0;bt.textContent='Отправить обращение'}};
-</script></body></html>
+
+const zipImg=f=>new Promise(res=>{
+  if(!f.type.startsWith('image/'))return res(f);
+  const img=new Image(),u=URL.createObjectURL(f);
+  img.onload=()=>{
+    URL.revokeObjectURL(u);
+    let w=img.width,h=img.height,m=1600;
+    if(w>m||h>m){if(w>h){h=Math.round(h*m/w);w=m}else{w=Math.round(w*m/h);h=m}}
+    const c=document.createElement('canvas');c.width=w;c.height=h;
+    c.getContext('2d').drawImage(img,0,0,w,h);
+    c.toBlob(b=>res(b?new File([b],'photo.jpg',{type:'image/jpeg'}):f),'image/jpeg',0.82);
+  };
+  img.onerror=()=>res(f);
+  img.src=u;
+});
+
+f.onsubmit=async e=>{
+  e.preventDefault();
+  const raw=Array.from(fi.files);
+  if(tp.value==='Жалоба'&&!raw.length)return alert('Прикрепите фото/видео');
+  bt.disabled=1;bt.textContent='Сжатие и отправка...';
+  const text=`🚨 <b>Новое обращение (${esc(tp.value)})</b>\n\n📍 <b>Регион:</b> ${esc(rg.value)}\n🗺 <b>Адрес:</b> ${esc(ad.value)}\n👥 <b>Человек:</b> ${esc(cn.value)}\n\n📝 <b>Суть:</b>\n${esc(ds.value)}`;
+  const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),25000);
+  try{
+    const fs=await Promise.all(raw.map(zipImg));
+    const api=`https://telegram.org{BOT_TOKEN}`;
+    let r;
+    if(!fs.length){
+      r=await fetch(`${api}/sendMessage`,{method:'POST',signal:ac.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CHAT_ID,text,parse_mode:'HTML'})});
+    }else{
+      const fd=new FormData();fd.append('chat_id',CHAT_ID);
+      const media=fs.map((file,i)=>{const k=`file${i}`;fd.append(k,file);return{type:file.type.startsWith('video/')?'video':'photo',media:`attach://${k}`,...(i===0?{caption:text,parse_mode:'HTML'}:{})}});
+      fd.append('media',JSON.stringify(media));
+      r=await fetch(`${api}/sendMediaGroup`,{method:'POST',signal:ac.signal,body:fd});
+    }
+    const j=await r.json();
+    if(!j.ok)return alert('Ошибка Telegram: '+j.description);
+    f.style.display='none';ok.style.display='block';
+  }catch(err){
+    alert(err.name==='AbortError'?'Превышено время ожидания (25 сек). Попробуйте отключить VPN или сменить сервер.':'Ошибка сети: '+err.message);
+  }finally{
+    clearTimeout(tm);bt.disabled=0;bt.textContent='Отправить обращение';
+  }
+};
+</script>
+</body></html>
